@@ -415,8 +415,8 @@
 %   suitably adapted.
 %    \begin{macrocode}
 \newenvironment{mhviewsig}[4][]{\def\@test{#1}\ifx\@test\@empty%
-\begin{mhview}[id=#2,ext=tex]{#3}{#4}\else%
-\begin{mhview}[id=#2,#1,ext=tex]{#3}{#4}\fi%
+\begin{mhview}[id=#2,fromext=tex,toext=tex]{#3}{#4}\else%
+\begin{mhview}[id=#2,#1,fromext=tex,toext=tex]{#3}{#4}\fi%
 \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
 %    \end{macrocode}
@@ -429,8 +429,8 @@
 %   path, to which we could append .\meta{lang}!}
 %    \begin{macrocode}
 \newenvironment{mhviewnl}[5][]{\def\@test{#1}\ifx\@test\@empty%
-\begin{mhview}[id=#2.#3,ext=tex]{#4}{#5}\else%
-\begin{mhview}[id=#2.#3,#1,ext=tex]{#4}{#5}\fi%
+\begin{mhview}[id=#2.#3,fromext=tex,toext=tex]{#4}{#5}\else%
+\begin{mhview}[id=#2.#3,#1,fromext=tex,toext=tex]{#4}{#5}\fi%
 \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
 %</smultiling>
@@ -484,7 +484,8 @@
 \addmetakey{mhview}{torepos}
 \addmetakey{mhview}{frompath}
 \addmetakey{mhview}{topath}
-\addmetakey[sms]{mhview}{ext}
+\addmetakey[sms]{mhview}{fromext}
+\addmetakey[sms]{mhview}{toext}
 %    \end{macrocode}
 %
 % \begin{environment}{mhview}
@@ -508,8 +509,24 @@
 %   The |@mhview| does the actual bookkeeping at the module level.
 %    \begin{macrocode}
 \newenvironment{@mhview}[2]{%from, to
-  \importmhmodule[repos=\mhview@fromrepos,path=\mhview@frompath,ext=\mhview@ext]{#1}%
-  \importmhmodule[repos=\mhview@torepos,path=\mhview@topath,ext=\mhview@ext]{#2}%
+  \importmhmodule[repos=\mhview@fromrepos,path=\mhview@frompath,ext=\mhview@fromext]{#1}%
+  \importmhmodule[repos=\mhview@torepos,path=\mhview@topath,ext=\mhview@toext]{#2}%
+  \csxdef{views@\mhview@id @from}{#1}%
+  \csxdef{views@\mhview@id @to}{#2}%
+  \ifx\mhview@fromrepos\@empty%
+  \csxdef{views@\mhview@id @loadfrom}%
+              {\MathHub{\mh@currentrepos/source/\mhview@frompath.\mhview@fromext}}%
+  \else%
+  \csxdef{views@\mhview@id @loadfrom}%
+              {\MathHub{\mhview@fromrepos/source/\mhview@frompath}.\mhview@fromext}%
+  \fi%
+  \ifx\mhview@torepos\@empty
+  \csxdef{views@\mhview@id @loadto}%
+              {\MathHub{\mh@currentrepos/source/\mhview@topath}.\mhview@toext}%
+  \else%
+  \csxdef{views@\mhview@id @loadto}%
+              {\MathHub{\mhview@torepos/source/\mhview@topath}.\mhview@toext}%
+  \fi%
 }{}%
 %    \end{macrocode}
 % \end{environment}

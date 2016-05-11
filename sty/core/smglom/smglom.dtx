@@ -240,9 +240,9 @@
 \newenvironment{gviewsig}[4][]{%
   \def\test{#1}%
   \ifx\@test\@empty%
-    \begin{mhviewsig}[frompath=#3,topath=#4]{#2}{#3}{#4}%
+    \begin{mhviewsig}[frompath=#3,topath=#4,fromext=tex,toext=tex]{#2}{#3}{#4}%
   \else%
-    \begin{mhviewsig}[frompath=#3,topath=#4,#1]{#2}{#3}{#4}%
+    \begin{mhviewsig}[frompath=#3,topath=#4,fromext=tex,toext=tex,#1]{#2}{#3}{#4}%
   \fi%
   \ignorespacesandpars%
 }{%

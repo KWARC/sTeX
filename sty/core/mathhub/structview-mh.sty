@@ -32,7 +32,8 @@
 \addmetakey{mhview}{torepos}
 \addmetakey{mhview}{frompath}
 \addmetakey{mhview}{topath}
-\addmetakey[sms]{mhview}{ext}
+\addmetakey[sms]{mhview}{fromext}
+\addmetakey[sms]{mhview}{toext}
 \newenvironment{mhview}[3][]{% keys, from, to
   \metasetkeys{mhview}{#1}%
   \sref@target%
@@ -45,8 +46,24 @@
 }%
 \ifmod@show\surroundwithmdframed{mhview}\fi
 \newenvironment{@mhview}[2]{%from, to
-  \importmhmodule[repos=\mhview@fromrepos,path=\mhview@frompath,ext=\mhview@ext]{#1}%
-  \importmhmodule[repos=\mhview@torepos,path=\mhview@topath,ext=\mhview@ext]{#2}%
+  \importmhmodule[repos=\mhview@fromrepos,path=\mhview@frompath,ext=\mhview@fromext]{#1}%
+  \importmhmodule[repos=\mhview@torepos,path=\mhview@topath,ext=\mhview@toext]{#2}%
+  \csxdef{views@\mhview@id @from}{#1}%
+  \csxdef{views@\mhview@id @to}{#2}%
+  \ifx\mhview@fromrepos\@empty%
+  \csxdef{views@\mhview@id @loadfrom}%
+              {\MathHub{\mh@currentrepos/source/\mhview@frompath.\mhview@fromext}}%
+  \else%
+  \csxdef{views@\mhview@id @loadfrom}%
+              {\MathHub{\mhview@fromrepos/source/\mhview@frompath}.\mhview@fromext}%
+  \fi%
+  \ifx\mhview@torepos\@empty
+  \csxdef{views@\mhview@id @loadto}%
+              {\MathHub{\mh@currentrepos/source/\mhview@topath}.\mhview@toext}%
+  \else%
+  \csxdef{views@\mhview@id @loadto}%
+              {\MathHub{\mhview@torepos/source/\mhview@topath}.\mhview@toext}%
+  \fi%
 }{}%
 \newenvironment{mhviewsketch}[3][]%
 {\PackageError{structview}%

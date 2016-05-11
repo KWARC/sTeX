@@ -38,7 +38,8 @@
 \addmetakey{view}{contributors}
 \addmetakey{view}{srccite}
 \addmetakey{view}{type}
-\addmetakey[sms]{view}{ext}
+\addmetakey[sms]{view}{fromext}
+\addmetakey[sms]{view}{toext}
 \newcounter{view}[section]
 \newrobustcmd\view@heading[4]{%
   \if@importing%
@@ -73,6 +74,10 @@
 \newenvironment{@view}[2]{%from, to
   \@importmodule[\view@loadfrom]{#1}{\view@ext}%
   \@importmodule[\view@loadto]{#2}{\view@ext}%
+  \csxdef{views@\view@id @from}{#1}%
+  \csxdef{views@\view@id @to}{#2}%
+  \csxdef{views@\view@id @loadfrom}{\view@loadfrom}%
+  \csxdef{views@\view@id @loadto}{\view@loadto}%
 }{}%
 \newenvironment{viewsketch}[3][]%
 {\PackageError{structview}%

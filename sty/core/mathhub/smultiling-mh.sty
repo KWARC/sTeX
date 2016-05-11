@@ -24,13 +24,13 @@
 \ignorespacesandpars}
 {\end{module}\ignorespacesandparsafterend}
 \newenvironment{mhviewsig}[4][]{\def\@test{#1}\ifx\@test\@empty%
-\begin{mhview}[id=#2,ext=tex]{#3}{#4}\else%
-\begin{mhview}[id=#2,#1,ext=tex]{#3}{#4}\fi%
+\begin{mhview}[id=#2,fromext=tex,toext=tex]{#3}{#4}\else%
+\begin{mhview}[id=#2,#1,fromext=tex,toext=tex]{#3}{#4}\fi%
 \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
 \newenvironment{mhviewnl}[5][]{\def\@test{#1}\ifx\@test\@empty%
-\begin{mhview}[id=#2.#3,ext=tex]{#4}{#5}\else%
-\begin{mhview}[id=#2.#3,#1,ext=tex]{#4}{#5}\fi%
+\begin{mhview}[id=#2.#3,fromext=tex,toext=tex]{#4}{#5}\else%
+\begin{mhview}[id=#2.#3,#1,fromext=tex,toext=tex]{#4}{#5}\fi%
 \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
 \endinput
