@@ -256,11 +256,11 @@
 %   The |gviewnl| environment is just a layer over the |mhviewnl| environment with the
 %   keys suitably adapted.
 %    \begin{macrocode}
-\newenvironment{gviewnl}[5][]{%
+\newenvironment{gviewnl}[3][]{%
   \def\@test{#1}\ifx\@test\@empty%
-    \begin{mhviewnl}[frompath=#4,topath=#5]{#2}{#3}{#4}{#5}%
+    \begin{mhviewnl}[sigpath=#2]{#2}{#3}%
   \else%
-    \begin{mhviewnl}[frompath=#4,topath=#5,#1]{#2}{#3}{#4}{#5}%
+    \begin{mhviewnl}[sigpath=#2,#1]{#2}{#3}%
   \fi%
 \ignorespacesandpars%
 }{%

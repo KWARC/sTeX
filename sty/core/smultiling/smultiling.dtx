@@ -392,13 +392,25 @@
 %
 % \begin{environment}{viewnl}
 %   The |viewnl| environment is just a layer over the |view| environment with the keys and
-%   langauge suitably adapted.\ednote{MK: we have to do something about the if@langfiles
+%   langauge suitably adapted. The trick here is to use |\requiremodules| first to load
+%   the view signature which does all the file loading. Thus we do not need that in the
+%   |view| environment we call. \ednote{MK: we have to do something about the if@langfiles
 %   situation here. But this is non-trivial, since we do not know the current path, to
 %   which we could append .\meta{lang}!}
 %    \begin{macrocode}
-\newenvironment{viewnl}[5][]{\def\@test{#1}\ifx\@test\@empty%
-  \begin{view}[id=#2.#3,ext=tex]{#4}{#5}\else%
-  \begin{view}[id=#2.#3,#1,ext=tex]{#4}{#5}\fi%
+\addmetakey{view}{loadsig}
+\newenvironment{viewnl}[3][]{\def\@test{#1}%
+  \metasetkeys{view}{#1}%
+  \if@langfiles\requiremodules{#2}{tex}\else%
+    \ifx\view@loadsig\@empty%
+    \PackageError{smultiling}%
+                          {Cannot load view signature}%
+                          {please specify the file name via the 'loadsig' key!}%
+    \else\requiremodules{\view@load}{tex}\fi%
+  \fi% if@langfiles
+  \ifx\@test\@empty
+  \begin{view}[id=#2.#3]{\csuse{views@#2@from}}{\csuse{views@#2@to}}\else%
+  \begin{view}[id=#2.#3,#1]{\csuse{views@#2@from}}{\csuse{view@#2@to}}\fi%
   \ignorespacesandpars}
   {\end{view}\ignorespacesandparsafterend}
 %    \end{macrocode}

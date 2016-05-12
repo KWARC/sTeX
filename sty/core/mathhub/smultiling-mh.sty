@@ -19,7 +19,8 @@
 \ifx\@test\@empty\begin{module}[id=#2.#3]\else\begin{module}[id=#2.#3,#1]\fi%
 \edef\@repos{\ifx\mhmodnl@repos\@empty\mh@currentrepos\else\mhmodnl@repos\fi}
 \if@langfiles\importmhmodule[repos=\@repos,path=#2,ext=tex]{#2}\else
-\ifx\mhmodnl@path\@empty\importmodule{#2}\else\importmodule[ext=tex,path=\mhmodnl@load]{#2}\fi%
+\ifx\mhmodnl@path\@empty\importmodule{#2}\else%
+\importmodule[ext=tex,path=\mhmodnl@load]{#2}\fi%
 \fi%
 \ignorespacesandpars}
 {\end{module}\ignorespacesandparsafterend}
@@ -28,10 +29,24 @@
 \begin{mhview}[id=#2,#1,fromext=tex,toext=tex]{#3}{#4}\fi%
 \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
-\newenvironment{mhviewnl}[5][]{\def\@test{#1}\ifx\@test\@empty%
-\begin{mhview}[id=#2.#3,fromext=tex,toext=tex]{#4}{#5}\else%
-\begin{mhview}[id=#2.#3,#1,fromext=tex,toext=tex]{#4}{#5}\fi%
-\ignorespacesandpars}
+\addmetakey{mhview}{sigpath}
+\addmetakey{mhview}{sigrepos}
+\newenvironment{mhviewnl}[3][]{\def\@test{#1}%
+  \metasetkeys{mhview}{#1}%
+  \if@langfiles\requiremodules{#2}{tex}\else%
+    \ifx\mhview@loadsig\@empty%
+    \PackageError{smultiling-mh}%
+                          {Cannot load view signature}%
+                          {please specify the file name via the 'sigpath' and 'sigrepos' keys!}%
+    \fi
+    \ifx\mhview@sigrepos\@empty%
+    \requiremodules{\MathHub{\mh@currentrepos/source/\mhview@sigpath.tex}}\else%
+    \requiremodules{\MathHub{\mhview@sigrepos/source/\mhview@sigpath.tex}}\fi%
+  \fi% if@langfiles
+  \ifx\@test\@empty%
+  \begin{mhview}[id=#2.#3,fromext=tex,toext=tex]{\csuse{views@#2@from}}{\csuse{views@#2@to}}\else%
+  \begin{mhview}[id=#2.#3,#1,fromext=tex,toext=tex]{\csuse{views@#2@from}}{\csuse{views@#2@to}}\fi%
+  \ignorespacesandpars}
 {\end{mhview}\ignorespacesandparsafterend}
 \endinput
 %%
