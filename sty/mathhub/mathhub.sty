@@ -7,6 +7,7 @@
 %% mathhub.dtx  (with options: `package')
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
+\ProvidesPackage{mathhub}[2010/10/01 v1.2 Basic MathHub functionality]
 \RequirePackage{keyval}
 \RequirePackage{pathsuris}
 \if@latexml\else
@@ -50,7 +51,8 @@
     Both \mh@libfile.sty\MessageBreak and \mh@inffile.sty\MessageBreak%
     do not exist}%
   {Check whether the file name is correct}}}}
-\IfFileExists{\@libfile.sty}{\usepackage[#1]{\@libfile}}{}}
+\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}
+\let\mh@inffile\orig@inffile\let\mh@libfile\orig@libfile}
 \ExplSyntaxOn
 \sys_get_shell:nnN{kpsewhich ~ --var-value ~ MATHHUB} { } \MATHHUB
 \tl_trim_spaces:N \MATHHUB
@@ -66,14 +68,20 @@
   \else\ifx\@CanPath\@empty
       \def\manifest@mf{}
   \else
-    \IfFileExists{\@CanPath/MANIFEST.MF}{
-      \edef\manifest@mf{\@CanPath/MANIFEST.MF}
+    \edef\@findmanifest@path{\@CanPath/MANIFEST.MF}
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi
+    \IfFileExists{\@findmanifest@path}{
+      \edef\manifest@mf{\@findmanifest@path}
     }{
-    \IfFileExists{\@CanPath/META-INF/MANIFEST.MF}{
-      \edef\manifest@mf{\@CanPath/META-INF/MANIFEST.MF}
+    \edef\@findmanifest@path{\@CanPath/META-INF/MANIFEST.MF}
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi
+    \IfFileExists{\@findmanifest@path}{
+      \edef\manifest@mf{\@findmanifest@path}
     }{
-    \IfFileExists{\@CanPath/meta-inf/MANIFEST.MF}{
-      \edef\manifest@mf{\@CanPath/meta-inf/MANIFEST.MF}
+    \edef\@findmanifest@path{\@CanPath/meta-inf/MANIFEST.MF}
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi
+    \IfFileExists{\@findmanifest@path}{
+      \edef\manifest@mf{\@findmanifest@path}
     }{
       \findmanifest{\@CanPath/..}
     }}}
@@ -118,6 +126,7 @@
     \parse@manifest@loop
   \fi
 }
+\newif\if@iswindows@\@iswindows@false
 \begingroup
   \edef\oldpercentcatcode{\the\catcode`\%}
   \catcode`\%=12
@@ -127,6 +136,7 @@
     \edef\windowsstring{\detokenize{windows}}
     \edef\os_string{\expandafter\detokenize\expandafter{\c_sys_platform_str}}
     \ifx\os_string\windowsstring
+      \global\@iswindows@true
       \edef\cmd_string{kpsewhich ~ -expand-var ~ \percent CD\percent}
     \else
       \edef\cmd_string{kpsewhich ~ -var-value ~ PWD}
@@ -134,6 +144,10 @@
 \expandafter\sys_get_shell:nnN\expandafter{\cmd_string} { } \mainfile_dir
      \tl_trim_spaces:N \mainfile_dir
 \xdef\mainfile_dir{\expandafter\detokenize\expandafter{\mainfile_dir}}
+  \csname if@iswindows@\endcsname
+    \windows@to@path\mainfile_dir
+    \gdef\mainfile_dir{\mainfile_dir}
+  \fi
   \ExplSyntaxOff
 \endgroup
 \expandafter\let\expandafter\mathhub@maindir\csname mainfile_dir\endcsname
@@ -148,6 +162,7 @@
   \parse@manifest@loop
   \closein\@manifest
 \endgroup
+\if@iswindows@\windows@to@path\manifest@mf\fi
 \mhcurrentrepos{\manifest@mf@id}
 \endinput
 %%
