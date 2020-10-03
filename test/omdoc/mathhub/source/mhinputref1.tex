@@ -1,19 +1,14 @@
 \documentclass[minimal]{omdoc}
-\usepackage[mh]{omtext}
-\input{localpath}
+\usepackage[mh]{modules}
 \begin{document}
+We first include from the current repos
 
-We first include an image from the current repos:
-
-first inline: \mhgraphics{kwarc} and then centered
-
-\cmhgraphics{kwarc}
-
+\mhinputref{BAR} 
 
 And then we give an explicit repos (this is the same as  the current one, but {\LaTeX}
 doesn't know)
 
-\mhgraphics[mhrepos=omdoc/mathhub]{kwarc} 
+\mhinputref[omdoc/modules]{BAR} 
 \end{document}
 %%% Local Variables:
 %%% mode: latex

@@ -1,15 +1,15 @@
 \documentclass[minimal]{omdoc}
-\usepackage[mh]{modules}
-\input{localpath}
+\usepackage[mh]{problem}
 \begin{document}
 We first include from the current repos
 
-\mhinputref{BAR} 
+\includemhproblem{BAR} 
 
 And then we give an explicit repos (this is the same as  the current one, but {\LaTeX}
 doesn't know)
 
-\mhinputref[omdoc/mathhub]{BAR} 
+\includemhproblem[mhrepos=omdoc/mathhub]{BAR} 
+
 \end{document}
 %%% Local Variables:
 %%% mode: latex
