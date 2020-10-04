@@ -210,7 +210,7 @@
         }%
     \fi%
     \makeuri\pathsuris@curruri@scheme\pathsuris@curruri@authority\pathsuris@curruri@path\pathsuris@curruri@query\pathsuris@curruri@fragment%
-    \let\pathsuris@curruri\makeuri@uri
+    \let\pathsuris@curruri@uri\makeuri@uri
     %drop trailing slash of path
     %\IfEndWith{\pathsuris@curruri@path}{\@Slash}{%
     %    \StrGobbleRight{\pathsuris@curruri@path}{1}[\pathsuris@curruri@path]
@@ -223,7 +223,7 @@
         \expandafter\let\csname \pathsuris@prefix@temp path\endcsname\pathsuris@curruri@path%
         \expandafter\let\csname \pathsuris@prefix@temp query\endcsname\pathsuris@curruri@query%
         \expandafter\let\csname \pathsuris@prefix@temp fragment\endcsname\pathsuris@curruri@fragment%
-        \expandafter\let\csname \pathsuris@prefix@temp uri\endcsname\pathsuris@curruri%
+        \expandafter\let\csname \pathsuris@prefix@temp uri\endcsname\pathsuris@curruri@uri%
     \fi%
 }
 \newrobustcmd\seturi[1][]{%
@@ -275,7 +275,23 @@
                 {\csname #2query\endcsname}%
                 \makeuri@empty%
             \@asuri@changed@true
-        }{}}
+        }{
+        \IfStrEq\@@asuri@command{extension}{
+            \edef\@asuri@oldpath{\csname #2path\endcsname}
+            \StrCount\@asuri@oldpath.[\@asuri@lastdot]
+            \ifnum\@asuri@lastdot>0
+                \StrBehind[\@asuri@lastdot]\@asuri@oldpath.[\@asuri@extension]
+                \IfSubStr\@asuri@extension\@Slash{}{
+                    \StrBefore[\@asuri@lastdot]\@asuri@oldpath.[\@asuri@oldpath]
+                }
+            \fi
+            \makeuri{\csname #2scheme\endcsname}%
+                {\csname #2authority\endcsname}%
+                \@asuri@oldpath%
+                \makeuri@empty%
+                \makeuri@empty%
+            \@asuri@changed@true
+        }{}}}
     }{
     \IfBeginWith\@@asuri@command{\@Slash}{
         \@cpath{\csname #2path\endcsname\@@asuri@command}

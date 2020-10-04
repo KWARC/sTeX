@@ -774,8 +774,6 @@
 \DeclareOption{qualifiedimports}{\mod@qualifiedtrue}
 \newif\if@trwarn\@trwarnfalse
 \DeclareOption{trwarn}{\@trwarntrue}
-\newif\if@mmt\@mmtfalse 
-\DeclareOption{mmt}{\@mmttrue}
 \DeclareOption*{\PassOptionsToPackage{\CurrentOption}{sref}}
 \ProcessOptions
 %    \end{macrocode}
@@ -785,7 +783,6 @@
 \RequirePackage{sref}
 \RequirePackage{pathsuris}
 \if@modules@mh@\RequirePackage{modules-mh}\fi
-\if@mmt\RequirePackage{mmt}\fi
 \RequirePackage{xspace}
 \if@latexml\else\ifmod@show\RequirePackage{mdframed}\fi\fi
 %    \end{macrocode}
@@ -799,9 +796,6 @@
 %    This |KeyVal| key is only needed for {\latexml} at the moment; use this to specify a
 %    content dictionary name that is different from the module name.
 %    \begin{macrocode}
-\addmetakey{module}{cd}% no longer used
-\addmetakey{module}{load}% ignored; specified to simplify keyval argument passing
-\addmetakey{module}{path}% ignored; specified to simplify keyval argument passing
 \addmetakey*{module}{title}
 \addmetakey*{module}{creators}
 \addmetakey*{module}{contributors}
@@ -867,10 +861,8 @@
     \ifcsundef{mod@path}{}{\csxdef{module@\mod@id @path}{\mod@path}}%
     \ifcsundef{mod@ext}{}{\csxdef{module@\mod@id @ext}{\mod@ext}}%
   }%
-  \if@mmt\if@importing\else\mmtheory{\mod@id}{????}\fi\fi%
   \module@heading% make the headings
   \ignorespacesandpars}{%
-  \if@mmt\if@importing\else\mmtheoryend\fi\fi%
   \end{@module}%
   \ignorespacesafterend%
 }%
@@ -987,7 +979,7 @@ same name; this is dangerous -- not importing}%
 \activate@defs{#2}% activate the module
 \edef\@export{#4}\def\@@export{export}%prepare comparison
 \ifx\@export\@@export\export@defs{#2}\fi% export the module
-\if@importing\else\if@mmt\mmtinclude{#1?#2}\fi\fi}%
+}%
 %    \end{macrocode}
 % \end{macro}
 % 
@@ -1131,9 +1123,7 @@ same name; this is dangerous -- not importing}%
 % notations. This would pass \#4 to MMT via a macro that makes the \# (argumentmarkers)
 % active and empty. I am not clear how well this works, so we leave out notations.}
 %    \begin{macrocode}
- \if@mmt\if@importing\else%
 \ifx\symdef@name\@empty\mmtconstdec{#2}\else\mmtconstdec{\symdef@name}\fi%
-\fi\fi%
 %    \end{macrocode}
 % First, using |\mod@newcommand| we initialize the intermediate macro
 % |\module@|\meta{sym}|@pres@|, the one that can be extended with |\symvariant|
@@ -1393,6 +1383,31 @@ same name; this is dangerous -- not importing}%
 %    \end{macrocode}
 % \end{macro}
 %
+% \subsection{Dealing with Multiple Files}\label{sec:impl:multiple}
+%
+% We use the |pathsuris| package deals with the canonicalization of paths. |\@cpath| will
+% canonicalize a path and store the result into |\@CanPath|. To print a canoncalized path,
+% simply use |\cpath{|\meta{path}|}|.
+% 
+% \begin{macro}{\@rinput}
+%   |\@rinput{|\meta{path to the current file without extension}|}{|\meta{extension}|}| allows loading 
+%   modules with relative path. For example, |\@rinput{foo/bar/B}{tex}| will load |foo/bar/B.tex|.
+%   \ednote{Jinbo: How to handle |mod@path|?}
+%    \begin{macrocode}
+\def\CurrentDir{}%
+\newrobustcmd{\@rinput}[2]{%
+  \@cpath{\CurrentDir#1}%
+  \StrCut[\value{RealAddrNum}]{/\@CanPath}{/}\@TempPath\@Rubbish%
+  \StrCut[1]{\@TempPath/}{/}\@Rubbish\@DirPath%
+  \edef\CurrentDir{\@DirPath}%
+%  \edef\mod@path{}% what should I put in here???
+%  \edef\mod@ext{}%
+  \input{\@CanPath.#2}%
+  \def\CurrentDir{}%
+}%
+%    \end{macrocode}
+% \end{macro} 
+%
 % \subsection{Loading Module Signatures}
 %
 % \subsubsection{Selective Inclusion}
@@ -1447,7 +1462,7 @@ same name; this is dangerous -- not importing}%
     \edef\mod@ext{tex}%
     \input{#1}%
   \else%
-    \@cpath{#1}\input{\@CanPath.tex}%
+    \@rinput{#1}{tex}%
   \fi%
   \inputref@postskip%
 }%

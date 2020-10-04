@@ -102,13 +102,17 @@
 % \end{tabular}
 % \end{center}
 %
-%\subsection{URI splitting}\label{sec:user:uri}
+%\subsection{URIs}\label{sec:user:uri}
 %
 % By calling |\seturi[\meta{macroname}]{|\meta{path}|}|, the 
-% URI will be plit into |\macronamescheme|, |\macronameauthority|,
-% |\macronamepath|, |\macronamequery| and |\macronamefragment|, as in the
+% URI will be split into its components |\macronamescheme|, |\macronameauthority|,
+% |\macronamepath|, |\macronamequery| and |\macronamefragment|, and the resolved
+% URI itself is stored in |\macronameuri|, as in the
 % following example. If the optional
 % |macroname| is not provided, the default name is |pathsuris@curruri@|.
+%
+% In order to differentiate between empty and missing components, a missing
+% component will be equal to |\makeuri@empty|, whose \emph{expansion} is |\relax|.
 %
 % \begin{center}
 % |\seturi[myuri]{http://this.isatest/foo/bar/?query#fragment}|
@@ -117,6 +121,7 @@
 % yields:
 % \begin{tabular}{|l|l|}\hline
 %   macro & value \\\hline
+%   |\myuriuri| &   \myuriuri \\
 %   |\myurischeme| & \myurischeme \\
 %   |\myuriauthority| & \myuriauthority \\
 %   |\myuripath| & \myuripath \\
@@ -124,6 +129,34 @@
 %   |\myurifragment| & \myurifragment \\\hline
 % \end{tabular}
 % \end{center}
+%
+% |\makeuri{\meta{scheme}}{\meta{authority}}{\meta{path}}{\meta{query}}{\meta{fragment}}|
+% constructs a URI from its individual components. The (expanded and resolved) individual
+% components will be stored in |\makeuri@scheme|, |\makeuri@authority|, etc.; the
+% resolved URI will be stored in |\makeuri@uri|.
+%
+% |\asuri{\meta{macroname}}{\meta{uri}}|, similarly to setpath, defines a new 
+% macro |\macroname[\meta{newmacroname}]{\meta{command}}| that allows manipulating 
+% |uri| in various ways. |\asuri| calls |\seturi[\meta{macroname}]{\meta{uri}}|,
+% so the individual components and full uri (as string) are subsequently stored in
+% |\macronamescheme|, |\macronameauthority|, etc.
+%
+% If an optional new macro name is given in |\macroname|, then the result of the
+% modification is stored in that new macro, as if defined via |\asuri|; otherwise, the macro
+% is modified ``in place''.
+%\begin{itemize}
+%   \item |\macroname{drop query}| drops the query component.
+%   \item |\macroname{drop fragment}| drops the fragment component.
+%   \item |\macroname{/other/path}| drops query and fragment, appends |other/path| to the
+%       path and resolves the URI.
+%   \item |\macroname{?newquery}| drops the fragment and either declares |newquery| as
+%       a new query component, or appends |?newquery| to the existing query component, if
+%       it is not |\makeuri@empty|. Note, that this behaviour diverges from the official
+%       URI specification, but it conforms to MMT URI's, which use ? as separator between
+%       DPaths, modules names and declaration names.
+%   \item |\macroname{#newfragment}| analogously to |{?newquery}|. 
+%\end{itemize}
+%
 % 
 % \StopEventually{\newpage\PrintIndex\newpage\PrintChanges\newpage\printbibliography}\newpage
 %
@@ -393,7 +426,7 @@
         }%
     \fi%
     \makeuri\pathsuris@curruri@scheme\pathsuris@curruri@authority\pathsuris@curruri@path\pathsuris@curruri@query\pathsuris@curruri@fragment%
-    \let\pathsuris@curruri\makeuri@uri
+    \let\pathsuris@curruri@uri\makeuri@uri
     %drop trailing slash of path
     %\IfEndWith{\pathsuris@curruri@path}{\@Slash}{%
     %    \StrGobbleRight{\pathsuris@curruri@path}{1}[\pathsuris@curruri@path]
@@ -406,7 +439,7 @@
         \expandafter\let\csname \pathsuris@prefix@temp path\endcsname\pathsuris@curruri@path%
         \expandafter\let\csname \pathsuris@prefix@temp query\endcsname\pathsuris@curruri@query%
         \expandafter\let\csname \pathsuris@prefix@temp fragment\endcsname\pathsuris@curruri@fragment%
-        \expandafter\let\csname \pathsuris@prefix@temp uri\endcsname\pathsuris@curruri%
+        \expandafter\let\csname \pathsuris@prefix@temp uri\endcsname\pathsuris@curruri@uri%
     \fi%
 }
 %    \end{macrocode}
@@ -422,21 +455,7 @@
 %
 %\begin{macro}{\asuri}
 % |\asuri{macroname}{uri}| generates |\macroname[optional new macro name]{action}|, that allows for modifying |uri| in various
-% ways. If an optional new macro name is given in |\macroname|, then the result of the
-% modification is stored in that new macro, as if defined via |\asuri|; otherwise, the macro
-% is modified ``in place''.
-%\begin{itemize}
-%   \item |\macroname{drop query}| drops the query component.
-%   \item |\macroname{drop fragment}| drops the fragment component.
-%   \item |\macroname{/other/path}| drops query and fragment, appends |other/path| to the
-%       path and resolves the URI.
-%   \item |\macroname{?newquery}| drops the fragment and either declares |newquery| as
-%       a new query component, or appends |?newquery| to the existing query component, if
-%       it is not |\makeuri@empty|. Note, that this behaviour diverges from the official
-%       URI specification, but it conforms to MMT URI's, which use ? as separator between
-%       DPaths, modules names and declaration names.
-%   \item |\macroname{#newfragment}| analogously to |{?newquery}|. 
-%\end{itemize}
+% ways. 
 %
 %    \begin{macrocode}
 
@@ -484,7 +503,23 @@
                 {\csname #2query\endcsname}%
                 \makeuri@empty%
             \@asuri@changed@true
-        }{}}
+        }{
+        \IfStrEq\@@asuri@command{extension}{
+            \edef\@asuri@oldpath{\csname #2path\endcsname}
+            \StrCount\@asuri@oldpath.[\@asuri@lastdot]
+            \ifnum\@asuri@lastdot>0
+                \StrBehind[\@asuri@lastdot]\@asuri@oldpath.[\@asuri@extension]
+                \IfSubStr\@asuri@extension\@Slash{}{
+                    \StrBefore[\@asuri@lastdot]\@asuri@oldpath.[\@asuri@oldpath]
+                }
+            \fi
+            \makeuri{\csname #2scheme\endcsname}%
+                {\csname #2authority\endcsname}%
+                \@asuri@oldpath%
+                \makeuri@empty%
+                \makeuri@empty%
+            \@asuri@changed@true
+        }{}}}
     }{
     \IfBeginWith\@@asuri@command{\@Slash}{
         \@cpath{\csname #2path\endcsname\@@asuri@command}
