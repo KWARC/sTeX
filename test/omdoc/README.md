@@ -6,12 +6,13 @@ The state of the test in these directories
 * `cmath`: complete
 * `dcm`:
 * `hwexam`:
-* `mathhub`: complete up to `hwexam`
+* `mathhub`: complete
 * `metakeys`:
 * `mikoslides`:
 * `modules`:
 * `omdoc`:
 * `omtext`:
+* `otherarchive`: auxiliary archive, only needed for `mathhub` (do not run make over it) 
 * `pathsuris`:
 * `presentation`:
 * `problem`:
