@@ -1123,7 +1123,7 @@ same name; this is dangerous -- not importing}%
 % notations. This would pass \#4 to MMT via a macro that makes the \# (argumentmarkers)
 % active and empty. I am not clear how well this works, so we leave out notations.}
 %    \begin{macrocode}
-\ifx\symdef@name\@empty\mmtconstdec{#2}\else\mmtconstdec{\symdef@name}\fi%
+%\ifx\symdef@name\@empty\mmtconstdec{#2}\else\mmtconstdec{\symdef@name}\fi%
 %    \end{macrocode}
 % First, using |\mod@newcommand| we initialize the intermediate macro
 % |\module@|\meta{sym}|@pres@|, the one that can be extended with |\symvariant|
