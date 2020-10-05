@@ -25,6 +25,7 @@
 \RequirePackage{stex-base}
 \RequirePackage{sref}
 \RequirePackage{pathsuris}
+\RequirePackage[abspath]{currfile}
 \if@modules@mh@\RequirePackage{modules-mh}\fi
 \RequirePackage{xspace}
 \if@latexml\else\ifmod@show\RequirePackage{mdframed}\fi\fi
@@ -34,6 +35,7 @@
 \addmetakey*{module}{srccite}
 \addmetakey*{module}{align}[WithTheModuleOfTheSameName]
 \addmetakey*{module}{ns}
+\addmetakey*{module}{narr}
 \addmetakey*{module}{noalign}[true]
 \define@key{module}{id}{%
   \edef\this@module{%
@@ -59,17 +61,60 @@
 }% mod@show
 \newenvironment{module}[1][]{%
   \begin{@module}[#1]%
-  \ifcsundef{mod@id}{}{% only define if components are!
     \ifcsundef{mod@path}{}{\csxdef{module@\mod@id @path}{\mod@path}}%
     \ifcsundef{mod@ext}{}{\csxdef{module@\mod@id @ext}{\mod@ext}}%
-  }%
   \module@heading% make the headings
   \ignorespacesandpars}{%
   \end{@module}%
   \ignorespacesafterend%
 }%
 \ifmod@show\surroundwithmdframed{module@om@common}\fi%
-\newenvironment{@module}[1][]{\metasetkeys{module}{#1}}{}%
+\def\set@default@ns{
+  \edef\@module@ns@temp{\currfileabspath}
+  \edef\@module@ns@temp{\if@iswindows@\windows@to@path\@module@ns@temp\else\@module@ns@temp\fi}
+  \path@dropextension\@module@ns@temp{@module@ns@temp}
+  \unless\ifcsname mathhub@archive@ns\endcsname
+    \asuri{@module@ns@temp}{file\@Colon\@Slash\@Slash\@module@ns@temp}
+    \@module@ns@temp{drop extension}
+    \setkeys{module}{ns=\@module@ns@tempuri}
+  \else\ifx\mathhub@archive@ns\@empty
+    \asuri{@module@ns@temp}{file\@Colon\@Slash\@Slash\@module@ns@temp}
+    \@module@ns@temp{drop extension}
+    \setkeys{module}{ns=\@module@ns@tempuri}
+  \else
+    \asuri{@module@filepath@temp}{file\@Colon\@Slash\@Slash\@module@ns@temp}
+    \asuri{@module@ns@temp}{\mathhub@archive@ns}
+    \asuri{@module@archivedir}{file\@Colon\@Slash\@Slash\mathhub@archive@dir\@Slash source}
+    \IfBeginWith\@module@filepath@temppath\@module@archivedirpath{
+      \StrLen\@module@archivediruri[\ns@temp@length]
+      \StrGobbleLeft\@module@filepath@tempuri\ns@temp@length[\@module@filepath@tempuri]
+      \edef\@module@ns@tempuri{\@module@ns@tempuri\@module@filepath@tempuri}
+    }{}
+    \setkeys{module}{ns=\@module@ns@tempuri}
+  \fi
+}
+
+\def\set@next@moduleid{
+  \unless\ifcsname namespace@\module@ns @unnamedmodules\endcsname
+      \csgdef{namespace@\module@ns @unnamedmodules}{0}
+  \fi
+  \edef\namespace@currnum{\csname namespace@\module@ns @unnamedmodules\endcsname}
+  \edef\module@temp@setidname{\noexpand\setkeys{module}{id=module\namespace@currnum}}
+  \module@temp@setidname
+  \csxdef{namespace@\module@ns @unnamedmodules}{\the\numexpr\namespace@currnum+1}
+}
+
+\newenvironment{@module}[1][]{
+    \metasetkeys{module}{#1}
+    \ifx\module@ns\@empty\set@default@ns\fi
+    \ifx\module@narr\@empty
+        \setkeys{module}{narr=\module@ns}
+    \fi
+    \ifcsname mod@id\endcsname
+        \ifx\mod@id\@empty\set@next@moduleid\fi
+    \else\set@next@moduleid\fi
+    \seturi[module@uri@]{\module@ns?\mod@id}
+}{}%
 \def\activate@defs#1{%
   \ifcsundef{module@#1@activated}{\csname module@defs@#1\endcsname}{}%
   \@namedef{module@#1@activated}{true}%

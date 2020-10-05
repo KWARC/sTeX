@@ -36,7 +36,7 @@
 \def\@Slash{/}
 \def\@Colon{:}
 \def\@QuestionMark{?}
-\def\@ToHere{.}
+\def\@Dot{.}
 
 \pathsuris@setcatcodes
 \def\@Fragment{#}
@@ -146,6 +146,7 @@
     \@pathsuris@done@false%
     \def\pathsuris@prefix@temp{#1}
     \edef\pathsuris@curruri{#2}%
+    \edef\pathsuris@curruri{\expandafter\detokenize\expandafter{\pathsuris@curruri}}
     \let\pathsuris@temp\pathsuris@curruri%
     \makeuri@setempty\pathsuris@curruri@scheme%
     \makeuri@setempty\pathsuris@curruri@authority%
@@ -430,6 +431,55 @@
         \fi
     \fi
     \windows@continue
+}
+
+
+\newif\if@iswindows@\@iswindows@false
+\IfFileExists{nul:}{\IfFileExists{/dev/null}{}{\@iswindows@true}}{}
+
+\def\kpsewhich#1#2{\begingroup
+  \def\@Space{ }
+  \edef\kpsewhich@cmd{"|kpsewhich #2"}
+  \everyeof{\noexpand}
+  \catcode`\\=12
+  \edef#1{\@@input\kpsewhich@cmd\@Space}
+  \trimstring#1
+  \global\let#1#1
+\endgroup}
+
+
+\edef\oldpercentcatcode{\the\catcode`\%}
+\catcode`\%=12
+\let\percent%
+\catcode`\%=\oldpercentcatcode
+
+\edef\pwd@cmd{\if@iswindows@ -expand-var \percent CD\percent\else -var-value PWD\fi}
+\kpsewhich\stex@maindir\pwd@cmd
+\if@iswindows@\windows@to@path\stex@maindir\fi
+
+\def\path@filename#1#2{
+    \edef\filename@oldpath{#1}
+    \StrCount\filename@oldpath\@Slash[\filename@lastslash]
+    \ifnum\filename@lastslash>0
+        \StrBehind[\filename@lastslash]\filename@oldpath\@Slash[\filename@oldpath]
+        \csedef{#2}{\filename@oldpath}
+    \else
+        \csedef{#2}{\filename@oldpath}
+    \fi
+}
+
+\def\path@dropextension#1#2{
+    \path@filename{#1}{dropextension@temp}
+    \StrCount\dropextension@temp\@Dot[\dropextension@lastdot]
+    \ifnum\dropextension@lastdot>0
+        \StrBehind[\dropextension@lastdot]\dropextension@temp\@Dot[\dropextension@ext]
+        \StrLen\dropextension@ext[\dropextension@lastdot]
+        \StrGobbleRight{#1}{\the\numexpr\dropextension@lastdot+1\@Space}[\dropextension@temp]
+        \trimstring\dropextension@temp
+        \csedef{#2}{\dropextension@temp}
+    \else
+        \csedef{#2}{#1}
+    \fi
 }
 
 %%% Local Variables:
