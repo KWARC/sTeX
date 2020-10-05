@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = git@github.com:slatex/sTeX-tests.git
+	branch = master
+	commit = 5ffea576ad604803247df8acaf850dd87cbb5e42
+	parent = c75254b1600ac48bdd63111d2d0714000f638e4e
+	method = merge
+	cmdver = 0.4.1
