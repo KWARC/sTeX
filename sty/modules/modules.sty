@@ -69,15 +69,18 @@
   \ignorespacesafterend%
 }%
 \ifmod@show\surroundwithmdframed{module@om@common}\fi%
+\newif\ifarchive@ns@empty@\archive@ns@empty@false
 \def\set@default@ns{
   \edef\@module@ns@temp{\currfileabspath}
   \edef\@module@ns@temp{\if@iswindows@\windows@to@path\@module@ns@temp\else\@module@ns@temp\fi}
   \path@dropextension\@module@ns@temp{@module@ns@temp}
+  \archive@ns@empty@false
   \unless\ifcsname mathhub@archive@ns\endcsname
-    \asuri{@module@ns@temp}{file\@Colon\@Slash\@Slash\@module@ns@temp}
-    \@module@ns@temp{drop extension}
-    \setkeys{module}{ns=\@module@ns@tempuri}
-  \else\ifx\mathhub@archive@ns\@empty
+    \archive@ns@empty@true
+  \else
+    \ifx\mathhub@archive@ns\@empty\archive@ns@empty@true\fi
+  \fi
+  \ifarchive@ns@empty@
     \asuri{@module@ns@temp}{file\@Colon\@Slash\@Slash\@module@ns@temp}
     \@module@ns@temp{drop extension}
     \setkeys{module}{ns=\@module@ns@tempuri}
