@@ -315,7 +315,7 @@ same name; this is dangerous -- not importing}%
       \def\notation@curr@prec{0}%
     \else%
       \edef\notation@curr@prec{\notation@curr@precs}%
-      \def\notation@curr@prec{}%
+      \def\notation@curr@precs{}%
     \fi%
   }%
   % arguments
@@ -365,6 +365,7 @@ same name; this is dangerous -- not importing}%
   \let\ex\expandafter%
   \ex\ex\ex\def\ex\ex\ex\notation@temp@notation\ex\ex\ex%
     {\ex\notation@temp@notation\notation@curr@extargs}%
+  \edef\notation@temp@notation{\noexpand\prefix[p=\notation@curr@prec]{}{\ex\unexpanded\ex{\notation@temp@notation}}}
   \def\notation@temp@fragment{}
   \ifx\notation@curr@arity\@empty\else%
     \edef\notation@temp@fragment{arity=\notation@curr@arity}
