@@ -926,8 +926,10 @@
     \ifx\module@id\@empty\set@next@moduleid\fi
   \else\set@next@moduleid\fi
   \seturi[module@uri@]{\module@ns\@QuestionMark\module@id}
-  \csedef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}
-  \csedef{\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
+  \csxdef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}
+  \csxdef{moduleid@\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
+  % TODO find a better cs name
+  %\csedef{\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
   \edef\this@module{%
     \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
   }%
@@ -940,9 +942,11 @@
   \fi%
 }{}%
 
+\def\@URI{uri}
+
 \def\@invoke@module#1#2{%
-  \ifx#2?%
-    % TODO something
+  \ifx\@URI#2%
+    #1%
   \else%
     % TODO something else
     #2%
@@ -959,8 +963,9 @@
 %   directly afterwards to prohibit further activations.
 %    \begin{macrocode}
 \def\activate@defs#1{%
-  \ifcsundef{module@#1@activated}{\csname module@defs@#1\endcsname}{}%
-  \@namedef{module@#1@activated}{true}%
+  \edef\activate@defs@uri{\csname moduleid@#1\endcsname\@URI}%
+  \ifcsundef{module@\activate@defs@uri @activated}{\csname module@defs@\activate@defs@uri\endcsname}{}%
+  \@namedef{module@\activate@defs@uri @activated}{true}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -973,8 +978,9 @@
 %   problem?}\ednote{Jinbo: This part of code is extremely easy to generate bugs, cautiously edit this part of code.}\newline
 %   Naive understanding of this code: |#1| be will be expanded first, then |\this@module|, then |\active@defs|, then |\g@addto@macro|. 
 %    \begin{macrocode}
+\def\g@addto@macro@safe#1#2{\ifx#1\relax\def#1{}\fi\g@addto@macro#1{#2}}
 \def\export@defs#1{\@ifundefined{module@id}{}{%
-\expandafter\expandafter\expandafter\g@addto@macro%
+\expandafter\expandafter\expandafter\g@addto@macro@safe%
 \expandafter\this@module\expandafter{\activate@defs{#1}}}}%
 %    \end{macrocode}
 % \end{macro}
@@ -1170,7 +1176,7 @@ same name; this is dangerous -- not importing}%
   }%
   \if@symdeflocal\else%
   \expandafter\expandafter\expandafter%
-      \g@addto@macro\expandafter\this@module\expandafter{\define@in@module@temp}%
+      \g@addto@macro@safe\expandafter\this@module\expandafter{\define@in@module@temp}%
   \fi%
 }
 
@@ -1305,7 +1311,7 @@ same name; this is dangerous -- not importing}%
       % normal argument
       % TODO something better than empty \prefix for argument precedence
       \edef\notation@nextarg@temp{{\noexpand\prefix[p=\notation@curr@argprec]{}{########1}}}%
-      \expandafter\g@addto@macro\expandafter\notation@curr@extargs%
+      \expandafter\g@addto@macro@safe\expandafter\notation@curr@extargs%
         \expandafter{\notation@nextarg@temp}%
       \expandafter\expandafter\expandafter\notation@do@args%
     \else%
@@ -1317,7 +1323,7 @@ same name; this is dangerous -- not importing}%
 
 \def\notation@parse@assocarg#1{%
   \edef\notation@nextarg@temp{{\noexpand\assoc[p=\notation@curr@argprec]{\unexpanded{#1}}{########1}}}%
-  \expandafter\g@addto@macro\expandafter\notation@curr@extargs%
+  \expandafter\g@addto@macro@safe\expandafter\notation@curr@extargs%
   \expandafter{\notation@nextarg@temp}%
   \notation@do@args%
 }
@@ -1353,8 +1359,8 @@ same name; this is dangerous -- not importing}%
   \edef\symdecl@temps{%
     \noexpand\newcommand\ex\noexpand\csname\notation@csname\endcsname[\notation@temp@arity]%
   }%
-  \ex\ex\ex\g@addto@macro\ex\this@module\ex{\symdecl@temps}%
-  \ex\ex\ex\g@addto@macro\ex\this@module\ex{\ex{\notation@temp@notation}}%
+  \ex\ex\ex\g@addto@macro@safe\ex\this@module\ex{\symdecl@temps}%
+  \ex\ex\ex\g@addto@macro@safe\ex\this@module\ex{\ex{\notation@temp@notation}}%
 }
 
 % extracts the full URI from \foo or anything being \ifx-equal to \foo,
@@ -1521,20 +1527,20 @@ same name; this is dangerous -- not importing}%
 % |\g@addto@macro|. We first add the definition of the intermediate function
 % |\modules@|\meta{sym}|@pres@|.
 %    \begin{macrocode}
-      \expandafter\g@addto@macro\this@module%
+      \expandafter\g@addto@macro@safe\this@module%
       {\expandafter\mod@newcommand\csname modules@#2@pres@\endcsname[#3]{#4}}%
 %    \end{macrocode}
 % Then we add add the definition of |\|\meta{sym}  which calls the intermediate
 % function and handles the optional argument.
 %    \begin{macrocode}
-      \expandafter\g@addto@macro\this@module%
+      \expandafter\g@addto@macro@safe\this@module%
       {\expandafter\mod@newcommand\csname #2\endcsname[1][]%
       {\csname modules@#2@pres@##1\endcsname}}%
 %    \end{macrocode}
 % We also add |\mod@symref@|\meta{sym} macro to the macro pool so that the |\symref| macro
 % can pick it up.
 %    \begin{macrocode}
-      \expandafter\g@addto@macro\csname  module@defs@\module@id\expandafter\endcsname\expandafter%
+      \expandafter\expandafter\expandafter\g@addto@macro@safe\expandafter\this@module\expandafter%
       {\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
       {\expandafter\mod@termref\expandafter{\module@id}{#2}{##1}}}%
 %    \end{macrocode}
@@ -1542,9 +1548,9 @@ same name; this is dangerous -- not importing}%
 % module if the |qualifiedimports| option was set.
 %    \begin{macrocode}
       \ifmod@qualified%
-        \expandafter\g@addto@macro\this@qualified@module%
+        \expandafter\g@addto@macro@safe\this@qualified@module%
         {\expandafter\mod@newcommand\csname modules@#2@pres@qualified\endcsname[#3]{#4}}%
-        \expandafter\g@addto@macro\this@qualified@module%
+        \expandafter\g@addto@macro@safe\this@qualified@module%
         {\expandafter\def\csname#2@qualified\endcsname{\csname modules@#2@pres@qualified\endcsname}}%
       \fi%
     }% mod@qualified
@@ -1580,7 +1586,7 @@ same name; this is dangerous -- not importing}%
 % |\modules@|\meta{sym}|@pres@|\meta{opt} just as we have done that in |\symdef|.
 %    \begin{macrocode}
   \ifcsundef{module@id}{}{%
-    \expandafter\g@addto@macro\this@module%
+    \expandafter\g@addto@macro@safe\this@module%
     {\expandafter\mod@newcommand\csname modules@#1@pres@#3\endcsname[#2]{#4}}%
   }%
 \ignorespacesandpars}%
@@ -1696,7 +1702,7 @@ same name; this is dangerous -- not importing}%
   \ifx\termdef@local\mod@true%
   \else%
     \ifcsundef{module@id}{}{%
-      \expandafter\g@addto@macro\this@module%
+      \expandafter\g@addto@macro@safe\this@module%
       {\expandafter\mod@newcommand\csname#2\endcsname[0]{#3\xspace}}%
     }%
   \fi%
