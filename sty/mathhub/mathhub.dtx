@@ -343,15 +343,18 @@
 %   |\mhcurrentrepos| is used to initialize the current repository. If the repository has
 %   changed, it writes a call to the internal macro
 %   \DescribeMacro{\@mhcurrentrepos}|\@mhcurrentrepos| for the aux file and calls it. So
-%   that the |\importmodule| calls there work with the correct repository.
+%   that the |\importmodule| calls there work with the correct repository.\ednote{MK: It
+%   seems that we do not need the |\@currentrepos| in the |aux| file, leaving the commenting
+%   out just in case we do. We can consolidate this further if it turns out that we do not
+%   need this.}
 %    \begin{macrocode}
 \newcommand\mhcurrentrepos[1]{%
-  \edef\@test{#1}%
-  \ifx\@test\mh@currentrepos% if new dir = old dir
-    \relax% no need to change
-  \else%
-    \protected@write\@auxout{}{\string\@mhcurrentrepos{#1}}%
-  \fi%
+  % \edef\@test{#1}%
+  % \ifx\@test\mh@currentrepos% if new dir = old dir
+  %   \relax% no need to change
+  % \else%
+  %   \protected@write\@auxout{}{\string\@mhcurrentrepos{#1}}%
+  % \fi%
   \@mhcurrentrepos{#1}% define mh@currentrepos
 }%
 \newcommand\@mhcurrentrepos[1]{\edef\mh@currentrepos{#1}}%
@@ -366,7 +369,6 @@
 %    \begin{macrocode}
 \def\modules@@first#1/#2;{#1}
 \newcommand\libinput[1]{%
-\message{^^Jmh@currentrepos: \mh@currentrepos^^J}
 \edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}
 \let\orig@inffile\mh@inffile\let\orig@libfile\mh@libfile
 \def\mh@inffile{\MathHub{\@mh@group/meta-inf/lib/#1}}
@@ -387,7 +389,6 @@
 %   the |\libusepackage| is analogous to |\libinput|
 %    \begin{macrocode}
 \newcommand\libusepackage[2][]{%
-\message{^^Jmh@currentrepos: \mh@currentrepos^^J}
 \edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}
 \let\orig@inffile\mh@inffile\let\orig@libfile\mh@libfile
 \edef\mh@inffile{\MathHub{\@mh@group/meta-inf/lib/#2}}
@@ -436,21 +437,21 @@
     \edef\@findmanifest@path{\@CanPath/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{^^J MANIFEST.MF found at \@findmanifest@path^^J}
+      \message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
       \let\temp@archive@dir\@CanPath
     }{
     \edef\@findmanifest@path{\@CanPath/META-INF/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{^^J MANIFEST.MF found at \@findmanifest@path^^J}
+      \message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
       \let\temp@archive@dir\@CanPath
     }{
     \edef\@findmanifest@path{\@CanPath/meta-inf/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{^^J MANIFEST.MF found at \@findmanifest@path^^J}
+      \message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
       \let\temp@archive@dir\@CanPath
     }{
@@ -486,26 +487,26 @@
     \split@manifest@key
     % id
     \IfStrEq\manifest@key{\detokenize{id}}{
-        \message{^^J archive id: \manifest@line^^J}
+        \message{archive id: \manifest@line}
         \xdef\manifest@mf@id{\manifest@line}
     }{
     % narration-base
     \IfStrEq\manifest@key{\detokenize{narration-base}}{
-        \message{^^J archive narration-base: \manifest@line^^J}
+        \message{archive narration-base: \manifest@line}
         \xdef\manifest@mf@narr{\manifest@line}
     }{
     % namespace
     \IfStrEq\manifest@key{\detokenize{source-base}}{
-        \message{^^J archive source-base: \manifest@line^^J}
+        \message{archive source-base: \manifest@line}
         \xdef\manifest@mf@ns{\manifest@line}
     }{
     \IfStrEq\manifest@key{\detokenize{ns}}{
-        \message{^^J archive ns: \manifest@line^^J}
+        \message{archive ns: \manifest@line}
         \xdef\manifest@mf@ns{\manifest@line}
     }{
     % dependencies
     \IfStrEq\manifest@key{\detokenize{dependencies}}{
-        \message{^^J archive dependencies: \manifest@line^^J}
+        \message{archive dependencies: \manifest@line}
         \xdef\manifest@mf@deps{\manifest@line}
     }{
             
