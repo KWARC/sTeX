@@ -153,27 +153,7 @@
 
 \parsemanifest{mathhub@archive@}\stex@maindir
 
-<<<<<<< HEAD
 \mhcurrentrepos{\mathhub@archive@id}
-=======
-\edef\pwd@cmd{\if@iswindows@ -expand-var \percent CD\percent\else -var-value PWD\fi}
-\kpsewhich\mathhub@maindir\pwd@cmd
-\if@iswindows@\windows@to@path\mathhub@maindir\fi
-\message{PWD: \mathhub@maindir}
-\findmanifest{\mathhub@maindir}
-\begingroup
-  \gdef\manifest@mf@id{}
-  \gdef\manifest@mf@narr{}
-  \gdef\manifest@mf@ns{}
-  \gdef\manifest@mf@deps{}
-  \newread\@manifest
-  \openin\@manifest\manifest@mf
-  \parse@manifest@loop
-  \closein\@manifest
-\endgroup
-\if@iswindows@\windows@to@path\manifest@mf\fi
-\mhcurrentrepos{\manifest@mf@id}
->>>>>>> master
 \endinput
 %%
 %% End of file `mathhub.sty'.
