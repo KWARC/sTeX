@@ -143,11 +143,12 @@ Assume we're in module |http://mathhub.info/example?foo|.
   |\notation@symprec{|$p_{sym}$|}{...}|. E.g. |\notation[prec=50;20x20]{plus}{#1 + #2}| would
   actually have notation\\ 
   |\notation@symprec{50}{\notation@argpec{20}{#1} + \notation@argpec{20}{#2}}|.
-  Associative arguments are wrapped in a |\notation@assoc|, e.g.
-  |\notation[prec=50;20]{plus}{#1}{+}| results in 
+  Associative arguments are wrapped in a |\notation@assoc|, e.g.\\
+  |\notation[prec=50;20,args=a]{plus}{#1}{+}| results in\\
   |\notation@symprec{50}{\notation@argpec{20}{\notation@assoc{+}{#1}}}|
   \item The initial ``downwards'' precedence $p$ is |-\infprec|. |\notation@symprec{n}{...}|
-    compares $n$ with $p$. If $n\leq p$ (and $p\neq$|-\infprec|), brackets are inserted.
+    takes care of inserting brackets, by comparing $n$ with $p$. 
+    If $n\leq p$ (and $p\neq$|-\infprec|), brackets are inserted.
     |\notation@argprec{n}{...}| sets the downwards precedence to $n$. This subsumes
     |\mixfix|-variants, |\prefix|, |\suffix|, etc.
   \item For bracketing, the values of |\notation@lparen| and |\notation@rparen| are used.
