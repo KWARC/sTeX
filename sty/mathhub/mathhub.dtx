@@ -531,7 +531,6 @@
 }
 
 \parsemanifest{mathhub@archive@}\stex@maindir
-
 %    \end{macrocode}
 %
 % Finally -- and that is the ultimate goal of all of the above, we set the current repos.  
@@ -815,8 +814,8 @@
 %   The |@mhview| does the actual bookkeeping at the module level.
 %    \begin{macrocode}
 \newenvironment{@mhview}[2]{%from, to
-  \importmhmodule[mhrepos=\mhview@fromrepos,path=\mhview@frompath]{#1}%
-  \importmhmodule[mhrepos=\mhview@torepos,path=\mhview@topath]{#2}%
+  \usemhmodule[mhrepos=\mhview@fromrepos,path=\mhview@frompath]{#1}%
+  \usemhmodule[mhrepos=\mhview@torepos,path=\mhview@topath]{#2}%
 }{}%
 %    \end{macrocode}
 % \end{environment}
@@ -845,7 +844,7 @@
 %
 % \begin{macro}{mhinlineview}
 %    \begin{macrocode}
-\newcommand\mhinlineview[3][]{\begin{mhinlineView}[#1]{#2}{\mod@id}#3\end{mhinlineView}}
+\newcommand\mhinlineview[3][]{\begin{mhinlineView}[#1]{#2}{\module@id}#3\end{mhinlineView}}
 %</structview>
 %    \end{macrocode}
 % \end{macro}

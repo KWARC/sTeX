@@ -411,7 +411,7 @@
 % \subsection{Symbol and Concept Names}\label{sec:user:termdef}
 % 
 % Just as the |\symdef| declarations define semantic macros for mathematical symbols, the
-% |modules| package provides an infrastructure for {\emph{mathematical concepts}} that are
+% |modules| package provides an infrastructure for \emph{mathematical concepts} that are
 % expressed in mathematical vernacular. The key observation here is that concept names
 % like ``finite symplectic group'' follow the same scoping rules as mathematical symbols,
 % i.e. they are module-scoped. The \DescribeMacro{\termdef}|\termdef| macro is an analogue
@@ -825,8 +825,8 @@
 \newrobustcmd\module@heading{%
   \stepcounter{module}%
   \ifmod@show%
-    \noindent{\textbf{Module} \thesection.\themodule [\module@id]}%
-    \sref@label@id{Module \thesection.\themodule [\module@id]}%
+  \noindent{\textbf{Module} \thesection.\themodule [\module@id]}%
+  \sref@label@id{Module \thesection.\themodule [\module@id]}%
     \ifx\module@title\@empty :\quad\else\quad(\module@title)\hfill\\\fi%
   \fi%
 }% mod@show
@@ -909,17 +909,22 @@
   \seturi[module@uri@]{\module@ns\@QuestionMark\module@id}
   \csxdef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}
   \csxdef{moduleid@\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
-  % TODO find a better cs name
-  %\csedef{\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
+  \csxdef{Module\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
   \edef\this@module{%
     \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
   }%
-  \csgdef{module@defs@\module@uri@uri}{}%
+  \csxdef{module@defs@\module@uri@uri}{%
+    \expandafter\def\expandafter\noexpand\csname Module\module@id\endcsname%
+      {\noexpand\@invoke@module{\module@uri@uri}}%
+  }%
   \ifmod@qualified%
     \edef\this@qualified@module{%
       \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
     }%
-    \csgdef{module@defs@qualified@\module@uri@uri}{}%
+    \csxdef{module@defs@qualified@\module@uri@uri}{%
+      \expandafter\def\expandafter\noexpand\csname Module\module@id\endcsname%
+      {\noexpand\@invoke@module{\module@uri@uri}}%
+    }%
   \fi%
 }{}%
 
@@ -944,9 +949,9 @@
 %   directly afterwards to prohibit further activations.
 %    \begin{macrocode}
 \def\activate@defs#1{%
-  \edef\activate@defs@uri{\csname moduleid@#1\endcsname\@URI}%
-  \ifcsundef{module@\activate@defs@uri @activated}{\csname module@defs@\activate@defs@uri\endcsname}{}%
-  \@namedef{module@\activate@defs@uri @activated}{true}%
+  %\edef\activate@defs@uri{\csname moduleid@#1\endcsname\@URI}%
+  \ifcsundef{module@\csname moduleid@#1\endcsname\@URI @activated}{\csname module@defs@\csname moduleid@#1\endcsname\@URI\endcsname}{}%
+  \@namedef{module@\csname moduleid@#1\endcsname\@URI @activated}{true}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -1533,13 +1538,6 @@ same name; this is dangerous -- not importing}%
   \metasetkeys{symdef}{#1}%
   \usemodule@maybesetcodes%
 %    \end{macrocode}
-% If the |mmt| option is set and we are not importing, then we write out the constant
-% declaration for this symdef\ednote{eventually we may want to do something about the
-% notations. This would pass \#4 to MMT via a macro that makes the \# (argumentmarkers)
-% active and empty. I am not clear how well this works, so we leave out notations.}
-%    \begin{macrocode}
-%\ifx\symdef@name\@empty\mmtconstdec{#2}\else\mmtconstdec{\symdef@name}\fi%
-%    \end{macrocode}
 % First, using |\mod@newcommand| we initialize the intermediate macro
 % |\module@|\meta{sym}|@pres@|, the one that can be extended with |\symvariant|
 %    \begin{macrocode}
@@ -1554,8 +1552,8 @@ same name; this is dangerous -- not importing}%
 %    \end{macrocode}
 % Finally, we prepare the internal macro to be used in the |\symref| call.
 %    \begin{macrocode}
-  \expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
-  {\expandafter\mod@termref\expandafter{\module@id}{#2}{##1}}%
+\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
+{\expandafter\mod@termref\expandafter{\module@uri@uri}{#2}{##1}}%
 %    \end{macrocode}
 % We check if the switch for the local scope is set: if it is we are done, since this
 % function has a local scope. Similarly, if we are not inside a module, which we could
@@ -1582,9 +1580,9 @@ same name; this is dangerous -- not importing}%
 % We also add |\mod@symref@|\meta{sym} macro to the macro pool so that the |\symref| macro
 % can pick it up.
 %    \begin{macrocode}
-      \expandafter\expandafter\expandafter\g@addto@macro@safe\expandafter\this@module\expandafter%
-      {\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
-      {\expandafter\mod@termref\expandafter{\module@id}{#2}{##1}}}%
+        \expandafter\expandafter\expandafter\g@addto@macro@safe\expandafter\this@module\expandafter%
+        {\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
+        {\expandafter\mod@termref\expandafter{\module@uri@uri}{#2}{##1}}}%
 %    \end{macrocode}
 % Finally, using |\g@addto@macro| we add the two functions to the qualified version of the
 % module if the |qualifiedimports| option was set.
@@ -1596,7 +1594,7 @@ same name; this is dangerous -- not importing}%
         {\expandafter\def\csname#2@qualified\endcsname{\csname modules@#2@pres@qualified\endcsname}}%
       \fi%
     }% mod@qualified
-  \fi% symdeflocal
+\fi% symdeflocal
 %    \end{macrocode}
 % So now we only need to show the data in the symdef, if the options allow. 
 %    \begin{macrocode}
@@ -1607,6 +1605,7 @@ same name; this is dangerous -- not importing}%
   \ignorespacesandpars%
 }% mod@show
 \def\symdef@type{Symbol}%
+\providecommand{\stDMemph}[1]{\textbf{#1}}
 %    \end{macrocode}
 % \end{macro}
 %

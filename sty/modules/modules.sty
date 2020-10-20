@@ -43,8 +43,8 @@
 \newrobustcmd\module@heading{%
   \stepcounter{module}%
   \ifmod@show%
-    \noindent{\textbf{Module} \thesection.\themodule [\module@id]}%
-    \sref@label@id{Module \thesection.\themodule [\module@id]}%
+  \noindent{\textbf{Module} \thesection.\themodule [\module@id]}%
+  \sref@label@id{Module \thesection.\themodule [\module@id]}%
     \ifx\module@title\@empty :\quad\else\quad(\module@title)\hfill\\\fi%
   \fi%
 }% mod@show
@@ -108,17 +108,22 @@
   \seturi[module@uri@]{\module@ns\@QuestionMark\module@id}
   \csxdef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}
   \csxdef{moduleid@\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
-  % TODO find a better cs name
-  %\csedef{\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
+  \csxdef{Module\module@id}{\noexpand\@invoke@module{\module@uri@uri}}
   \edef\this@module{%
     \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
   }%
-  \csgdef{module@defs@\module@uri@uri}{}%
+  \csxdef{module@defs@\module@uri@uri}{%
+    \expandafter\def\expandafter\noexpand\csname Module\module@id\endcsname%
+      {\noexpand\@invoke@module{\module@uri@uri}}%
+  }%
   \ifmod@qualified%
     \edef\this@qualified@module{%
       \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
     }%
-    \csgdef{module@defs@qualified@\module@uri@uri}{}%
+    \csxdef{module@defs@qualified@\module@uri@uri}{%
+      \expandafter\def\expandafter\noexpand\csname Module\module@id\endcsname%
+      {\noexpand\@invoke@module{\module@uri@uri}}%
+    }%
   \fi%
 }{}%
 
@@ -134,9 +139,9 @@
 }
 
 \def\activate@defs#1{%
-  \edef\activate@defs@uri{\csname moduleid@#1\endcsname\@URI}%
-  \ifcsundef{module@\activate@defs@uri @activated}{\csname module@defs@\activate@defs@uri\endcsname}{}%
-  \@namedef{module@\activate@defs@uri @activated}{true}%
+  %\edef\activate@defs@uri{\csname moduleid@#1\endcsname\@URI}%
+  \ifcsundef{module@\csname moduleid@#1\endcsname\@URI @activated}{\csname module@defs@\csname moduleid@#1\endcsname\@URI\endcsname}{}%
+  \@namedef{module@\csname moduleid@#1\endcsname\@URI @activated}{true}%
 }%
 \def\g@addto@macro@safe#1#2{\ifx#1\relax\def#1{}\fi\g@addto@macro#1{#2}}
 \def\export@defs#1{\@ifundefined{module@id}{}{%
@@ -548,8 +553,8 @@ same name; this is dangerous -- not importing}%
   \expandafter\mod@newcommand\csname modules@#2@pres@\endcsname[#3]{#4}%
   \expandafter\mod@newcommand\csname #2\endcsname[1][]%
   {\csname modules@#2@pres@##1\endcsname}%
-  \expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
-  {\expandafter\mod@termref\expandafter{\module@id}{#2}{##1}}%
+\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
+{\expandafter\mod@termref\expandafter{\module@uri@uri}{#2}{##1}}%
   \if@symdeflocal%
   \else%
     \ifcsundef{module@id}{}{%
@@ -558,9 +563,9 @@ same name; this is dangerous -- not importing}%
       \expandafter\g@addto@macro@safe\this@module%
       {\expandafter\mod@newcommand\csname #2\endcsname[1][]%
       {\csname modules@#2@pres@##1\endcsname}}%
-      \expandafter\expandafter\expandafter\g@addto@macro@safe\expandafter\this@module\expandafter%
-      {\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
-      {\expandafter\mod@termref\expandafter{\module@id}{#2}{##1}}}%
+        \expandafter\expandafter\expandafter\g@addto@macro@safe\expandafter\this@module\expandafter%
+        {\expandafter\@mod@nc\csname mod@symref@#2\expandafter\endcsname\expandafter%
+        {\expandafter\mod@termref\expandafter{\module@uri@uri}{#2}{##1}}}%
       \ifmod@qualified%
         \expandafter\g@addto@macro@safe\this@qualified@module%
         {\expandafter\mod@newcommand\csname modules@#2@pres@qualified\endcsname[#3]{#4}}%
@@ -568,7 +573,7 @@ same name; this is dangerous -- not importing}%
         {\expandafter\def\csname#2@qualified\endcsname{\csname modules@#2@pres@qualified\endcsname}}%
       \fi%
     }% mod@qualified
-  \fi% symdeflocal
+\fi% symdeflocal
   \ifmod@show%
     \ifx\symdef@display\st@flow\else{\noindent\emph{\symdef@type} #2:}\fi%
     \ifx\symdef@title\@empty~\else~(\emph{\symdef@title})\par\fi%
@@ -576,6 +581,7 @@ same name; this is dangerous -- not importing}%
   \ignorespacesandpars%
 }% mod@show
 \def\symdef@type{Symbol}%
+\providecommand{\stDMemph}[1]{\textbf{#1}}
 \def\symvariant#1{%
   \@ifnextchar[{\@symvariant{#1}}{\@symvariant{#1}[0]}%
   }%
