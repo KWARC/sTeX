@@ -634,8 +634,7 @@
 % annotations of a concept is above a threshold). Editors or active documents can also
 % support the |\term| macro like a wiki-like dangling link: a click on
 % |\term{|\meta{phrase}|}| could generate a new editor buffer with a stub definition (an
-% |definition| environment with |\definiendum| macro and appropriate metadata).\ednote{MK:
-% we probably need multi-part variants for |?tref*|}
+% |definition| environment with |\definiendum| macro and appropriate metadata).
 % 
 % \subsection{Term Redefinition in Recaps}\label{sec:user:drefi}
 %
@@ -1021,10 +1020,10 @@
 \protect\Defi*, \protect\defi*s, \protect\Defi*s\MessageBreak
 can only be referenced when called in a module with id key}}%
 {% now we are in a module
-\edef\@@cd{\ifx\omtext@theory\@empty\module@id\else\omtext@theory\fi}%
+\edef\@@cd{\ifx\omtext@theory\@empty\module@uri@uri\else\csname Module\omtext@theory\endcsname\@URI\fi}%
 \edef\@@name{\ifx\@symname\@empty\@verbname\else\@symname\fi}%
 \defemph{\@ifundefined{sref@\@@name @\@@cd @defined}%
-{\expandafter\sref@target@ifh{sref@\@@name @\@@cd @target}{#3}}%
+{\expandafter\sref@target@ifh{sref@\@@cd\@QuestionMark\@@name @target}{#3}}%
 {#3}}%
 %\footnote{sTeX: target sref@\@@name @\@@cd @target}% for testing targets
 \expandafter\gdef\csname sref@\@@name @\@@cd @defined\endcsname{yes}%
@@ -1069,7 +1068,7 @@ do not make sense semantically outside a definition.}
 \edef\@lemma{\ifx\definiendum@lemma\@empty%
 \ifx\definiendum@name\@empty #4\else\definiendum@name\fi%
 \else\definiendum@lemma\fi}%
-\st@def@target{\@name}{\@lemma}{#2}}
+\st@def@target{\@name}{\@lemma}{#2}\usemodule@maybesetcodes}
 \newcommand\definiendum[2][]{\@definiendum[#1]{#2}{}{}}
 %    \end{macrocode}
 % \end{macro}
@@ -1250,7 +1249,7 @@ whatever is suitable semantically}\fi}
 \mod@termref\termref@cd\termref@name{#2}%
 \else\sref@href@ifh\termref@cdbase{#2}%
 \fi}%
-{\def\@label{sref@\termref@name @\termref@cd @target}%
+{\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
 \sref@hlink@ifh\@label{#2}%\footnote{termref: internal reference to \@label}
 }}
 %    \end{macrocode}

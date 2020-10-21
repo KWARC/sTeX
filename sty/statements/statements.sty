@@ -139,10 +139,10 @@
 \protect\Defi*, \protect\defi*s, \protect\Defi*s\MessageBreak
 can only be referenced when called in a module with id key}}%
 {% now we are in a module
-\edef\@@cd{\ifx\omtext@theory\@empty\module@id\else\omtext@theory\fi}%
+\edef\@@cd{\ifx\omtext@theory\@empty\module@uri@uri\else\csname Module\omtext@theory\endcsname\@URI\fi}%
 \edef\@@name{\ifx\@symname\@empty\@verbname\else\@symname\fi}%
 \defemph{\@ifundefined{sref@\@@name @\@@cd @defined}%
-{\expandafter\sref@target@ifh{sref@\@@name @\@@cd @target}{#3}}%
+{\expandafter\sref@target@ifh{sref@\@@cd\@QuestionMark\@@name @target}{#3}}%
 {#3}}%
 \expandafter\gdef\csname sref@\@@name @\@@cd @defined\endcsname{yes}%
 \ifmetakeys@showmeta\metakeys@show@keys{\@@cd}{name:\@@name}\fi}%
@@ -165,7 +165,7 @@ do not make sense semantically outside a definition.}
 \edef\@lemma{\ifx\definiendum@lemma\@empty%
 \ifx\definiendum@name\@empty #4\else\definiendum@name\fi%
 \else\definiendum@lemma\fi}%
-\st@def@target{\@name}{\@lemma}{#2}}
+\st@def@target{\@name}{\@lemma}{#2}\usemodule@maybesetcodes}
 \newcommand\definiendum[2][]{\@definiendum[#1]{#2}{}{}}
 \newcommand\notatiendum[2][]{\notemph{#2}}
 \newcommand\adefi[3][]{\def\@verb{#2}\@definiendum[#1]{#2}{#3}{#3}\@adefi}
@@ -237,7 +237,7 @@ whatever is suitable semantically}\fi}
 \mod@termref\termref@cd\termref@name{#2}%
 \else\sref@href@ifh\termref@cdbase{#2}%
 \fi}%
-{\def\@label{sref@\termref@name @\termref@cd @target}%
+{\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
 \sref@hlink@ifh\@label{#2}%\footnote{termref: internal reference to \@label}
 }}
 \def\@instring#1#2{TT\fi\begingroup\edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}

@@ -55,23 +55,23 @@
     \edef\@findmanifest@path{\@CanPath/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{MANIFEST.MF found at \@findmanifest@path}
+      %\message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
-      \let\temp@archive@dir\@CanPath
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
     }{
     \edef\@findmanifest@path{\@CanPath/META-INF/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{MANIFEST.MF found at \@findmanifest@path}
+      %\message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
-      \let\temp@archive@dir\@CanPath
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
     }{
     \edef\@findmanifest@path{\@CanPath/meta-inf/MANIFEST.MF}
     \if@iswindows@\path@to@windows\@findmanifest@path\fi
     \IfFileExists{\@findmanifest@path}{
-      \message{MANIFEST.MF found at \@findmanifest@path}
+      %\message{MANIFEST.MF found at \@findmanifest@path}
       \edef\manifest@mf{\@findmanifest@path}
-      \let\temp@archive@dir\@CanPath
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
     }{
       \findmanifest{\@CanPath/..}
     }}}
@@ -95,41 +95,41 @@
     \split@manifest@key
     % id
     \IfStrEq\manifest@key{\detokenize{id}}{
-        \message{archive id: \manifest@line}
+        %\message{archive id: \manifest@line}
         \xdef\manifest@mf@id{\manifest@line}
     }{
     % narration-base
     \IfStrEq\manifest@key{\detokenize{narration-base}}{
-        \message{archive narration-base: \manifest@line}
+        %\message{archive narration-base: \manifest@line}
         \xdef\manifest@mf@narr{\manifest@line}
     }{
     % namespace
     \IfStrEq\manifest@key{\detokenize{source-base}}{
-        \message{archive source-base: \manifest@line}
+       % \message{archive source-base: \manifest@line}
         \xdef\manifest@mf@ns{\manifest@line}
     }{
     \IfStrEq\manifest@key{\detokenize{ns}}{
-        \message{archive ns: \manifest@line}
+        %\message{archive ns: \manifest@line}
         \xdef\manifest@mf@ns{\manifest@line}
     }{
     % dependencies
     \IfStrEq\manifest@key{\detokenize{dependencies}}{
-        \message{archive dependencies: \manifest@line}
+        %\message{archive dependencies: \manifest@line}
         \xdef\manifest@mf@deps{\manifest@line}
     }{
-
     }}}}}
     \parse@manifest@loop
   \fi
 }
+\newread\@manifest
 \def\parsemanifest#1#2{
+  \gdef\temp@archive@dir{}
   \findmanifest{#2}
   \begingroup
     \gdef\manifest@mf@id{}
     \gdef\manifest@mf@narr{}
     \gdef\manifest@mf@ns{}
     \gdef\manifest@mf@deps{}
-    \newread\@manifest
     \openin\@manifest\manifest@mf
     \parse@manifest@loop
     \closein\@manifest
@@ -141,9 +141,28 @@
   \cslet{#1deps}\manifest@mf@deps
   \cslet{#1dir}\temp@archive@dir
 }
+\def\setcurrentreposinfo#1{%
+  \ifcsdef{currentrepos@dir@#1}{%
+    \mhcurrentrepos{#1}%
+  }{%
+    \parsemanifest{mathhub@archive@}{\MathHub{#1}}%
+    \@setcurrentreposinfo%
+  }%
+}
 
+\def\@setcurrentreposinfo{%
+  \mhcurrentrepos{\mathhub@archive@id}%
+  \csxdef{currentrepos@dir@\mathhub@archive@id}{\mathhub@archive@dir}%
+  \csxdef{currentrepos@narr@\mathhub@archive@id}{\mathhub@archive@narr}%
+  \csxdef{currentrepos@ns@\mathhub@archive@id}{\mathhub@archive@ns}%
+  \csxdef{currentrepos@deps@\mathhub@archive@id}{\mathhub@archive@deps}%
+}
 \parsemanifest{mathhub@archive@}\stex@maindir
+<<<<<<< HEAD
 \mhcurrentrepos{\mathhub@archive@id}
+=======
+\@setcurrentreposinfo
+>>>>>>> master
 \endinput
 %%
 %% End of file `mathhub.sty'.
