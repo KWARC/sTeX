@@ -204,8 +204,8 @@ same name; this is dangerous -- not importing}%
 \def\conceptdef@type{Symbol}%
 \newrobustcmd\conceptdef[2][]{%
   \metasetkeys{conceptdef}{#1}%
-  \ifx\conceptdef@display\st@flow\else{\emph{\conceptdef@type} #2:}\fi%
-  \ifx\conceptdef@title\@empty~\else~(\emph{\conceptdef@title})\par\fi%
+  \ifx\conceptdef@display\st@flow\else{\stDMemph{\conceptdef@type} #2:}\fi%
+  \ifx\conceptdef@title\@empty~\else~(\stDMemph{\conceptdef@title})\par\fi%
 }%
 \newif\if@symdeflocal%
 \srefaddidkey{symdef}%
@@ -573,8 +573,8 @@ same name; this is dangerous -- not importing}%
     }% mod@qualified
 \fi% symdeflocal
   \ifmod@show%
-    \ifx\symdef@display\st@flow\else{\noindent\emph{\symdef@type} #2:}\fi%
-    \ifx\symdef@title\@empty~\else~(\emph{\symdef@title})\par\fi%
+    \ifx\symdef@display\st@flow\else{\noindent\stDMemph{\symdef@type} #2:}\fi%
+    \ifx\symdef@title\@empty~\else~(\stDMemph{\symdef@title})\par\fi%
   \fi%
   \ignorespacesandpars%
 }% mod@show
