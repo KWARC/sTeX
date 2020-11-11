@@ -1239,20 +1239,26 @@ whatever is suitable semantically}\fi}
 \addmetakey*{termref}{cd}
 \addmetakey*{termref}{cdbase}
 \addmetakey*{termref}{name}
+\newif\iftermref@moduleerror\termref@moduleerrorfalse
 \newcommand\termref[2][]{\metasetkeys{termref}{#1}%
+\termref@moduleerrorfalse
 \ifx\termref@cd\@empty%
   \ifcsvoid{module@uri@uri}{%
     \PackageError{statements}{\string\termref without Module name, %
-      but not in a module.
-    }{}
-  }{}
+      but not in a module.%
+    }{}%
+    \termref@moduleerrortrue%
+  }{}%
+  \iftermref@moduleerror\else%
   \def\termref@cd{\module@uri@uri}\else%
   \ifcsvoid{Module\termref@cd}{%
     \PackageError{statements}{Module \termref@cd not loaded}{%
-      Probably a missing \string\importmodule somewhere.}
-     }{}
+      Probably a missing \string\importmodule somewhere.}%
+     }{}%
   \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
+  \fi%
 \fi%
+\iftermref@moduleerror\else%
 \ifx\termref@name\@empty\def\termref@name{#2}\fi%
 \@ifundefined{sref@\termref@name @\termref@cd @defined}%
 {\ifx\termref@cdbase\@empty% external reference
@@ -1261,7 +1267,7 @@ whatever is suitable semantically}\fi}
 \fi}%
 {\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
 \sref@hlink@ifh\@label{#2}%\footnote{termref: internal reference to \@label}
-}}
+}\fi}
 %    \end{macrocode}
 % \end{macro}
 %
