@@ -229,7 +229,7 @@ whatever is suitable semantically}\fi}
 \addmetakey*{termref}{name}
 \newif\iftermref@moduleerror\termref@moduleerrorfalse
 \newcommand\termref[2][]{\metasetkeys{termref}{#1}%
-\termref@moduleerrorfalse
+\termref@moduleerrorfalse%
 \ifx\termref@cd\@empty%
   \ifcsvoid{module@uri@uri}{%
     \PackageError{statements}{\string\termref without Module name, %
