@@ -57,13 +57,15 @@
 \ifx\inclprob@title\@empty% if there is no outside title
 \ifx\problem@title\@empty{#1}\else{#2\problem@title{#3}}\fi
 \else{#2}\inclprob@title{#3}\fi}% else show the outside title
-\def\prob@heading{\prob@problem@kw~\prob@number\prob@title{ }{ (}{)\strut\\}%
-\sref@label@id{\prob@problem@kw~\prob@number}}
+\def\prob@heading{\prob@problem@kw~\prob@number\prob@title{ }{ (}{)\strut}%
+\sref@label@id{\prob@problem@kw~\prob@number}{}%
+}
 \newenvironment{problem}[1][]{\metasetkeys{problem}{#1}\sref@target%
 \@in@omtexttrue% we are in a statement (for inline definitions)
 \stepcounter{problem}\record@problem%
 \def\current@section@level{\prob@problem@kw}%
-\par\noindent\textbf\prob@heading\show@pts\show@min\rmfamily\noindent\ignorespacesandpars}
+\par\noindent\textbf\prob@heading\show@pts\show@min\\\ignorespacesandpars
+}%
 {\smallskip}
 \ifboxed\surroundwithmdframed{problem}\fi
 \def\record@problem{\protected@write\@auxout{}%
