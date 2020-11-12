@@ -8,6 +8,7 @@ essentially turning it into a document format for mathematical knowledge managem
 
 ## Copyright & License
 Copyright (c) 2019 Michael Kohlhase
+
 The package is distributed under the terms of the LaTeX Project Public License (LPPL)
 
 ## Documentation
