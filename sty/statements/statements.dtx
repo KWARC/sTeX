@@ -1250,12 +1250,12 @@ whatever is suitable semantically}\fi}
     \termref@moduleerrortrue%
   }{}%
   \iftermref@moduleerror\else%
-  \def\termref@cd{\module@uri@uri}\else%
-  \ifcsvoid{Module\termref@cd}{%
+  \def\termref@cd{\module@id}\fi\else%
+  \iftermref@moduleerror\else\ifcsvoid{Module\termref@cd}{%
     \PackageError{statements}{Module \termref@cd not loaded}{%
       Probably a missing \string\importmodule somewhere.}%
      }{}%
-  \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
+ % \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
   \fi%
 \fi%
 \iftermref@moduleerror\else%
