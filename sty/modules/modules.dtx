@@ -355,8 +355,7 @@
 %  \textbf{Definition 3.17} Let $\langle G,\circ\rangle$ be a semigroup, then we call
 %  $e\in G$ a \textbf{unit}, iff $e\circ x=x\circ e=x$. A semigroup with unit $\langle
 %  G,\circ,e\rangle$ is called a \textbf{monoid}.
-%  \caption{A Definition of a Structure with ``semantic
-%  variables''.}\label{fig:monoid}
+%  \caption{A Definition of a Structure with ``semantic variables''.}\label{fig:monoid}
 % \end{exfig}
 %
 % Semantic variables differ from semantic constants in two ways:
@@ -1382,9 +1381,9 @@
 % \subsection{Semantic Macros for Variables}\label{sec:impl:semvars}
 %
 % \begin{macro}{\vardef} 
-%   From the {\LaTeX} point of view |\vardef| is just an abbreviation
+% From the {\LaTeX} point of view |\vardef| is just a |\symdef|
 %    \begin{macrocode}
-\let\vardef\abbrdef
+\let\vardef\symdef
 %    \end{macrocode}
 % \end{macro}
 %
