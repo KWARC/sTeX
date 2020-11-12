@@ -24,21 +24,18 @@ git clone https://github.com/slatex/sTeX.git
 ```
 Then update your  `TEXINPUTS` environment variable, e.g. by placing the following line in your `.bashrc`:
 ```
-export TEXINPUTS="$(TEXINPUTS):<sTeXDIR>//:
+export TEXINPUTS="$(TEXINPUTS):<sTeXDIR>//:$(TEXINPUTS)
 ```
-For a LaTeX IDE, update the directory path where `pdflatex` looks for paths. 
+For a LaTeX IDE, update the directory path where `pdflatex` looks for paths accordingly.
 
-It is usually a good idea to enlarge the internal memory allocation of the TEX/LATEX executables. This can be done by adding the following configurations in `texmf.cnf` (or changing them, if they already exist). 
+## MathHub
+
+If you want to use [MathHub](https://mathhub.info)-compatible organization into
+mathematical archives (and that is usually a good idea) then you have to create a
+**MathHub root directory**, e.g. `~/localmh/MathHub`, and set the `MATHHUB` environment
+variable adding the following to your `.bashrc`.
 ```
-max_in_open = 50        % simultaneous input files and error insertions, 
-param_size = 20000      % simultaneous macro parameters, also applies to MP
-nest_size = 1000        % simultaneous semantic levels (e.g., groups)
-stack_size = 10000      % simultaneous input sources
-main_memory = 12000000
-```
-Note that you will probably need `sudo` to do this. After that, you have to run the command 
-```
-sudo fmtutil-sys --all
+export MATHHUB="$(HOME)/localmh/MathHub"
 ```
 
 ## OMDoc/RichHTML Transformation 
@@ -58,3 +55,6 @@ The sTeX distribution contains the following directories
 * `test`: the [sTeX test suite](https://github.com/sLaTeX/stex-tests) imported via `git
   subrepo`; run `make -B test` at top level to test; run `git subrepo pull test` to
   update; and run `git subrepo push test` to contribute tests back upstream. 
+
+<!--  LocalWords:  bashrc pdflatex subrepo subrepo
+ -->
