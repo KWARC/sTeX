@@ -370,7 +370,8 @@
 \newrobustcmd\capitalize[1]{\expandafter\@capitalize #1}%
 \newcommand\mod@component[1]{}
 \newcommand\mod@termref[3]{\def\@test{#3}%
-  \@ifundefined{module@defs@#1}{%
+
+  \ifcsvoid{Module#1}{%
     \protect\G@refundefinedtrue%
     \if@trwarn
       \PackageWarning{modules}{`\protect\termref' with unidentified cd "#1":\MessageBreak
@@ -379,7 +380,7 @@
       \PackageError{modules}{`\protect\termref' with unidentified cd "#1"}
       {the cd key must reference an active module}%
     \fi}%
-  {\def\@label{sref@#1\@QuestionMark#2\mod@component{#1}@target}%
+  {\def\@label{sref@\csname Module#1\endcsname\@URI\@QuestionMark#2\mod@component{#1}@target}%
     \@ifundefined{module@#1@path}% local reference
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
     }%
