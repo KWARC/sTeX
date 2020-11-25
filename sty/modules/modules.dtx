@@ -1656,20 +1656,28 @@
 %   and friends to values that suppress overfull and underfull hbox messages.
 %    \begin{macrocode}
   \newbox\modules@import@tempbox
-  \def\requiremodules@smsmode#1{%
-    \setbox\modules@import@tempbox\vbox{%
+  \newenvironment{smsmode}{%
+    \if@smsmode\else%
       \@smsmodetrue%
       \set@usemodule@catcodes%
       \hbadness=100000\relax%
       \hfuzz=10000pt\relax%
       \vbadness=100000\relax%
       \vfuzz=10000pt\relax%
+    \fi%
+    \setbox\smsbox\vbox\bgroup\@smsmodetrue%
+  }{%
+    \egroup%
+  }
+
+  \def\requiremodules@smsmode#1{%
+    \begin{smsmode}%
       \edef\temp@path{#1.tex}%
       \if@iswindows@\path@to@windows\temp@path\fi%
       \input{\temp@path}%
       \reset@usemodule@catcodes%
-      }%
-      \usemodule@maybesetcodes%
+    \end{smsmode}%
+    \usemodule@maybesetcodes%
   }
 %    \end{macrocode}
 % \end{macro}
