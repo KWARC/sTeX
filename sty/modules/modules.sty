@@ -459,15 +459,16 @@
   }%
   \newbox\modules@import@tempbox
   \newenvironment{smsmode}{%
-    \if@smsmode\else%
-      \@smsmodetrue%
-      \set@usemodule@catcodes%
-      \hbadness=100000\relax%
-      \hfuzz=10000pt\relax%
-      \vbadness=100000\relax%
-      \vfuzz=10000pt\relax%
-    \fi%
-    \setbox\smsbox\vbox\bgroup\@smsmodetrue%
+    \setbox\modules@import@tempbox\vbox\bgroup%
+      \if@smsmode\else%
+        \@smsmodetrue%
+        \set@usemodule@catcodes%
+        \hbadness=100000\relax%
+        \hfuzz=10000pt\relax%
+        \vbadness=100000\relax%
+        \vfuzz=10000pt\relax%
+      \fi%
+    \@smsmodetrue%
   }{%
     \egroup%
   }
