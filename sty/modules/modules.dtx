@@ -1315,7 +1315,7 @@
   \@ifnextchar[{\@symvariant{#1}}{\@symvariant{#1}[0]}%
   }%
 \def\@symvariant#1[#2]#3#4{%
-  \usemodule@maybesetcodes
+  \usemodule@maybesetcodes%
   \expandafter\mod@newcommand\csname modules@#1@pres@#3\endcsname[#2]{#4}%
 %    \end{macrocode}
 % and if we are in a named module, then we need to export the function

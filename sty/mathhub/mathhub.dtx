@@ -355,8 +355,8 @@
 \newcommand\libinput[1]{%
 \ifcsvoid{mh@currentrepos}{%
   \PackageError{mathhub}{current MathHub repository not found}{}}%
-  {}
-\edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}
+  {}%
+\edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}%
 \let\orig@inffile\mh@inffile\let\orig@libfile\mh@libfile%
 \def\mh@inffile{\MathHub{\@mh@group/meta-inf/lib/#1}}%
 \def\mh@libfile{\MathHub{\mh@currentrepos/lib/#1}}%
@@ -366,12 +366,12 @@
 \fi%
 \IfFileExists\mh@inffile{\input\mh@inffile}{}%
 \IfFileExists\mh@inffile{}{\IfFileExists\mh@libfile{}{%
-  {\PackageError{mathhub}
+  {\PackageError{mathhub}%
     {Library file missing; cannot input #1.tex\MessageBreak%
     Both \mh@libfile.tex\MessageBreak and \mh@inffile.tex\MessageBreak%
     do not exist}%
-  {Check whether the file name is correct}}}}
-\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}
+  {Check whether the file name is correct}}}}%
+\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}%
 \let\mh@inffile\orig@inffile\let\mh@libfile\orig@libfile}
 %    \end{macrocode}
 % \end{macro}
@@ -380,9 +380,9 @@
 %   the |\libusepackage| is analogous to |\libinput|
 %    \begin{macrocode}
 \newcommand\libusepackage[2][]{%
-\edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}
-\let\orig@inffile\mh@inffile\let\orig@libfile\mh@libfile
-\edef\mh@inffile{\MathHub{\@mh@group/meta-inf/lib/#2}}
+\edef\@mh@group{\expandafter\modules@@first\mh@currentrepos;}%
+\let\orig@inffile\mh@inffile\let\orig@libfile\mh@libfile%
+\edef\mh@inffile{\MathHub{\@mh@group/meta-inf/lib/#2}}%
 \edef\mh@libfile{\MathHub{\mh@currentrepos/lib/#2}}%
 \if@iswindows@%
   \path@to@windows\mh@inffile%
@@ -390,12 +390,12 @@
 \fi%
 \IfFileExists{\mh@inffile.sty}{\usepackage[#1]{\mh@inffile}}{}%
 \IfFileExists {\mh@inffile.sty}{}{\IfFileExists{\mh@libfile.sty}{}{%
-  {\PackageError{mathhub}
+  {\PackageError{mathhub}%
     {Library file missing; cannot use package #2.sty\MessageBreak%
     Both \mh@libfile.sty\MessageBreak and \mh@inffile.sty\MessageBreak%
     do not exist}%
-  {Check whether the file name is correct}}}}
-\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}
+  {Check whether the file name is correct}}}}%
+\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}%
 \let\mh@inffile\orig@inffile\let\mh@libfile\orig@libfile}
 %    \end{macrocode}
 % \end{macro}
@@ -419,7 +419,7 @@
   {MATHHUB system variable not found or wrongly set}
   {use export MATHHUB="<path>", where <path> points your MathHub direcctory}
 \else\defpath{MathHub}{\mathhub@path}\fi
-\message{^^JMATHHUB:>>\meaning\mathhub@path<<^^J}
+\ifcsvoid{mathhub@path}{}{\message{^^JMATHHUB: \mathhub@path}}
 
 %    \end{macrocode}
 %\begin{macro}{\findmanifest}
@@ -427,92 +427,92 @@
 % the file system tree.
 %
 %    \begin{macrocode}
-\def\findmanifest#1{
-  \@cpath{#1}
-  \ifx\@CanPath\@Slash
-    \def\manifest@mf{}
-  \else\ifx\@CanPath\@empty
-      \def\manifest@mf{}
-  \else
-    \edef\@findmanifest@path{\@CanPath/MANIFEST.MF}
-    \if@iswindows@\path@to@windows\@findmanifest@path\fi
+\def\findmanifest#1{%
+  \@cpath{#1}%
+  \ifx\@CanPath\@Slash%
+    \def\manifest@mf{}%
+  \else\ifx\@CanPath\@empty%
+      \def\manifest@mf{}%
+  \else%
+    \edef\@findmanifest@path{\@CanPath/MANIFEST.MF}%
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi%
     %\message{^^JHere: \@findmanifest@path^^J}
-    \IfFileExists{\@findmanifest@path}{
+    \IfFileExists{\@findmanifest@path}{%
       %\message{MANIFEST.MF found at \@findmanifest@path}
-      \edef\manifest@mf{\@findmanifest@path}
-      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
-    }{
-    \edef\@findmanifest@path{\@CanPath/META-INF/MANIFEST.MF}
-    \if@iswindows@\path@to@windows\@findmanifest@path\fi
-    \IfFileExists{\@findmanifest@path}{
+      \edef\manifest@mf{\@findmanifest@path}%
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}%
+    }{%
+    \edef\@findmanifest@path{\@CanPath/META-INF/MANIFEST.MF}%
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi%
+    \IfFileExists{\@findmanifest@path}{%
       %\message{MANIFEST.MF found at \@findmanifest@path}
-      \edef\manifest@mf{\@findmanifest@path}
-      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
-    }{
-    \edef\@findmanifest@path{\@CanPath/meta-inf/MANIFEST.MF}
-    \if@iswindows@\path@to@windows\@findmanifest@path\fi
-    \IfFileExists{\@findmanifest@path}{
+      \edef\manifest@mf{\@findmanifest@path}%
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}%
+    }{%
+    \edef\@findmanifest@path{\@CanPath/meta-inf/MANIFEST.MF}%
+    \if@iswindows@\path@to@windows\@findmanifest@path\fi%
+    \IfFileExists{\@findmanifest@path}{%
       %\message{MANIFEST.MF found at \@findmanifest@path}
-      \edef\manifest@mf{\@findmanifest@path}
-      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}
-    }{
-      \findmanifest{\@CanPath/..}
-    }}}
-  \fi\fi
+      \edef\manifest@mf{\@findmanifest@path}%
+      \xdef\temp@archive@dir{\expandafter\detokenize\expandafter{\@CanPath}}%
+    }{%
+      \findmanifest{\@CanPath/..}%
+    }}}%
+  \fi\fi%
 }
 %    \end{macrocode}
 %\end{macro}
 % the next macro is a helper function for parsing |MANIFEST.MF|
 %
 %    \begin{macrocode}
-\def\split@manifest@key{
-  \IfSubStr{\manifest@line}{\@Colon}{
-      \StrBefore{\manifest@line}{\@Colon}[\manifest@key]
-      \StrBehind{\manifest@line}{\@Colon}[\manifest@line]
-      \trimstring\manifest@line
-      \trimstring\manifest@key
-  }{
-      \def\manifest@key{}
-  }
+\def\split@manifest@key{%
+  \IfSubStr{\manifest@line}{\@Colon}{%
+      \StrBefore{\manifest@line}{\@Colon}[\manifest@key]%
+      \StrBehind{\manifest@line}{\@Colon}[\manifest@line]%
+      \trimstring\manifest@line%
+      \trimstring\manifest@key%
+  }{%
+      \def\manifest@key{}%
+  }%
 }
 %    \end{macrocode}
 %
 % the next helper function iterates over lines in |MANIFEST.MF|
 %
 %    \begin{macrocode}
-\def\parse@manifest@loop{
-  \ifeof\@manifest
-  \else
-    \read\@manifest to \manifest@line\relax
-    \edef\manifest@line{\expandafter\detokenize\expandafter{\manifest@line}}
-    \split@manifest@key
+\def\parse@manifest@loop{%
+  \ifeof\@manifest%
+  \else%
+    \read\@manifest to \manifest@line\relax%
+    \edef\manifest@line{\expandafter\detokenize\expandafter{\manifest@line}}%
+    \split@manifest@key%
     % id
-    \IfStrEq\manifest@key{\detokenize{id}}{
+    \IfStrEq\manifest@key{\detokenize{id}}{%
         %\message{archive id: \manifest@line}
-        \xdef\manifest@mf@id{\manifest@line}
-    }{
+        \xdef\manifest@mf@id{\manifest@line}%
+    }{%
     % narration-base
-    \IfStrEq\manifest@key{\detokenize{narration-base}}{
+    \IfStrEq\manifest@key{\detokenize{narration-base}}{%
         %\message{archive narration-base: \manifest@line}
-        \xdef\manifest@mf@narr{\manifest@line}
-    }{
+        \xdef\manifest@mf@narr{\manifest@line}%
+    }{%
     % namespace
-    \IfStrEq\manifest@key{\detokenize{source-base}}{
+    \IfStrEq\manifest@key{\detokenize{source-base}}{%
        % \message{archive source-base: \manifest@line}
-        \xdef\manifest@mf@ns{\manifest@line}
-    }{
-    \IfStrEq\manifest@key{\detokenize{ns}}{
+        \xdef\manifest@mf@ns{\manifest@line}%
+    }{%
+    \IfStrEq\manifest@key{\detokenize{ns}}{%
         %\message{archive ns: \manifest@line}
-        \xdef\manifest@mf@ns{\manifest@line}
-    }{
+        \xdef\manifest@mf@ns{\manifest@line}%
+    }{%
     % dependencies
-    \IfStrEq\manifest@key{\detokenize{dependencies}}{
+    \IfStrEq\manifest@key{\detokenize{dependencies}}{%
         %\message{archive dependencies: \manifest@line}
-        \xdef\manifest@mf@deps{\manifest@line}
-    }{
-    }}}}}
-    \parse@manifest@loop
-  \fi
+        \xdef\manifest@mf@deps{\manifest@line}%
+    }{%
+    }}}}}%
+    \parse@manifest@loop%
+  \fi%
 }
 %    \end{macrocode}
 %\begin{macro}{\parsemanifest}
@@ -521,24 +521,24 @@
 % \meta{macroname}|id|, \meta{macroname}|narr|, etc.
 %    \begin{macrocode}
 \newread\@manifest
-\def\parsemanifest#1#2{
-  \gdef\temp@archive@dir{}
-  \findmanifest{#2}
-  \begingroup
-    \gdef\manifest@mf@id{}
-    \gdef\manifest@mf@narr{}
-    \gdef\manifest@mf@ns{}
-    \gdef\manifest@mf@deps{}
-    \openin\@manifest\manifest@mf
-    \parse@manifest@loop
-    \closein\@manifest
-  \endgroup
-  \if@iswindows@\windows@to@path\manifest@mf\fi
-  \cslet{#1id}\manifest@mf@id
-  \cslet{#1narr}\manifest@mf@narr
-  \cslet{#1ns}\manifest@mf@ns
-  \cslet{#1deps}\manifest@mf@deps
-  \cslet{#1dir}\temp@archive@dir
+\def\parsemanifest#1#2{%
+  \gdef\temp@archive@dir{}%
+  \findmanifest{#2}%
+  \begingroup%
+    \gdef\manifest@mf@id{}%
+    \gdef\manifest@mf@narr{}%
+    \gdef\manifest@mf@ns{}%
+    \gdef\manifest@mf@deps{}%
+    \openin\@manifest\manifest@mf\relax%
+    \parse@manifest@loop%
+    \closein\@manifest%
+  \endgroup%
+  \if@iswindows@\windows@to@path\manifest@mf\fi%
+  \cslet{#1id}\manifest@mf@id%
+  \cslet{#1narr}\manifest@mf@narr%
+  \cslet{#1ns}\manifest@mf@ns%
+  \cslet{#1deps}\manifest@mf@deps%
+  \cslet{#1dir}\temp@archive@dir%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -557,7 +557,7 @@
   \ifcsvoid{mathhub@archive@dir}{\PackageError{mathhub}{No archive with %
     name #1 found!}{make sure that #1 is directly in your MATHHUB folder %
     and contains a MANIFEST.MF, either directly in #1 or in a meta-inf %
-    subfolder.}}{}
+    subfolder.}}{}%
 }
 
 \def\@setcurrentreposinfo{%
@@ -573,6 +573,7 @@
 %    \begin{macrocode}
 \parsemanifest{mathhub@archive@}\stex@maindir
 \@setcurrentreposinfo
+\message{^^J Current MathHub repository: \ifcsvoid{mh@currentrepos}{None}\mh@currentrepos}
 %</package>
 %    \end{macrocode}
 %
