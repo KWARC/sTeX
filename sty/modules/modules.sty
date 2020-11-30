@@ -40,7 +40,6 @@
 \addmetakey*{module}{srccite}
 \addmetakey*{module}{align}[WithTheModuleOfTheSameName]
 \addmetakey*{module}{ns}
-\addmetakey*{module}{sig}
 \addmetakey*{module}{narr}
 \addmetakey*{module}{noalign}[true]
 \ifdef{\thesection}{\newcounter{module}[section]}{\newcounter{module}}%
@@ -128,9 +127,6 @@
       {\noexpand\@invoke@module{\module@uri@uri}}%
     }%
   \fi%
-  \ifcsvoid{module@sig}{}{%
-    \@importmodule[.]{\module@id.\module@sig}{export}%
-  }%
 }{%
 \if@inmhrepos%
 \@inmhreposfalse%
