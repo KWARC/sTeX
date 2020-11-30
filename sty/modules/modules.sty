@@ -40,6 +40,7 @@
 \addmetakey*{module}{srccite}
 \addmetakey*{module}{align}[WithTheModuleOfTheSameName]
 \addmetakey*{module}{ns}
+\addmetakey*{module}{sig}
 \addmetakey*{module}{narr}
 \addmetakey*{module}{noalign}[true]
 \ifdef{\thesection}{\newcounter{module}[section]}{\newcounter{module}}%
@@ -61,53 +62,53 @@
 }%
 \ifmod@show\surroundwithmdframed{module@om@common}\fi%
 \newif\ifarchive@ns@empty@\archive@ns@empty@false
-\def\set@default@ns{
-  \edef\@module@ns@temp{\currfiledir}
-  \if@iswindows@\windows@to@path\@module@ns@temp\fi
-  \archive@ns@empty@false
-  \unless\ifcsname mh@currentrepos\endcsname
-    \archive@ns@empty@true
-  \else
-    \expandafter\ifx\csname currentrepos@ns@\mh@currentrepos\endcsname\@empty\archive@ns@empty@true\fi
-  \fi
-  \ifarchive@ns@empty@
-    \edef\@module@ns@tempuri{file\@Colon\@Slash\@Slash\@module@ns@temp}
-  \else
-    \edef\@module@filepath@temppath{\@module@ns@temp}
-    \edef\@module@ns@tempuri{\csname currentrepos@ns@\mh@currentrepos\endcsname}
-    \edef\@module@archivedirpath{\csname currentrepos@dir@\mh@currentrepos\endcsname\@Slash source}
-    \edef\@module@archivedirpath{\expandafter\detokenize\expandafter{\@module@archivedirpath}}
-    \IfBeginWith\@module@filepath@temppath\@module@archivedirpath{
-      \StrLen\@module@archivedirpath[\ns@temp@length]
-      \StrGobbleLeft\@module@filepath@temppath\ns@temp@length[\@module@filepath@temprest]
-      \edef\@module@ns@tempuri{\@module@ns@tempuri\@module@filepath@temprest}
-    }{}
-  \fi
-  \IfEndWith\@module@ns@tempuri\@Slash{\StrGobbleRight\@module@ns@tempuri1[\@module@ns@tempuri]}{}
-  \setkeys{module}{ns=\@module@ns@tempuri}
+\def\set@default@ns{%
+  \edef\@module@ns@temp{\currfiledir}%
+  \if@iswindows@\windows@to@path\@module@ns@temp\fi%
+  \archive@ns@empty@false%
+  \unless\ifcsname mh@currentrepos\endcsname%
+    \archive@ns@empty@true%
+  \else%
+    \expandafter\ifx\csname currentrepos@ns@\mh@currentrepos\endcsname\@empty\archive@ns@empty@true\fi%
+  \fi%
+  \ifarchive@ns@empty@%
+    \edef\@module@ns@tempuri{file\@Colon\@Slash\@Slash\@module@ns@temp}%
+  \else%
+    \edef\@module@filepath@temppath{\@module@ns@temp}%
+    \edef\@module@ns@tempuri{\csname currentrepos@ns@\mh@currentrepos\endcsname}%
+    \edef\@module@archivedirpath{\csname currentrepos@dir@\mh@currentrepos\endcsname\@Slash source}%
+    \edef\@module@archivedirpath{\expandafter\detokenize\expandafter{\@module@archivedirpath}}%
+    \IfBeginWith\@module@filepath@temppath\@module@archivedirpath{%
+      \StrLen\@module@archivedirpath[\ns@temp@length]%
+      \StrGobbleLeft\@module@filepath@temppath\ns@temp@length[\@module@filepath@temprest]%
+      \edef\@module@ns@tempuri{\@module@ns@tempuri\@module@filepath@temprest}%
+    }{}%
+  \fi%
+  \IfEndWith\@module@ns@tempuri\@Slash{\StrGobbleRight\@module@ns@tempuri1[\@module@ns@tempuri]}{}%
+  \setkeys{module}{ns=\@module@ns@tempuri}%
 }
 \def\set@next@moduleid{
-  \unless\ifcsname namespace@\module@ns @unnamedmodules\endcsname
-      \csgdef{namespace@\module@ns @unnamedmodules}{0}
-  \fi
-  \edef\namespace@currnum{\csname namespace@\module@ns @unnamedmodules\endcsname}
-  \edef\module@temp@setidname{\noexpand\setkeys{module}{id=module\namespace@currnum}}
-  \module@temp@setidname
-  \csxdef{namespace@\module@ns @unnamedmodules}{\the\numexpr\namespace@currnum+1}
+  \unless\ifcsname namespace@\module@ns @unnamedmodules\endcsname%
+      \csgdef{namespace@\module@ns @unnamedmodules}{0}%
+  \fi%
+  \edef\namespace@currnum{\csname namespace@\module@ns @unnamedmodules\endcsname}%
+  \edef\module@temp@setidname{\noexpand\setkeys{module}{id=module\namespace@currnum}}%
+  \module@temp@setidname%
+  \csxdef{namespace@\module@ns @unnamedmodules}{\the\numexpr\namespace@currnum+1}%
 }
 \newif\if@inmhrepos\@inmhreposfalse
-\newenvironment{@module}[1][]{
-  \metasetkeys{module}{#1}
-  \ifx\module@ns\@empty\set@default@ns\fi
-  \ifx\module@narr\@empty
-    \setkeys{module}{narr=\module@ns}
-  \fi
-  \ifcsname module@id\endcsname
-    \ifx\module@id\@empty\set@next@moduleid\fi
-  \else\set@next@moduleid\fi
-  \edef\module@uri@uri{\module@ns\@QuestionMark\module@id} % faster, and at this point equivalent
-  \csxdef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}
-  \expandafter\global\expandafter\let\csname Module\module@id\expandafter\endcsname\csname\module@uri@uri\endcsname
+\newenvironment{@module}[1][]{%
+  \metasetkeys{module}{#1}%
+  \ifx\module@ns\@empty\set@default@ns\fi%
+  \ifx\module@narr\@empty%
+    \setkeys{module}{narr=\module@ns}%
+  \fi%
+  \ifcsname module@id\endcsname%
+    \ifx\module@id\@empty\set@next@moduleid\fi%
+  \else\set@next@moduleid\fi%
+  \edef\module@uri@uri{\module@ns\@QuestionMark\module@id}% faster, and at this point equivalent
+  \csxdef{\module@uri@uri}{\noexpand\@invoke@module{\module@uri@uri}}%
+  \expandafter\global\expandafter\let\csname Module\module@id\expandafter\endcsname\csname\module@uri@uri\endcsname%
   \edef\this@module{%
     \expandafter\noexpand\csname module@defs@\module@uri@uri\endcsname%
   }%
@@ -127,6 +128,9 @@
       {\noexpand\@invoke@module{\module@uri@uri}}%
     }%
   \fi%
+  \ifcsvoid{module@sig}{}{%
+    \@importmodule[.]{\module@id.\module@sig}{export}%
+  }%
 }{%
 \if@inmhrepos%
 \@inmhreposfalse%
