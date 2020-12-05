@@ -121,7 +121,7 @@
 % The |mikoslides| class takes a variety of class options:\ednote{leaving out noproblems
 % for the moment until we decide what to do with it.}
 % \begin{itemize}
-% \item The options \DescribeMacro{slides}|slides|\DescribeMacro and {notes}|notes| switch
+% \item The options \DescribeMacro{slides}|slides| and \DescribeMacro{notes}|notes| switch
 %   between slides mode and notes mode (see Section~\ref{sec:user:notesslides}).
 % \item If the option \DescribeMacro{sectocframes}|sectocframes| is given, then for the
 %   |omgroup|s, special frames with the |omgroup| title (and number) are generated.
@@ -199,13 +199,10 @@
 % label that can be referenced like a regular |beamer| frame.\ednote{MK: the hyperref link
 % does not seem to work yet. I wonder why but do not have the time to fix it.}
 % 
-% If we want to transclude a the contents of a file as a note, we can use the
-% \DescribeMacro{\inputref*}|\inputref*| macro: |\inputref*{foo}| is equivalent to 
-%\begin{verbatim}
-% \begin{note}
-%   \inputref{foo}
-% \end{note}
-% \end{verbatim}
+% If we want to transclude a the contents of a file as a note, we can use a new variant
+% \DescribeMacro{\inputref*}|\inputref*| of the |\inputref| macro from
+% \ctancite{KohAmb:smmssl}: |\inputref*{foo}| is equivalent to
+% |\begin{note}\inputref{foo}\end{note}|.
 % 
 % There are some environments that tend to occur at the top-level of |note|
 % environments. We make convenience versions of these: e.g. the
@@ -213,15 +210,47 @@
 % environment (but looks nicer in the source, since it avoids one level of source
 % indenting). Similarly, we have the \DescribeEnv{nomgroup}|nomgroup| environment.
 %  
-% \subsection{Header and Footer Lines}\label{sec:user:headfootlines}
+% \subsection{Header and Footer Lines of the Slides}\label{sec:user:headfootlines}
 %
+% The default logo provided by the |mikoslides| package is the {\sTeX} logo it can be
+% customized using \DescribeMacro{\setslidelogo}|\setslidelogo{|\meta{logo name}|}|.
+%
+% The default footer line of the |mikoslides| package mentions copyright and licensing. In
+% the |beamer| class, |\source| stores the author's name as the copyright holder . By
+% default it is {\it Michael Kohlhase} in the |mikoslides| package since he is the main
+% user and designer of this package. \DescribeMacro{\setsource}|\setsource{|\meta{name}|}|
+% can change the writer's name. For licsnsing, we use the Creative Commons
+% Attribuition-ShareAlike license by default to strengthen the public domain. If package
+% |hyperref| is loaded, then we can attach a hyperlink to the license
+% logo. \DescribeMacro{\setlicensing}|\setlicensing[|\meta{url}|]{|\meta{logo name}|}| is
+% used for customization, where \meta{url} is optional.
+% 
 % \subsection{Colors and Highlighting}\label{sec:user:highlighting}
 % The \DescribeMacro{\textwarning}|\textwarning| macro generates a warning
 % sign: \textwarning
 %
-% \subsection{Front Matter, Titles, etc}\label{sec:user:matter}
+% \subsection{Front Matter, Titles, etc.}\label{sec:user:matter}
 %
 % \subsection{Miscellaneous}\label{sec:user:misc}
+%
+% In course notes, we sometimes want to point to an ``excursion'' -- material that is
+% either presupposed or tangential to the course at the moment -- e.g. in an appendix. The
+% typical setup is the following:
+% 
+% \begin{verbatim}
+% \excursionref{founif}{We will cover first-order unification in}
+% ...
+% \begin{appendix}
+%   \excursion{founif}{../ex/founif}
+% \end{appendix}
+% \end{verbatim}
+%
+% The \DescribeMacro{\excursionref}|\excursionref{|\meta{ref}|}{|\meta{text}|}| generates
+% an |omtext| with |title| ``Excursion'' and body \meta{text} and a reference to the
+% excursion itself -- a section wth |id=|\meta{ref} -- which can be specified by
+% \DescribeMacro{\excursion}|\excursion{|\meta{ref}|}{|\meta{path}|}|. This is just a
+% conditional version of |\inputref{|\meta{path}|}| that is only formatted, when the
+% corresponding |\excursionref{|\meta{ref}|}{|\meta{text}|}| is.
 %
 % \section{Limitations}\label{sec:limitations}
 % 
@@ -511,13 +540,29 @@
 %    \end{macrocode}
 % \end{environment}
 %
+% \begin{macro}{\inputref@*skip}
+% We customize the hooks for in |\inputref|. 
+%    \begin{macrocode}
+\def\inputref@preskip{\smallskip}
+\def\inputref@postskip{\medskip}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\inputref*}
+%    \begin{macrocode}
+\let\orig@inputref\inputref
+\def\inputref{\@ifstar\ninputref\orig@inputref}
+\newcommand\ninputref[2][]{\ifmks@sty@notes\orig@inputref[#1]{#2}\fi}
+%    \end{macrocode}
+% \end{macro}
+% 
 % \subsection{Header and Footer Lines}\label{sec:impl:headfootlines}
 %
 % Now, we set up the infrastructure for the footer line of the slides, we use boxes for
 % the logos, so that they are only loaded once, that considerably speeds up processing.
 % 
 % \begin{macro}{\setslidelogo}
-% The default logo is the \sTeX logo. Customization can be done by |\setslidelogo{|\meta{logo name}|}|.
+% The default logo is the {\sTeX} logo. Customization can be done by |\setslidelogo{|\meta{logo name}|}|.
 %    \begin{macrocode}
 \newlength{\slidelogoheight}
 \ifmks@sty@notes%
@@ -737,22 +782,6 @@
 \fi% ifmks@sty@notes
 %    \end{macrocode}
 %
-% \begin{macro}{\inputref@*skip}
-% We customize the hooks for in |\inputref|. 
-%    \begin{macrocode}
-\def\inputref@preskip{\smallskip}
-\def\inputref@postskip{\medskip}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\inputref*}
-%    \begin{macrocode}
-\let\orig@inputref\inputref
-\def\inputref{\@ifstar\ninputref\orig@inputref}
-\newcommand\ninputref[2][]{\ifmks@sty@notes\orig@inputref[#1]{#2}\fi}
-%    \end{macrocode}
-% \end{macro}
-% 
 % \subsection{Miscellaneous}
 %
 % We set up a |beamer| template for theorems like ams style, but without a block
@@ -798,8 +827,18 @@
 \else%
   \excludecomment{problems}%
 \fi%
+%    \end{macrocode}
+%
+% \begin{macro}{\excursion*}
+%  The excursion macros are very simple, we define a new Boolean (conditional) in |\excursionref| and
+%  use it in |\excursion|, which is just an |\inputref| wrapped in the new conditional. 
+%    \begin{macrocode}
+\newcommand\excursionref[2]{\newbool{excursion@#1}\global\booltrue{excursion@#1}%
+\begin{nomtext}[title=Excursion]#2 \sref{#1}.\end{nomtext}}
+\newcommand\excursion[3][]{\ifbool{excursion@#2}{\inputref[#1]{#3}}{}}
 %</package>
 %    \end{macrocode}
+% \end{macro}
 % \Finale
 \endinput
 % \iffalse

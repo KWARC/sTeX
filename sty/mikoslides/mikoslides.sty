@@ -133,6 +133,11 @@
 \else\excludecomment{nomtext}\fi%
 \ifmks@sty@notes\newenvironment{nomgroup}[2][]{\begin{omgroup}[#1]{#2}}{\end{omgroup}}%
 \else\excludecomment{nomgroup}\fi%
+\def\inputref@preskip{\smallskip}
+\def\inputref@postskip{\medskip}
+\let\orig@inputref\inputref
+\def\inputref{\@ifstar\ninputref\orig@inputref}
+\newcommand\ninputref[2][]{\ifmks@sty@notes\orig@inputref[#1]{#2}\fi}
 \newlength{\slidelogoheight}
 \ifmks@sty@notes%
   \setlength{\slidelogoheight}{.4cm}%
@@ -274,11 +279,6 @@
 }
 {\advance\section@level by -1}%
 \fi% ifmks@sty@notes
-\def\inputref@preskip{\smallskip}
-\def\inputref@postskip{\medskip}
-\let\orig@inputref\inputref
-\def\inputref{\@ifstar\ninputref\orig@inputref}
-\newcommand\ninputref[2][]{\ifmks@sty@notes\orig@inputref[#1]{#2}\fi}
 \def\inserttheorembodyfont{\normalfont}
 \ifmks@sty@notes\else% only in slides
 \defbeamertemplate{theorem begin}{miko}
@@ -309,6 +309,9 @@
 \else%
   \excludecomment{problems}%
 \fi%
+\newcommand\excursionref[2]{\newbool{excursion@#1}\global\booltrue{excursion@#1}%
+\begin{nomtext}[title=Excursion]#2 \sref{#1}.\end{nomtext}}
+\newcommand\excursion[3][]{\ifbool{excursion@#2}{\inputref[#1]{#3}}{}}
 \endinput
 %%
 %% End of file `mikoslides.sty'.

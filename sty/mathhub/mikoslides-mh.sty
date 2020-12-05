@@ -24,6 +24,7 @@
 \let\orig@mhinputref\mhinputref
 \def\mhinputref{\@ifstar\nmhinputref\orig@mhinputref}
 \newcommand\nmhinputref[2][]{\ifnotes\orig@mhinputref[#1]{#2}\fi}
+\newcommand\mhexcursion[3][]{\ifbool{excursion@#2}{\mhinputref[#1]{#3}}{}}
 \endinput
 %%
 %% End of file `mikoslides-mh.sty'.
