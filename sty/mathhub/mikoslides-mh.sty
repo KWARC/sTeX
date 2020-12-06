@@ -6,7 +6,7 @@
 %%
 %% mathhub.dtx  (with options: `mikoslides')
 %% 
-\ProvidesPackage{mikoslides-mh}[2019/03/20 v1.1 MathHub support for the sTeX mikoslides package]
+\ProvidesPackage{mikoslides-mh}[2020/12/06 v1.3 MathHub support for the sTeX mikoslides package]
 \RequirePackage{mathhub}
 \def\Gin@mhrepos{}
 \define@key{Gin}{mhrepos}{\def\Gin@mhrepos{#1}}
@@ -28,7 +28,7 @@
   {\gappto\printexcursions{\mhinputref[\mh@currentrepos]{#2}}}%
   {\gappto\printexcursions{\mhinputref[#1]{#2}}}}
 \newcommand\mhexcursion[4][]{% repos, label, path, text
-  \activatemhexcursion[#1]{#3}\excursionref{#2}{#4}}%
+  \ifnotes\activatemhexcursion[#1]{#3}\excursionref{#2}{#4}\fi}%
 \srefaddidkey{mhexcursiongroup}%
 \addmetakey{mhexcursiongroup}{intro}%
 \addmetakey{mhexcursiongroup}{mhrepos}%

@@ -7,8 +7,8 @@
 %% mikoslides.dtx  (with options: `cls')
 %% 
 \NeedsTeXFormat{LaTeX2e}[1999/12/01]
-\ProvidesClass{mikoslides}[2020/10/17 v1.3 MiKo slides Class]
-\RequirePackage{stex-base}
+\ProvidesClass{mikoslides}[2020/12/06 v1.3 MiKo slides Class]
+\RequirePackage{modules}
 \RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
 \SetupKeyvalOptions{family=mks@cls,prefix=mks@cls@}
