@@ -315,6 +315,15 @@
   \begin{nomtext}[title=Excursion]#2 \sref[fallback=the appendix]{#1}.\end{nomtext}}
 \newcommand\excursion[4][]{% opt, label, path, text
   \activateexcursion[#1]{#3}\excursionref{#2}{#4}}
+\srefaddidkey{excursiongroup}%
+\addmetakey{excursiongroup}{intro}%
+\newcommand\excursiongroup[1][]{%
+  \metasetkeys{excursiongroup}{#1}%
+  \ifdefempty\printexcursions{}% only if there are excursions
+  {\begin{omgroup}[#1]{Excursions}%
+      \ifdefempty\excursiongroup@intro{}{\inputref{\excursiongroup@intro}}%
+      \printexcursions%
+    \end{omgroup}}}
 \endinput
 %%
 %% End of file `mikoslides.sty'.

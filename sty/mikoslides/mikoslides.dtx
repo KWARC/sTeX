@@ -869,10 +869,10 @@
 %    \begin{macrocode}
 \srefaddidkey{excursiongroup}%
 \addmetakey{excursiongroup}{intro}%
-\newcommand\excursiongroup[3][]{%
+\newcommand\excursiongroup[1][]{%
   \metasetkeys{excursiongroup}{#1}%
   \ifdefempty\printexcursions{}% only if there are excursions
-  {\begin{omgroup}[\ifdefempty\excursiongroup@id{}{id=\excursionsgroup@id}]{Excursions}%
+  {\begin{omgroup}[#1]{Excursions}%
       \ifdefempty\excursiongroup@intro{}{\inputref{\excursiongroup@intro}}%
       \printexcursions%
     \end{omgroup}}}
