@@ -930,11 +930,31 @@
 %
 % \begin{macro}{\mhexcursion}
 %    \begin{macrocode}
-\newcommand\mhexcursion[3][]{\ifbool{excursion@#2}{\mhinputref[#1]{#3}}{}}
-%</mikoslides>
+\newcommand\activatemhexcursion[2][]{\ifstrempty{#1}%
+  {\gappto\printexcursions{\mhinputref[\mh@currentrepos]{#2}}}%
+  {\gappto\printexcursions{\mhinputref[#1]{#2}}}}
+\newcommand\mhexcursion[4][]{% repos, label, path, text
+  \activatemhexcursion[#1]{#3}\excursionref{#2}{#4}}%
 %    \end{macrocode}
 % \end{macro}
 %
+% \begin{macro}{\mhexcursiongroup}
+\srefaddidkey{mhexcursiongroup}%
+\addmetakey{mhexcursiongroup}{intro}%
+\addmetakey{mhexcursiongroup}{mhrepos}%
+\newcommand\mhexcursiongroup[3][]{%
+  \metasetkeys{mhexcursiongroup}{#1}%
+  \ifdefempty\printexcursions{}% only if there are excursions
+  {\begin{omgroup}[\ifdefempty\mhexcursiongroup@id{}{id=\mhexcursionsgroup@id}]{Excursions}%
+      \ifdefempty\mhexcursiongroup@intro{}%
+      {\ifdefempty\mhexcursiongroup@mhrepos%
+        {\mhinputref{\mhexcursiongroup@intro}}%
+        {\mhinputref[\mhexcursiongroup@mhrepos]{\mhexcursiongroup@intro}}}%
+      \printexcursions%
+    \end{omgroup}}}
+%</mikoslides>
+%    \end{macrocode}
+% \end{macro}
 % \subsection{\textsf{problem-mh.sty}: Support  for Problems}\label{sec:impl:problem}
 % 
 %    \begin{macrocode}
