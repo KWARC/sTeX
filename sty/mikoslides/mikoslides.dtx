@@ -473,9 +473,9 @@
     \stepcounter{slide}%
     \def\@currentlabel{\theslide}%
     \ifx\frame@label\@empty%
-    \else%
+    \else\ifreinput\else%
       \label{\frame@label}%
-    \fi%
+    \fi\fi%
 %    \end{macrocode}
 %   We redefine the |itemize| environment so that it looks more like the one in |beamer|. 
 %    \begin{macrocode}

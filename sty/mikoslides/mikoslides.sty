@@ -81,9 +81,9 @@
     \stepcounter{slide}%
     \def\@currentlabel{\theslide}%
     \ifx\frame@label\@empty%
-    \else%
+    \else\ifreinput\else%
       \label{\frame@label}%
-    \fi%
+    \fi\fi%
     \def\itemize@level{outer}%
     \def\itemize@outer{outer}%
     \def\itemize@inner{inner}%
