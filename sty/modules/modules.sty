@@ -398,7 +398,6 @@
 \def\usemodule@escapechar@beginstring{begin}
 \def\usemodule@escapechar@endstring{end}
 \usemodule@allow{symdef}
-\usemodule@allow{fundef}
 \usemodule@allow{abbrdef}
 \usemodule@allow{importmodule}
 \usemodule@allowenv{module}
@@ -571,7 +570,8 @@
     \if@iswindows@\path@to@windows\temp@path\fi%
     \ex\ex\ex\in@\ex\ex\ex{\ex\ex\ex,\ex\temp@path\ex,\ex}%
     \ex{\all@inputrefs}%
-    \ifin@\reinputtrue%
+    \ifin@\reinputtrue\message{sTeX: \temp@path was already input, will %
+    ignore labels}%
     \else\xdef\all@inputrefs{\all@inputrefs,\temp@path}%
     \fi%
     \input{\temp@path}%
