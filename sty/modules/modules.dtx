@@ -1510,12 +1510,11 @@
 %   environments as part of a module signature. 
 %    \begin{macrocode}
 \newif\if@smsmode\@smsmodefalse
-\def\usemodule@escapechar@allowed{true}
-\def\usemodule@allow#1{
-  \expandafter\let\csname usemodule@allowedmacro@#1\endcsname\usemodule@escapechar@allowed
+\def\usemodule@allow#1{%
+  \expandafter\def\csname usemodule@allowedmacro@#1\expandafter\endcsname\expandafter{\csname #1\endcsname}%
 }
 \def\usemodule@allowenv#1{
-  \expandafter\let\csname usemodule@allowedenv@#1\endcsname\usemodule@escapechar@allowed
+  \expandafter\def\csname usemodule@allowedenv@#1\endcsname{#1}
 }
 \def\usemodule@escapechar@beginstring{begin}
 \def\usemodule@escapechar@endstring{end}
@@ -1737,16 +1736,17 @@
         \ifx\usemodule@escape@currcs\usemodule@escapechar@endstring%
           \edef\usemodule@do@next{\noexpand\usemodule@escapechar@checkendenv\usemodule@last@char}%
         \else%
-            \expandafter\ifx\csname usemodule@allowedmacro@\usemodule@escape@currcs\endcsname%
-                \usemodule@escapechar@allowed%
+            \ifcsvoid{usemodule@allowedmacro@\usemodule@escape@currcs}{%
+              \def\usemodule@do@next{\relax\usemodule@last@char}%
+            }{%
               \ifx\usemodule@last@char\@open@brace%
-                \expandafter\let\expandafter\usemodule@do@next@ii\csname\usemodule@escape@currcs\endcsname%
+                \expandafter\let\expandafter\usemodule@do@next@ii\csname usemodule@allowedmacro@\usemodule@escape@currcs\endcsname%
                 \edef\usemodule@do@next{\noexpand\usemodule@converttoproperbraces\@open@brace}%
               \else%
                 \reset@usemodule@catcodes%
-                \edef\usemodule@do@next{\expandafter\noexpand\csname\usemodule@escape@currcs\endcsname\usemodule@last@char}%
+                \edef\usemodule@do@next{\expandafter\noexpand\csname usemodule@allowedmacro@\usemodule@escape@currcs\endcsname\usemodule@last@char}%
               \fi%
-            \else\def\usemodule@do@next{\relax\usemodule@last@char}\fi%
+            }%
         \fi%
     \fi%
     \usemodule@do@next%
@@ -1776,23 +1776,26 @@
 \expandafter\expandafter\expandafter\def%
 \expandafter\expandafter\expandafter\usemodule@escapechar@checkbeginenv%
 \expandafter\@open@brace\expandafter#\expandafter1\@close@brace{%
-    \expandafter\ifx\csname usemodule@allowedenv@#1\endcsname\usemodule@escapechar@allowed%
-        \reset@usemodule@catcodes%
-        \def\usemodule@do@next{\begin{#1}}%
-    \else%
-        \def\usemodule@do@next{#1}%
-    \fi%
+    \ifcsvoid{usemodule@allowedenv@#1}{%
+      \edef\usemodule@do@next{\csname usemodule@allowedenv@#1\endcsname}%
+    }{%
+      \reset@usemodule@catcodes%
+      \edef\usemodule@envname{\csname usemodule@allowedenv@#1\endcsname}%
+      \expandafter\def\expandafter\usemodule@do@next\expandafter{%
+        \expandafter\begin\expandafter{\usemodule@envname}}%
+    }%
     \usemodule@do@next%
 }
 \expandafter\expandafter\expandafter\def%
 \expandafter\expandafter\expandafter\usemodule@escapechar@checkendenv%
 \expandafter\@open@brace\expandafter#\expandafter1\@close@brace{%
-    \expandafter\ifx\csname usemodule@allowedenv@#1\endcsname\usemodule@escapechar@allowed%
-        %\reset@usemodule@catcodes%
-        \def\usemodule@do@next{\end{#1}}%
-    \else%
+    \ifcsvoid{usemodule@allowedenv@#1}{%
       \def\usemodule@do@next{#1}%
-    \fi%
+    }{%
+    \edef\usemodule@envname{\csname usemodule@allowedenv@#1\endcsname}%
+    \expandafter\def\expandafter\usemodule@do@next\expandafter{%
+      \expandafter\end\expandafter{\usemodule@envname}}%
+    }%
     \usemodule@do@next%
 }
 %    \end{macrocode}
