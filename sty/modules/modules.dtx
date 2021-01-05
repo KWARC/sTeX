@@ -1513,8 +1513,14 @@
 \def\usemodule@allow#1{%
   \expandafter\def\csname usemodule@allowedmacro@#1\expandafter\endcsname\expandafter{\csname #1\endcsname}%
 }
-\def\usemodule@allowenv#1{
-  \expandafter\def\csname usemodule@allowedenv@#1\endcsname{#1}
+\def\usemodule@allowenv#1{%
+  \expandafter\def\csname usemodule@allowedenv@#1\endcsname{#1}%
+}
+\def\usemodule@replacemacro#1#2{%
+  \expandafter\def\csname usemodule@allowedmacro@#1\expandafter\endcsname\expandafter{\csname #2\endcsname}%
+}
+\def\usemodule@replaceenv#1#2{%
+\expandafter\def\csname usemodule@allowedenv@#1\endcsname{#2}%
 }
 \def\usemodule@escapechar@beginstring{begin}
 \def\usemodule@escapechar@endstring{end}
@@ -1541,6 +1547,12 @@
 \usemodule@allow{symii}
 \usemodule@allow{symiii}
 \usemodule@allow{symiv}
+
+\def\usemodule@lstinline{%
+  \usemodule@maybesetcodes%
+  \lstinline%
+}
+\usemodule@replacemacro{lstinline}{usemodule@lstinline}
 %\usemodule@allow{defi}
 %\usemodule@allow{defii}
 %\usemodule@allow{defiii}
