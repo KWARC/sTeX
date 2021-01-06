@@ -1252,7 +1252,7 @@ whatever is suitable semantically}\fi}
   \iftermref@moduleerror\else%
   \def\termref@cd{\module@id}\fi\else%
   \iftermref@moduleerror\else\ifcsvoid{Module\termref@cd}{%
-    \PackageError{statements}{Module \termref@cd not loaded}{%
+    \PackageError{statements}{Module \termref@cd\space not loaded}{%
       Probably a missing \string\importmodule somewhere.}%
      }{}%
  % \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
