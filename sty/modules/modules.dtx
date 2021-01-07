@@ -1552,7 +1552,7 @@
   \usemodule@maybesetcodes%
   \lstinline%
 }
-\usemodule@replacemacro{lstinline}{usemodule@lstinline}
+%\usemodule@replacemacro{lstinline}{usemodule@lstinline}
 %\usemodule@allow{defi}
 %\usemodule@allow{defii}
 %\usemodule@allow{defiii}
@@ -1614,7 +1614,9 @@
       \global\catcode`\^=12%
       \global\catcode`\_=12%
       \global\catcode`\&=12%
-      \expandafter\let\@active@slash\usemodule@escapechar%
+      \expandafter\global\expandafter\let\@active@slash\usemodule@escapechar%
+      \global\let\usemodule@old@PackageError\PackageError%
+      \global\def\PackageError##1##2##3{}%
   }
 %    \end{macrocode}
 % \end{macro}
@@ -1630,6 +1632,7 @@
       \global\catcode`\^=7%
       \global\catcode`\_=8%
       \global\catcode`\&=4%
+      \global\let\PackageError\usemodule@old@PackageError%
   }
 %    \end{macrocode}
 % \end{macro}
