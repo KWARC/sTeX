@@ -1250,7 +1250,7 @@ whatever is suitable semantically}\fi}
     \termref@moduleerrortrue%
   }{}%
   \iftermref@moduleerror\else\def\termref@cd{\module@id}\fi
-\else% \termref@cd\@empty
+\else% \termref@cd not \@empty
   \iftermref@moduleerror\else
   \ifcsvoid{Module\termref@cd}{%
     \PackageError{statements}{Module \termref@cd\space not loaded}{%
@@ -1259,6 +1259,11 @@ whatever is suitable semantically}\fi}
  % \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
   \fi% \iftermref@moduleerror
 \fi% \termref@cd\@empty
+%    \end{macrocode}
+%
+% after we did the error reporting, we start generating output
+%
+%    \begin{macrocode}
 \iftermref@moduleerror #2\else%
   \ifx\termref@name\@empty\def\termref@name{#2}\fi%
   \@ifundefined{sref@\termref@name @\termref@cd @defined}%
