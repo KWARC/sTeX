@@ -1249,25 +1249,26 @@ whatever is suitable semantically}\fi}
     }{}%
     \termref@moduleerrortrue%
   }{}%
-  \iftermref@moduleerror\else%
-  \def\termref@cd{\module@id}\fi\else%
-  \iftermref@moduleerror\else\ifcsvoid{Module\termref@cd}{%
+  \iftermref@moduleerror\else\def\termref@cd{\module@id}\fi
+\else% \termref@cd\@empty
+  \iftermref@moduleerror\else
+  \ifcsvoid{Module\termref@cd}{%
     \PackageError{statements}{Module \termref@cd\space not loaded}{%
       Probably a missing \string\importmodule somewhere.}%
      }{}%
  % \edef\termref@cd{\csname Module\termref@cd\endcsname\@URI}%
-  \fi%
-\fi%
-\iftermref@moduleerror\else%
-\ifx\termref@name\@empty\def\termref@name{#2}\fi%
-\@ifundefined{sref@\termref@name @\termref@cd @defined}%
-{\ifx\termref@cdbase\@empty% external reference
-\mod@termref\termref@cd\termref@name{#2}%
-\else\sref@href@ifh\termref@cdbase{#2}%
-\fi}%
-{\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
-\sref@hlink@ifh\@label{#2}%\footnote{termref: internal reference to \@label}
-}\fi}
+  \fi% \iftermref@moduleerror
+\fi% \termref@cd\@empty
+\iftermref@moduleerror #2\else%
+  \ifx\termref@name\@empty\def\termref@name{#2}\fi%
+  \@ifundefined{sref@\termref@name @\termref@cd @defined}%
+  {\ifx\termref@cdbase\@empty% external reference
+   \mod@termref\termref@cd\termref@name{#2}%
+   \else\sref@href@ifh\termref@cdbase{#2}%
+   \fi}%
+  {\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
+    \sref@hlink@ifh\@label{#2}}%\footnote{termref: internal reference to \@label}
+\fi}
 %    \end{macrocode}
 % \end{macro}
 %
