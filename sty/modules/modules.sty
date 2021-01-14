@@ -380,7 +380,7 @@
       {the cd key must reference an active module}%
     \fi
     #3}% format #3 without any links as a fallback
-  {\Def\@label{sref@\csname Module#1\endcsname\@URI\@QuestionMark#2\mod@component{#1}@target}%
+  {\def\@label{sref@\csname Module#1\endcsname\@URI\@QuestionMark#2\mod@component{#1}@target}%
    \@ifundefined{module@#1@path}% local reference
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
     }%
