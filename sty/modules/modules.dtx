@@ -1607,6 +1607,7 @@
 %
 % \begin{macro}{\set@usemodule@catcodes}
 %    \begin{macrocode}
+  \let\usemodule@old@PackageError\PackageError
   \def\usemodule@ignorepackageerrors{,inputenc,}
   \def\usemodule@packageerror#1#2#3{%
     \IfSubStr\usemodule@ignorepackageerrors{,#1,}{}{%
@@ -1623,7 +1624,6 @@
       \global\catcode`\_=12%
       \global\catcode`\&=12%
       \expandafter\global\expandafter\let\@active@slash\usemodule@escapechar%
-      \global\let\usemodule@old@PackageError\PackageError%
       \global\let\PackageError\usemodule@packageerror%
   }
 %    \end{macrocode}
