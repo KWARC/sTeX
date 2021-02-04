@@ -1609,7 +1609,7 @@
 %    \begin{macrocode}
   \def\usemodule@ignorepackageerrors{,inputenc,}
   \def\usemodule@packageerror#1#2#3{%
-    \IfStrContains\usemodule@ignorepackageerrors{,#1,}{}{%
+    \IfSubStr\usemodule@ignorepackageerrors{,#1,}{}{%
       \usemodule@old@PackageError{#1}{#2}{#3}%
     }%
   }
