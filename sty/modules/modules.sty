@@ -370,7 +370,7 @@
 \newrobustcmd\capitalize[1]{\expandafter\@capitalize #1}%
 \newcommand\mod@component[1]{}
 \newcommand\mod@termref[3]{\def\@test{#3}%
-  \ifcsvoid{Module#1}{%
+  \ifcsvoid{Module#1}{% raise warnings and errors accordingly
     \protect\G@refundefinedtrue%
     \if@trwarn
       \PackageWarning{modules}{`\protect\termref' with unidentified cd "#1":\MessageBreak
@@ -380,12 +380,14 @@
       {the cd key must reference an active module}%
     \fi
     #3}% format #3 without any links as a fallback
-  {\def\@label{sref@\csname Module#1\endcsname\@URI\@QuestionMark#2\mod@component{#1}@target}%
-   \@ifundefined{module@#1@path}% local reference
+  {% create the necessary links
+    \def\@label{sref@\csname Module#1\endcsname\@URI\@QuestionMark#2\mod@component{#1}@target}%
+    \@ifundefined{module@#1@path}% local reference
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
     }%
     {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\#\@label}%
-      \sref@href@ifh{\@uri}{\ifx\@test\@empty #2\else #3\fi}}%
+      \sref@href@ifh{\@uri}{\ifx\@test\@empty #2\else #3\fi}%
+}%
   }}%
 \newif\if@smsmode\@smsmodefalse
 \def\usemodule@allow#1{%
@@ -438,6 +440,12 @@
 \catcode`\}=2
 \catcode`\<=12
 \catcode`\>=12
+  \def\usemodule@ignorepackageerrors{,inputenc,}
+  \def\usemodule@packageerror#1#2#3{%
+    \IfStrContains\usemodule@ignorepackageerrors{,#1,}{}{%
+      \usemodule@old@PackageError{#1}{#2}{#3}%
+    }%
+  }
   \def\set@usemodule@catcodes{%
       \global\catcode`\\=13%
       \global\catcode`\#=12%
@@ -449,7 +457,7 @@
       \global\catcode`\&=12%
       \expandafter\global\expandafter\let\@active@slash\usemodule@escapechar%
       \global\let\usemodule@old@PackageError\PackageError%
-      \global\def\PackageError##1##2##3{}%
+      \global\let\PackageError\usemodule@packageerror%
   }
   \def\reset@usemodule@catcodes{%
       \global\catcode`\\=0%

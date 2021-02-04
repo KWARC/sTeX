@@ -1607,6 +1607,12 @@
 %
 % \begin{macro}{\set@usemodule@catcodes}
 %    \begin{macrocode}
+  \def\usemodule@ignorepackageerrors{,inputenc,}
+  \def\usemodule@packageerror#1#2#3{%
+    \IfStrContains\usemodule@ignorepackageerrors{,#1,}{}{%
+      \usemodule@old@PackageError{#1}{#2}{#3}%
+    }%
+  }
   \def\set@usemodule@catcodes{%
       \global\catcode`\\=13%
       \global\catcode`\#=12%
@@ -1618,7 +1624,7 @@
       \global\catcode`\&=12%
       \expandafter\global\expandafter\let\@active@slash\usemodule@escapechar%
       \global\let\usemodule@old@PackageError\PackageError%
-      \global\def\PackageError##1##2##3{}%
+      \global\let\PackageError\usemodule@packageerror%
   }
 %    \end{macrocode}
 % \end{macro}
