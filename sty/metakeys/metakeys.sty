@@ -27,7 +27,7 @@
   \metakeys@ext@clear@keys{#2}{#3}{#1}%
   \metakeys@initialize@showkeys{#2}%
   \define@key{#2}{#3}[#4]{%
-    \csxdef{#2@#3}{##1}%
+    \csedef{#2@#3}{##1}%
   }%
 }%
 \newcommand\addmetakey@nostar[3][]{%
@@ -51,9 +51,9 @@
 }%
 \newrobustcmd\@metakeys@ext@clear@keys[3]{%
   \@ifundefined{clear@#1@keys}{%
-\csgdef{clear@#1@keys}{\csgdef{#2}{#3}}%
+\csdef{clear@#1@keys}{\csdef{#2}{#3}}%
   }%
-  {\expandafter\gappto\csname clear@#1@keys\endcsname{\csgdef{#2}{#3}}}%
+  {\expandafter\gappto\csname clear@#1@keys\endcsname{\csdef{#2}{#3}}}%
 }%
 \newrobustcmd\addmetalistkey{%
   \@ifstar\addmetalistkey@star\addmetalistkey@nostar%
@@ -61,12 +61,12 @@
 \newrobustcmd\addmetalistkey@star[3][]{%
   \metakeys@ext@clear@keys{#2}{#3}{#1}%
   \metakeys@initialize@showkeys{#2}%
-  \csgdef{#2@#3s}{}%
+  \csdef{#2@#3s}{}%
   \define@key{#2}{#3}[#1]{%
     \ifcsempty{#2@#3s}{%
-      \csgdef{#2@#3s}{##1}%
+      \csdef{#2@#3s}{##1}%
     }{%
-      \csxdef{#2@#3s}{\csuse{#2@#3s},##1}%
+      \csedef{#2@#3s}{\csuse{#2@#3s},##1}%
     }%
   }%
 }%
@@ -100,7 +100,7 @@
 \newrobustcmd\addmetakeynew[3][]{%
   \metakeys@ext@clear@keys{#2}{#3}{#1}%
   \define@key{#2}{#3}{%
-    \csgdef{#2@#3}{##1}%
+    \csdef{#2@#3}{##1}%
   }%
 }%
 \newrobustcmd\metakeys@unspecified{an metakeys-defined key left unspecified}%
