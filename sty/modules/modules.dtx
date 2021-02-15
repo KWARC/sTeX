@@ -1033,12 +1033,12 @@
 % \end{macro}
 %
 % \begin{macro}{\importmodule} 
-%   The |\importmodule[|\meta{file}|]{|\meta{mod}|}| macro is an interface macro that
-%   loads \meta{file} and activates and re-exports the |\symdef|s from module
-%   \meta{mod}. As we will (probably) need to keep a record of the currently imported modules
-%   (top-level only), we divide the functionality into a user-visible macro that records
-%   modules in the |\used@modules| register and an internal one (|\@importmodule|)
-%   that does the actual work.
+%   The |\importmodule[|\meta{opt}|]{|\meta{mod}|}| macro is an interface macro that loads
+%   the file specified in \meta{opt} and activates and re-exports the |\symdef|s from
+%   module \meta{mod}. As we will (probably) need to keep a record of the currently
+%   imported modules (top-level only), we divide the functionality into a user-visible
+%   macro that records modules in the |\used@modules| register and an internal one
+%   (|\@importmodule|) that does the actual work.
 %    \begin{macrocode}
 \gdef\used@modules{}
 \srefaddidkey{importmodule}
