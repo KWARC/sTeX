@@ -134,6 +134,11 @@
 \define@statement@env{notation}
 \def\st@notation@kw{Notation}
 \newtheorem{STnotationEnv}[STtheoremAssEnv]{\st@notation@kw}
+\if@latexml
+  \st@indeftrue
+  \let\@symname\@empty
+  \let\omtext@theory\@empty
+\fi
 \newcommand\st@def@target[3]{\edef\@symname{#1}\def\@verbname{#2}%
 \ifst@indef% if we are in a definition or such
 \@ifundefined{module@id}% if we are not in a module
