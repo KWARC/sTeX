@@ -83,10 +83,11 @@
 % The |problem| package takes the options \DescribeMacro{solutions}|solutions| (should
 % solutions be output?), \DescribeMacro{notes}|notes| (should the problem notes be
 % presented?), \DescribeMacro{hints}|hints| (do we give the hints?),
-% \DescribeMacro{pts}|pts| (do we display the points awarded for solving the problem?),
-% \DescribeMacro{min}|min| (do we display the estimated minutes for problem soling). If
-% theses are specified, then the corresponding auxiliary parts of the problems are output,
-% otherwise, they remain invisible.
+% \DescribeMacro{gnotes}|gnotes| (do we show grading notes?), \DescribeMacro{pts}|pts| (do
+% we display the points awarded for solving the problem?), \DescribeMacro{min}|min| (do we
+% display the estimated minutes for problem soling). If theses are specified, then the
+% corresponding auxiliary parts of the problems are output, otherwise, they remain
+% invisible.
 % 
 % The \DescribeMacro{boxed}|boxed| option specifies that problems should be formatted in
 % framed boxes so that they are more visible in the text. Finally, the
@@ -125,6 +126,9 @@
 % \end{exnote}
 % \begin{solution}[for=elefants,height=3cm]
 %   Four, two in the front seats, and two in the back.
+% \begin{gnote}
+%   if they do not give the justification deduct 5 pts
+% \end{gnote}
 % \end{solution}
 %   \end{problem}
 % \end{document}
@@ -159,9 +163,12 @@
 % \caption{The Formatted Problem from Figure~\ref{fig:problem}}\label{fig:result}
 % \end{exfig}
 % 
-% \DescribeEnv{hint}\DescribeEnv{note}, the |hint| and |exnote| environments can be used
-% in a |problem| environment to give hints and to make notes that elaborate certain aspects
-% of the problem.
+% \DescribeEnv{hint}\DescribeEnv{exnote} The |hint| and |exnote| environments can be used
+% in a |problem| environment to give hints and to make notes that elaborate certain
+% aspects of the problem.
+%
+% \DescribeEnv{gnote} The |gnote| (grading notes) environment can be used to document
+% situtations that may arise in grading. 
 %
 % Sometimes we would like to locally override the |solutions| option we have given to the
 % package. To turn on solutions we use the
@@ -272,6 +279,8 @@
 \DeclareOption{mh}{\@problem@mh@true}
 \newif\ifexnotes\exnotesfalse
 \DeclareOption{notes}{\exnotestrue}
+\newif\ifgnotes\gnotesfalse
+\DeclareOption{gnotes}{\gnotestrue}
 \newif\ifhints\hintsfalse
 \DeclareOption{hints}{\hintstrue}
 \newif\ifsolutions\solutionsfalse
@@ -466,6 +475,7 @@
 \ifsolutions\startsolutions\else\stopsolutions\fi
 %    \end{macrocode}
 %
+% \begin{environment}{exnote}
 %    \begin{macrocode}
 \ifexnotes
 \newenvironment{exnote}[1][]%
@@ -474,6 +484,11 @@
 \else%ifexnotes
 \excludecomment{exnote}
 \fi%ifexnotes
+%    \end{macrocode}
+% \end{environment}
+% 
+% \begin{environment}{hint}
+%    \begin{macrocode}
 \ifhints
 \newenvironment{hint}[1][]%
 {\par\smallskip\hrule\smallskip\noindent\textbf{\prob@hint@kw: }\small}
@@ -486,7 +501,21 @@
 \excludecomment{exhint}
 \fi%ifhints
 %    \end{macrocode}
+% \end{environment}
 % 
+% \begin{environment}{gnote}
+%    \begin{macrocode}
+\ifgnotes
+\newenvironment{gnote}[1][]%
+{\par\smallskip\hrule\smallskip\noindent\textbf{\prob@gnote@kw: }\small}
+{\smallskip\hrule}
+\else%ifgnotes
+\excludecomment{gnote}
+\fi%ifgnotes
+%    \end{macrocode}
+% \end{environment}
+% 
+
 % \subsection{Multiple Choice Blocks}\label{sec:impl:mcq}
 %
 % \begin{environment}{mcb}

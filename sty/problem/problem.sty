@@ -13,6 +13,8 @@
 \DeclareOption{mh}{\@problem@mh@true}
 \newif\ifexnotes\exnotesfalse
 \DeclareOption{notes}{\exnotestrue}
+\newif\ifgnotes\gnotesfalse
+\DeclareOption{gnotes}{\gnotestrue}
 \newif\ifhints\hintsfalse
 \DeclareOption{hints}{\hintstrue}
 \newif\ifsolutions\solutionsfalse
@@ -107,6 +109,14 @@
 \excludecomment{hint}
 \excludecomment{exhint}
 \fi%ifhints
+\ifgnotes
+\newenvironment{gnote}[1][]%
+{\par\smallskip\hrule\smallskip\noindent\textbf{\prob@gnote@kw: }\small}
+{\smallskip\hrule}
+\else%ifgnotes
+\excludecomment{gnote}
+\fi%ifgnotes
+
 \newenvironment{mcb}
 {\begin{enumerate}}
 {\end{enumerate}}
