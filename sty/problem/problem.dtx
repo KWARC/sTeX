@@ -125,6 +125,9 @@
 % \end{exnote}
 % \begin{solution}[for=elefants,height=3cm]
 %   Four, two in the front seats, and two in the back.
+% \begin{gnote}
+%   if they do not give the justification deduct 5 pts
+% \end{gnote}
 % \end{solution}
 %   \end{problem}
 % \end{document}
@@ -159,9 +162,12 @@
 % \caption{The Formatted Problem from Figure~\ref{fig:problem}}\label{fig:result}
 % \end{exfig}
 % 
-% \DescribeEnv{hint}\DescribeEnv{note}, the |hint| and |exnote| environments can be used
-% in a |problem| environment to give hints and to make notes that elaborate certain aspects
-% of the problem.
+% \DescribeEnv{hint}\DescribeEnv{exnote}, the |hint| and |exnote|
+% environments can be used in a |problem| environment to give hints and to make notes that
+% elaborate certain aspects of the problem.
+%
+% \DescribeEnv{gnote} The |gnote| (grading notes) environment can be used to document
+% situtations that may arise in grading. 
 %
 % Sometimes we would like to locally override the |solutions| option we have given to the
 % package. To turn on solutions we use the
@@ -272,6 +278,8 @@
 \DeclareOption{mh}{\@problem@mh@true}
 \newif\ifexnotes\exnotesfalse
 \DeclareOption{notes}{\exnotestrue}
+\newif\ifgnotes\gnotesfalse
+\DeclareOption{gnotes}{\gnotestrue}
 \newif\ifhints\hintsfalse
 \DeclareOption{hints}{\hintstrue}
 \newif\ifsolutions\solutionsfalse
@@ -466,6 +474,7 @@
 \ifsolutions\startsolutions\else\stopsolutions\fi
 %    \end{macrocode}
 %
+% \begin{environment}{exnote}
 %    \begin{macrocode}
 \ifexnotes
 \newenvironment{exnote}[1][]%
@@ -474,6 +483,11 @@
 \else%ifexnotes
 \excludecomment{exnote}
 \fi%ifexnotes
+%    \end{macrocode}
+% \end{environment}
+% 
+% \begin{environment}{hint}
+%    \begin{macrocode}
 \ifhints
 \newenvironment{hint}[1][]%
 {\par\smallskip\hrule\smallskip\noindent\textbf{\prob@hint@kw: }\small}
@@ -486,7 +500,21 @@
 \excludecomment{exhint}
 \fi%ifhints
 %    \end{macrocode}
+% \end{environment}
 % 
+% \begin{environment}{gnote}
+%    \begin{macrocode}
+\ifgnotes
+\newenvironment{gnote}[1][]%
+{\par\smallskip\hrule\smallskip\noindent\textbf{\prob@gnote@kw: }\small}
+{\smallskip\hrule}
+\else%ifgnotes
+\excludecomment{gnote}
+\fi%ifgnotes
+%    \end{macrocode}
+% \end{environment}
+% 
+
 % \subsection{Multiple Choice Blocks}\label{sec:impl:mcq}
 %
 % \begin{environment}{mcb}
