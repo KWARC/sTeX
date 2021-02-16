@@ -1492,7 +1492,7 @@
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
 %      \footnote{sTeX mod@termref: local reference to\\ \@label}
     }%
-    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\#\@label}%
+    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\@Fragment\@label}%
       \sref@href@ifh{\@uri}{\ifx\@test\@empty #2\else #3\fi}%
 %      \footnote{sTeX mod@termref: external reference to \\\@uri}
 }%

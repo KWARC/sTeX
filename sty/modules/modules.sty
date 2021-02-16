@@ -391,7 +391,7 @@
     \@ifundefined{module@#1@path}% local reference
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
     }%
-    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\#\@label}%
+    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\@Fragment\@label}%
       \sref@href@ifh{\@uri}{\ifx\@test\@empty #2\else #3\fi}%
 }%
   }}%
