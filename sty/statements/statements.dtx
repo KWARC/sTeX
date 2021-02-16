@@ -976,8 +976,12 @@
 %   the |\st@indef| switch to suppress warnings from |\st@def@target|.
 %    \begin{macrocode}
 \newif\ifst@indef\st@indeffalse
-\ifcsdef{definition}{\cslet{definition}{\relax}\cslet{enddefinition}{\relax}}{}% to redefine if necessary
-\newenvironment{definition}[1][]{\metasetkeys{omtext}{#1}\sref@target\st@indeftrue%
+\edef\definition@environment@def{%
+  \expandafter\noexpand\ifcsname definition\endcsname%
+    \renewenvironment\else\newenvironment\fi%
+}
+%\ifcsdef{definition}{\cslet{definition}{\relax}\cslet{enddefinition}{\relax}}{}% to redefine if necessary
+\definition@environment@def{definition}[1][]{\metasetkeys{omtext}{#1}\sref@target\st@indeftrue%
 \ifx\omtext@display\st@flow\def\@@env{omtext}\else\def\@@env{STdefinitionEnv}\fi%
 \ifx\omtext@title\@empty\begin{\@@env}\else\begin{\@@env}[\omtext@title]\fi%
 \ifx\sref@id\@empty\sref@label@id{here}\else%
@@ -1012,6 +1016,11 @@
 %   undefined). And it formats the |\defemph|-emphasized \meta{text}.  Also it generates
 %   the necessary warnings for a definiendum-like macro.
 %    \begin{macrocode}
+\if@latexml
+  \st@indeftrue
+  \let\@symname\@empty
+  \let\omtext@theory\@empty
+\fi
 \newcommand\st@def@target[3]{\edef\@symname{#1}\def\@verbname{#2}%
 \ifst@indef% if we are in a definition or such
 \@ifundefined{module@id}% if we are not in a module

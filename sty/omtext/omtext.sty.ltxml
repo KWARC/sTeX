@@ -1,0 +1,7 @@
+use LaTeXML::Package;
+use strict;
+use warnings;
+
+InputDefinitions('omtext', type => 'sty', noltxml => 1,withoptions => 1);
+
+1;

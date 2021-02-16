@@ -1,0 +1,7 @@
+use LaTeXML::Package;
+use strict;
+use warnings;
+
+InputDefinitions('mikoslides', type => 'cls', noltxml => 1,withoptions => 1,as_class=>1);
+
+1;

@@ -399,7 +399,7 @@
 \par\noindent\textbf\prob@heading\show@pts\show@min\\\ignorespacesandpars
 }%
 {\smallskip}
-\ifboxed\surroundwithmdframed{problem}\fi
+\ifboxed\if@latexml\else\surroundwithmdframed{problem}\fi\fi
 %    \end{macrocode}
 % \end{environment}
 % 
@@ -450,7 +450,7 @@
 %    \begin{macrocode}
 \newcommand\startsolutions{\specialcomment{solution}{\@startsolution}%
 {\ifboxed\else\hrule\medskip\fi\end{small}}%
-\ifboxed\surroundwithmdframed{solution}\fi}
+\ifboxed\if@latexml\else\surroundwithmdframed{solution}\fi\fi}
 %    \end{macrocode}
 % \end{macro}
 % 

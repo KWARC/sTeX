@@ -115,8 +115,11 @@
 \enspace\ignorespacesandpars}
 {\end{\@@env}\omtext@post@skip}
 \newif\ifst@indef\st@indeffalse
-\ifcsdef{definition}{\cslet{definition}{\relax}\cslet{enddefinition}{\relax}}{}% to redefine if necessary
-\newenvironment{definition}[1][]{\metasetkeys{omtext}{#1}\sref@target\st@indeftrue%
+\edef\definition@environment@def{%
+  \expandafter\noexpand\ifcsname definition\endcsname%
+    \renewenvironment\else\newenvironment\fi%
+}
+\definition@environment@def{definition}[1][]{\metasetkeys{omtext}{#1}\sref@target\st@indeftrue%
 \ifx\omtext@display\st@flow\def\@@env{omtext}\else\def\@@env{STdefinitionEnv}\fi%
 \ifx\omtext@title\@empty\begin{\@@env}\else\begin{\@@env}[\omtext@title]\fi%
 \ifx\sref@id\@empty\sref@label@id{here}\else%
@@ -131,6 +134,11 @@
 \define@statement@env{notation}
 \def\st@notation@kw{Notation}
 \newtheorem{STnotationEnv}[STtheoremAssEnv]{\st@notation@kw}
+\if@latexml
+  \st@indeftrue
+  \let\@symname\@empty
+  \let\omtext@theory\@empty
+\fi
 \newcommand\st@def@target[3]{\edef\@symname{#1}\def\@verbname{#2}%
 \ifst@indef% if we are in a definition or such
 \@ifundefined{module@id}% if we are not in a module
@@ -228,8 +236,7 @@ whatever is suitable semantically}\fi}
 \addmetakey*{termref}{cdbase}
 \addmetakey*{termref}{name}
 \newif\iftermref@moduleerror\termref@moduleerrorfalse
-\newcommand\termref[2][]{\metasetkeys{termref}{#1}\def\@test{#2}%
-\message{termref: 1: #1 2: \meaning\@test; termref@cd=\termref@cd!}
+\newcommand\termref[2][]{\metasetkeys{termref}{#1}%
 \termref@moduleerrorfalse%
 \ifx\termref@cd\@empty%
   \ifcsvoid{module@uri@uri}{%
@@ -238,7 +245,7 @@ whatever is suitable semantically}\fi}
     }{}%
     \termref@moduleerrortrue%
   }{}%
-  \iftermref@moduleerror\else\def\termref@cd{\module@id}\message{XXXXXX \module@id}\fi
+  \iftermref@moduleerror\else\def\termref@cd{\module@id}\fi
 \else% \termref@cd not \@empty
   \iftermref@moduleerror\else
   \ifcsvoid{Module\termref@cd}{%
@@ -252,12 +259,11 @@ whatever is suitable semantically}\fi}
   \ifx\termref@name\@empty\def\termref@name{#2}\fi%
   \@ifundefined{sref@\termref@name @\termref@cd @defined}%
   {\ifx\termref@cdbase\@empty% external reference
-    \message{link via mod@termref}
-    \mod@termref\termref@cd\termref@name{#2}%
-   \else\sref@href@ifh\termref@cdbase{#2}\mssage{link to cdbase only}%
+   \mod@termref\termref@cd\termref@name{#2}%
+   \else\sref@href@ifh\termref@cdbase{#2}%
    \fi}%
   {\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
-    \sref@hlink@ifh\@label{#2}\message{internal reference to \@label}}
+    \sref@hlink@ifh\@label{#2}}%\footnote{termref: internal reference to \@label}
 \fi}
 \def\@instring#1#2{TT\fi\begingroup\edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
 \newcommand\@@@mtref[3]{\def\@@cd{#1}\def\@@name{#2}%
@@ -267,23 +273,23 @@ whatever is suitable semantically}\fi}
 \ifx\@@name\@empty\termref[cd=\@@cd]{#3}\else\termref[cd=\@@cd,name=\@@name]{#3}\fi%
 \fi}
 \def\@@mtref#1?#2\relax{\@@@mtref{#1}{#2}}
-\newcommand\@mtref[3][]{\termemph{\if\@instring{?}{#1}\@@mtref #1\relax{#3}\else\termref[cd=#1,name=#2]{#3}\fi}}
+\newcommand\@mtref[3][]{\termemph{\if\@instring{?}{#1}\@@mtref #1\relax{#2}\else\termref[cd=#1,name=#3]{#2}\fi}}
 \newcommand\trefi[2][]{\@mtref[#1]{#2}{#2}}
-\newcommand\trefii[3][]{\@mtref[#1]{#2-#3}{#2 #3}}
-\newcommand\trefiii[4][]{\@mtref[#1]{#2-#3-#4}{#2 #3 #4}}
-\newcommand\trefiv[5][]{\@mtref[#1]{#2-#3-#4-#5}{#2 #3 #4 #5}}
-\newcommand\trefis[2][]{\@mtref[#1]{#2}{#2s}}
-\newcommand\trefiis[3][]{\@mtref[#1]{#2-#3}{#2 #3s}}
-\newcommand\trefiiis[4][]{\@mtref[#1]{#2-#3-#4}{#2 #3 #4s}}
-\newcommand\trefivs[5][]{\@mtref[#1]{#2-#3-#4-#5}{#2 #3 #4 #5s}}
-\newcommand\Trefi[2][]{\@mtref[#1]{#2}{\capitalize{#2}}}
-\newcommand\Trefii[3][]{\@mtref[#1]{#2-#3}{\capitalize{#2 #3}}}
-\newcommand\Trefiii[4][]{\@mtref[#1]{#2-#3-#4}{\capitalize{#2 #3 #4}}}
-\newcommand\Trefiv[5][]{\@mtref[#1]{#2-#3-#4-#5}{\capitalize{#2 #3 #4 #5}}}
-\newcommand\Trefis[2][]{\@mtref[#1]{#2}{\capitalize{#2s}}}
-\newcommand\Trefiis[3][]{\@mtref[#1]{#2-#3}{\capitalize{#2 #3s}}}
-\newcommand\Trefiiis[4][]{\@mtref[#1]{#2-#3-#4}{\capitalize{#2 #3 #4s}}}
-\newcommand\Trefivs[5][]{\@mtref[#1]{#2-#3-#4-#5}{\capitalize{#2 #3 #4 #5s}}}
+\newcommand\trefii[3][]{\@mtref[#1]{#2 #3}{#2-#3}}
+\newcommand\trefiii[4][]{\@mtref[#1]{#2 #3 #4}{#2-#3-#4}}
+\newcommand\trefiv[5][]{\@mtref[#1]{#2 #3 #4 #5}{#2-#3-#4-#5}}
+\newcommand\trefis[2][]{\@mtref[#1]{#2s}{#2}}
+\newcommand\trefiis[3][]{\@mtref[#1]{#2 #3s}{#2-#3}}
+\newcommand\trefiiis[4][]{\@mtref[#1]{#2 #3 #4s}{#2-#3-#4}}
+\newcommand\trefivs[5][]{\@mtref[#1]{#2 #3 #4 #5s}{#2-#3-#4-#5}}
+\newcommand\Trefi[2][]{\@mtref[#1]{\capitalize{#2}}{#2}}
+\newcommand\Trefii[3][]{\@mtref[#1]{\capitalize{#2 #3}}{#2-#3}}
+\newcommand\Trefiii[4][]{\@mtref[#1]{\capitalize{#2 #3 #4}}{#2-#3-#4}}
+\newcommand\Trefiv[5][]{\@mtref[#1]{\capitalize{#2 #3 #4 #5}}{#2-#3-#4-#5}}
+\newcommand\Trefis[2][]{\@mtref[#1]{\capitalize{#2s}}{#2}}
+\newcommand\Trefiis[3][]{\@mtref[#1]{\capitalize{#2 #3s}}{#2-#3}}
+\newcommand\Trefiiis[4][]{\@mtref[#1]{\capitalize{#2 #3 #4s}}{#2-#3-#4}}
+\newcommand\Trefivs[5][]{\@mtref[#1]{\capitalize{#2 #3 #4 #5s}}{#2-#3-#4-#5}}
 \providecommand{\termemph}[1]{#1}
 \providecommand{\defemph}[1]{{\textbf{#1}}}
 \providecommand{\stDMemph}[1]{{\textbf{#1}}}

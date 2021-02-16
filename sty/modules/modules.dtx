@@ -831,7 +831,7 @@
   \end{@module}%
   \ignorespacesafterend%
 }%
-\ifmod@show\surroundwithmdframed{module@om@common}\fi%
+\ifmod@show\if@latexml\else\surroundwithmdframed{module@om@common}\fi\fi%
 %    \end{macrocode}
 % \end{environment}
 %
@@ -1215,7 +1215,13 @@
 %    \end{macrocode}
 % and more adapted from \url{http://tex.stackexchange.com/questions/179016/ignore-spaces-and-pars-after-an-environment}
 %    \begin{macrocode}
-\def\ignorespacesandparsafterend#1\ignorespaces\fi{#1\fi\ignorespacesandpars}
+\def\define@ignorespacesafterend{%
+  \def\ignorespacesandparsafterend##1\ignorespaces\fi{##1\fi\ignorespacesandpars}%
+}
+\if@latexml
+  \def\ignorespacesandparsafterend{}
+\else\define@ignorespacesafterend
+\fi
 \def\ignorespacesandpars{\ifhmode\unskip\fi\@ifnextchar\par{\expandafter\ignorespacesandpars\@gobble}{}}
 %    \end{macrocode}
 % 
