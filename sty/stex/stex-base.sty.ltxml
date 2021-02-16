@@ -1,0 +1,9 @@
+use LaTeXML::Package;
+use strict;
+use warnings;
+
+RawTeX('\newif\if@latexml\@latexmltrue');
+
+InputDefinitions('stex-base', type => 'sty', noltxml => 1,withoptions => 1);
+
+1;
