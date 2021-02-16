@@ -767,7 +767,9 @@
 % |pdflatex|. We set it to |false| here, and in the \latexml binding we set it to true. 
 %    \begin{macrocode}
 %<*base>
-\newif\if@latexml\@latexmlfalse 
+\ifcsname if@latexml\endcsname\else
+  \expandafter\newif\csname if@latexml\endcsname\@latexmlfalse
+\fi
 %</base>
 %    \end{macrocode}
 % \Finale

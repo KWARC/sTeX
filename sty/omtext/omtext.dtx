@@ -492,8 +492,8 @@
 % \begin{environment}{sboxquote}
 %    \begin{macrocode}
 \newenvironment{sboxquote}[1][]
-{\def\@@src{#1}\begin{mdframed}[leftmargin=.5cm,rightmargin=.5cm]}
-{\@lec{\textrm\@@src}\end{mdframed}}
+{\def\@@src{#1}\if@latexml\else\begin{mdframed}[leftmargin=.5cm,rightmargin=.5cm]\fi}
+{\@lec{\textrm\@@src}\if@latexml\else\end{mdframed}\fi}
 %    \end{macrocode}
 % \end{environment}
 % 

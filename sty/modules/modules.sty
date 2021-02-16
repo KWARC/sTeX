@@ -59,7 +59,7 @@
   \end{@module}%
   \ignorespacesafterend%
 }%
-\ifmod@show\surroundwithmdframed{module@om@common}\fi%
+\ifmod@show\if@latexml\else\surroundwithmdframed{module@om@common}\fi\fi%
 \newif\ifarchive@ns@empty@\archive@ns@empty@false
 \def\set@default@ns{%
   \edef\@module@ns@temp{\currfiledir}%
@@ -370,7 +370,6 @@
 \newrobustcmd\capitalize[1]{\expandafter\@capitalize #1}%
 \newcommand\mod@component[1]{}
 \newcommand\mod@termref[3]{\def\@test{#3}%
-  \message{mod@termref: 1: #1, 2: #2, 3: \meaning\@test}
   \ifcsvoid{Module#1}{% raise warnings and errors accordingly
     \protect\G@refundefinedtrue%
     \if@trwarn

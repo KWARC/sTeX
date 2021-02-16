@@ -525,6 +525,8 @@
   \gdef\temp@archive@dir{}%
   \findmanifest{#2}%
   \begingroup%
+    \newlinechar=-1%
+    \endlinechar=-1%
     \gdef\manifest@mf@id{}%
     \gdef\manifest@mf@narr{}%
     \gdef\manifest@mf@ns{}%
@@ -849,7 +851,7 @@
   \view@heading{#2}{#3}{\mhview@display}{\mhview@title}%
   \ignorespacesandpars}
 {\end{@mhview}\ignorespacesandparsafterend}
-\ifmod@show\surroundwithmdframed{mhview}\fi
+\ifmod@show\if@latexml\else\surroundwithmdframed{mhview}\fi\fi
 %    \end{macrocode}
 % \end{environment}
 %

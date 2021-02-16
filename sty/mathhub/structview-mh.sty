@@ -37,7 +37,7 @@
   \view@heading{#2}{#3}{\mhview@display}{\mhview@title}%
   \ignorespacesandpars}
 {\end{@mhview}\ignorespacesandparsafterend}
-\ifmod@show\surroundwithmdframed{mhview}\fi
+\ifmod@show\if@latexml\else\surroundwithmdframed{mhview}\fi\fi
 \newenvironment{@mhview}[2]{%from, to
   \usemhmodule[mhrepos=\mhview@fromrepos,path=\mhview@frompath]{#1}%
   \usemhmodule[mhrepos=\mhview@torepos,path=\mhview@topath]{#2}%

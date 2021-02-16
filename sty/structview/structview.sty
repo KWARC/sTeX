@@ -68,7 +68,7 @@
   \end{@view}%
   \ignorespacesandpars%
 }%
-\ifmod@show\surroundwithmdframed{view}\fi%
+\ifmod@show\if@latexml\else\surroundwithmdframed{view}\fi\fi%
 \newenvironment{@view}[2]{%from, to
   \@importmodule[\view@loadfrom]{#1}{export}%
   \@importmodule[\view@loadto]{#2}{export}%

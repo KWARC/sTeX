@@ -7,7 +7,9 @@
 %% stex.dtx  (with options: `base')
 %% 
 \ProvidesPackage{stex-base}[2019/11/23 v1.0 sTeX Basics]
-\newif\if@latexml\@latexmlfalse
+\ifcsname if@latexml\endcsname\else
+  \expandafter\newif\csname if@latexml\endcsname\@latexmlfalse
+\fi
 \endinput
 %%
 %% End of file `stex-base.sty'.
