@@ -16,7 +16,13 @@
   {}%
   \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\TeX}{sTeX}\xspace%
 }
-\def\sTeX{\stex}
+\protected\def\slatex{%
+  \@ifundefined{texorpdfstring}%
+  {\let\texorpdfstring\@firstoftwo}%
+  {}%
+  \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\LaTeX}{sLaTeX}\xspace%
+}
+\def\sLaTeX{\slatex}
 \endinput
 %%
 %% End of file `stex-logo.sty'.
