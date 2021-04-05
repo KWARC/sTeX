@@ -1,8 +1,13 @@
 \documentclass{article}
 \usepackage[defindex]{statements}
-
+\usepackage{hyperref}
+\usepackage{calbf}
 \begin{document}
 \begin{module}[id=foo]
+%   \makeatletter  \message{module@ID: \module@id}\makeatother
+%   \importmodule[load=FOO]{FOO}
+% \makeatletter  \message{module@ID: \module@id}\makeatother
+
 \begin{definition}
 \Defi{fofo} and more
 
@@ -18,7 +23,13 @@
 
 \adefiii{FOO}{foo}{bar}{baz}[at=foobarbaz] and more
 
-\Trefi{fofo}
+% \Trefi{fofo}
+
+% \trefii{foo}{bar}
+
+% \trefiis{foo}{bar}
+
+\termref[cd=foo,name=bar]{$\mathcal{C}$-deriva}
 \end{definition}
 \end{module}
 \end{document}

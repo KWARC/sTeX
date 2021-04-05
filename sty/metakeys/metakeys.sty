@@ -105,7 +105,6 @@
 }%
 \newrobustcmd\metakeys@unspecified{an metakeys-defined key left unspecified}%
 \newrobustcmd\metakeysifus[4]{%
-  \message{testing #1@#2=\csname#1@#2\endcsname}%
   \expandafter\ifx\csname #1@#2\endcsname\metakeys@unspecified{#3}\else{#4}\fi%
 }%
 \endinput

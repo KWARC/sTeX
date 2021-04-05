@@ -755,6 +755,13 @@
   {}%
   \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\TeX}{sTeX}\xspace%
 }
+\protected\def\slatex{%
+  \@ifundefined{texorpdfstring}%
+  {\let\texorpdfstring\@firstoftwo}%
+  {}%
+  \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\LaTeX}{sLaTeX}\xspace%
+}
+\def\sLaTeX{\slatex}
 \def\sTeX{\stex}
 %</logo>
 %    \end{macrocode}
@@ -801,7 +808,7 @@
 %  LocalWords:  specialized standardized Deach exls99 xpr00 compactitem searchabiliby tdm
 %  LocalWords:  StaGinDav maacl09 analyzer athematical uments concl smglom subsubsection
 %  LocalWords:  TeXlive TeXLive texmf.cnf pdflatex ednote cmath cmath ctancite ipsmsl lmh
-%  LocalWords:  centering tikzpicture xscale  rdfmeta rdfmeta sproof sproof
+%  LocalWords:  centering tikzpicture xscale  rdfmeta rdfmeta sproof sproof KohGin:sitd
 %  LocalWords:  workaddress omtext omtext tikzinput tikzinput smglomsty mikoslidessty
 %  LocalWords:  mikoslides.sty hwexamsty hwexam.sty smglomcls smglom.cls mikoslidescls
 %  LocalWords:  mikoslides.cls hwexamcls hwexam.cls omdoccls omdoc.cls smms KohAmb smmssl
@@ -812,4 +819,4 @@
 %  LocalWords:  gitsc gitsc Kohlhase:ulsmf08 smultiling RobVor:hoar01 Kohlhase:smmtf tikz
 %  LocalWords:  Deach:exls99,Kay:xpr00 layouted pkg:statements pkg:modules KohGin:smss
 %  LocalWords:  pkg:structview Kohlhase:svs sec:mathdoc Kohlhase:smomdl ZhaKoh:pus mpdf
-%  LocalWords:  externalize
+%  LocalWords:  externalize slatex ifcsname endcsname expandafter csname

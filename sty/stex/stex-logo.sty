@@ -16,6 +16,13 @@
   {}%
   \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\TeX}{sTeX}\xspace%
 }
+\protected\def\slatex{%
+  \@ifundefined{texorpdfstring}%
+  {\let\texorpdfstring\@firstoftwo}%
+  {}%
+  \texorpdfstring{\raisebox{-.5ex}S\kern-.5ex\LaTeX}{sLaTeX}\xspace%
+}
+\def\sLaTeX{\slatex}
 \def\sTeX{\stex}
 \endinput
 %%
