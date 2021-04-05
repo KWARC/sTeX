@@ -427,7 +427,7 @@
 %   This just tests for equality of the first arg with |\metakeys@unspecified|
 %    \begin{macrocode}
 \newrobustcmd\metakeysifus[4]{%
-  \message{testing #1@#2=\csname#1@#2\endcsname}%
+%  \message{testing #1@#2=\csname#1@#2\endcsname}%
   \expandafter\ifx\csname #1@#2\endcsname\metakeys@unspecified{#3}\else{#4}\fi%
 }%
 %</package>
