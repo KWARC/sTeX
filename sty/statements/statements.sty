@@ -237,7 +237,7 @@ whatever is suitable semantically}\fi}
 \addmetakey*{termref}{name}
 \newif\iftermref@moduleerror\termref@moduleerrorfalse
 \newcommand\termref[2][]{\metasetkeys{termref}{#1}\def\@test{#2}%
-\message{termref: 1: #1 2: \meaning\@test; termref@cd=\termref@cd!}%
+%\message{termref: 1: #1 2: \meaning\@test; termref@cd=\termref@cd!}%
 \termref@moduleerrorfalse%
 \ifx\termref@cd\@empty%
   \ifcsvoid{module@uri@uri}{%
@@ -260,7 +260,7 @@ whatever is suitable semantically}\fi}
   \ifx\termref@name\@empty\def\termref@name{#2}\fi%
   \@ifundefined{sref@\termref@name @\termref@cd @defined}%
   {\ifx\termref@cdbase\@empty% external reference
-    \message{link via mod@termref}%
+%    \message{link via mod@termref}%
     \mod@termref\termref@cd\termref@name{#2}%
    \else\sref@href@ifh\termref@cdbase{#2}\mssage{link to cdbase only}%
    \fi}%
