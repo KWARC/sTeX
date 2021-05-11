@@ -1,0 +1,49 @@
+\documentclass[orivec]{llncs}
+\usepackage[mh,mathhub=/Users/kohlhase/localmh/MathHub]{smglom}
+\usepackage{stex-logo}
+\usepackage[bookmarks,linkcolor=red,citecolor=blue,urlcolor=gray,colorlinks,breaklinks,bookmarksopen,bookmarksnumbered]{hyperref}
+\title{Integrating \protect\sTeX into llncs.sty}
+\author{Michael Kohlhase\orcidID{0000-0002-9859-6337} \and Dennis M\"uller\orcidID{0000-0002-4482-4912} \and Jan Frederick Schaefer}
+\institute{Computer Science, FAU  Erlangen-N\"urnberg}
+
+\usepackage[hyperref=auto,style=alphabetic,isbn=false,backend=bibtex]{biblatex}
+\addbibresource{kwarcpubs.bib}
+\addbibresource{extpubs.bib}
+\addbibresource{kwarccrossrefs.bib}
+\addbibresource{extcrossrefs.bib}
+\renewcommand*{\bibfont}{\small}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  Paper shows how to integrate \sTeX stuff into regular papers, e.g. via the
+  \texttt{llncs.cls} and get them through submission systems like easychair.
+\end{abstract}
+
+\section{Introduction}\label{sec:intro}
+
+\section{The Meat of the Matter}
+
+\begin{module}[id=MEU-principle]
+\importmhmodule[mhrepos=MiKoMH/AI,dir=rational-decisions/en]{Ramsey-thm}
+\importmhmodule[mhrepos=MiKoMH/AI,dir=probabilistic-reasoning/en]{condprob}
+\gimport[smglom/probability]{expectation}
+\symdef[name=expected-utility]{expectedUtilityOp}{EU}
+\symdef[name=expected-utility]{expectedUtility}[1]{\prefix\expectedUtilityOp{#1}}
+\symdef[name=expected-utility-given]{expectedUtilityGiven}[2]{\prefix\expectedUtilityOp{#1|#2}}
+\symdef{agactres}[1]{R_{#1}}
+
+\begin{definition}
+  The \defii{expected}{utility} $\expectedUtilityGiven{a}{\mathbf{e}}$ of an
+  \trefi[agent-math]{action} $a$ (given evidence $\mathbf{e}$) is
+  \[\fundefeq{a,\mathbf{e}}{\expectedUtilityGiven{a}{\mathbf{e}}}
+    {\SumInColl{s}\Omega
+      {\realtimes[cdot]{\CondProb{\agactres{a}=s}{a,\mathbf{e}},\utilityof{s}}}}
+  \]
+\end{definition}
+\end{module}
+
+\section{Conclusion}\label{sec:conc}
+
+\printbibliography
+\end{document}
