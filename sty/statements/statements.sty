@@ -236,7 +236,8 @@ whatever is suitable semantically}\fi}
 \addmetakey*{termref}{cdbase}
 \addmetakey*{termref}{name}
 \newif\iftermref@moduleerror\termref@moduleerrorfalse
-\newcommand\termref[2][]{\metasetkeys{termref}{#1}%
+\newcommand\termref[2][]{\metasetkeys{termref}{#1}\def\@test{#2}%
+%\message{termref: 1: #1 2: \meaning\@test; termref@cd=\termref@cd!}%
 \termref@moduleerrorfalse%
 \ifx\termref@cd\@empty%
   \ifcsvoid{module@uri@uri}{%
@@ -259,11 +260,12 @@ whatever is suitable semantically}\fi}
   \ifx\termref@name\@empty\def\termref@name{#2}\fi%
   \@ifundefined{sref@\termref@name @\termref@cd @defined}%
   {\ifx\termref@cdbase\@empty% external reference
-   \mod@termref\termref@cd\termref@name{#2}%
-   \else\sref@href@ifh\termref@cdbase{#2}%
+%    \message{link via mod@termref}%
+    \mod@termref\termref@cd\termref@name{#2}%
+   \else\sref@href@ifh\termref@cdbase{#2}\mssage{link to cdbase only}%
    \fi}%
   {\def\@label{sref@\termref@cd\@QuestionMark\termref@name @target}%
-    \sref@hlink@ifh\@label{#2}}%\footnote{termref: internal reference to \@label}
+    \sref@hlink@ifh\@label{#2}\message{internal reference to \@label}}%
 \fi}
 \def\@instring#1#2{TT\fi\begingroup\edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
 \newcommand\@@@mtref[3]{\def\@@cd{#1}\def\@@name{#2}%

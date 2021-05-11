@@ -376,6 +376,7 @@
 \newrobustcmd\capitalize[1]{\expandafter\@capitalize #1}%
 \newcommand\mod@component[1]{}
 \newcommand\mod@termref[3]{\def\@test{#3}%
+%  \message{mod@termref: 1: #1, 2: #2, 3: \meaning\@test}%
   \ifcsvoid{Module#1}{% raise warnings and errors accordingly
     \protect\G@refundefinedtrue%
     \if@trwarn
@@ -391,7 +392,7 @@
     \@ifundefined{module@#1@path}% local reference
     {\sref@hlink@ifh{\@label}{\ifx\@test\@empty #2\else #3\fi}%
     }%
-    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\#\@label}%
+    {\def\@uri{\csname module@#1@path\endcsname\mod@component{#1}.pdf\@Fragment\@label}%
       \sref@href@ifh{\@uri}{\ifx\@test\@empty #2\else #3\fi}%
 }%
   }}%
