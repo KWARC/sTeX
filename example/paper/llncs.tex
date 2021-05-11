@@ -1,7 +1,9 @@
-\documentclass[orivec]{llncs}
+\documentclass{llncs}
 \usepackage[mh,mathhub=/Users/kohlhase/localmh/MathHub]{smglom}
 \usepackage{stex-logo}
-\usepackage[bookmarks,linkcolor=red,citecolor=blue,urlcolor=gray,colorlinks,breaklinks,bookmarksopen,bookmarksnumbered]{hyperref}
+\usepackage[show]{ed}
+\usepackage{hyperref}
+\usepackage[capitalize]{cleveref} 
 \title{Integrating \protect\sTeX into llncs.sty}
 \author{Michael Kohlhase\orcidID{0000-0002-9859-6337} \and Dennis M\"uller\orcidID{0000-0002-4482-4912} \and Jan Frederick Schaefer}
 \institute{Computer Science, FAU  Erlangen-N\"urnberg}
@@ -17,33 +19,136 @@
 \maketitle
 \begin{abstract}
   Paper shows how to integrate \sTeX stuff into regular papers, e.g. via the
-  \texttt{llncs.cls} and get them through submission systems like easychair.
+  \texttt{llncs.cls} and get them through submission systems like EasyChair.
 \end{abstract}
 
 \section{Introduction}\label{sec:intro}
 
-\section{The Meat of the Matter}
+One of the useful new features of \sTeX is that we can mix in its semantic annotation
+functionality into arbitrary document classes. This paper is an example of how this can be
+done. Indeed it uses the \textsf{llncs} class as we would submit it to a conference with
+LNCS or LNAI proceedings.
 
-\begin{module}[id=MEU-principle]
+In \cref{sec:meat} show how we can use the \sTeX functionality to write an \sTeX module.
+This presupposes that the author has cloned the necessary MathHub archives from
+\url{https://gl.mathhub.info}, say under the local path
+\url{/Users/kohlhase/localmh/MathHub}. One of the past hindrances was that it was
+virtually impossible to submit a paper that includes MathHub archives via a conference
+tool like EasyChair.org. Therefore the \sTeX distribution contains a python script
+\texttt{mhlocalize} that copies a snapshot of the \sTeX files from the MathHub archives
+into the current directory, so they can be zipped for submission with the paper sources. 
+
+
+\section{The Meat of the Matter: An \sTeX module in a Paper}\label{sec:meat}
+Here we make use of the \sTeX functionality: We initialize the preamble with
+\begin{footnotesize}
+\begin{verbatim}
+\documentclass{llncs}
+\usepackage[mh,mathhub=/Users/kohlhase/localmh/MathHub]{smglom}
+\end{verbatim}
+  The first line contains the \texttt{llncs} document class and the second calls the
+  \texttt{smglom} package from the \sTeX distribution. We give it the \texttt{mathhub}
+  option that allows to specify the system path to the local MathHub
+  archives.
+
+  This is sufficient solitary authoring. For collaborative authoring, the approach of
+  supplying the respective \sTeX packages with a \texttt{path=} option will not work,
+  since the path to the local MathHub home is system-dependent and can therefore not be
+  committed. There are two ways of fixing this.  One is to have an unversioned file
+  \verb|lmh.sty| with contents
+\begin{verbatim}
+\def\mathhub@path{/path/to/mathhub} 
+\end{verbatim}
+  and add a \verb|\usepackage{lmh}| before the \verb|\usepackage[mh]{smglom}|.  For the
+  other see \cref{sec:easychair}.
+
+  Either way, somewhere in the paper we can just write an \sTeX module, here one about the
+  expected utility of an action in a partially observable environment.
+
+\begin{verbatim}
+\begin{module}[id=exputil]
 \importmhmodule[mhrepos=MiKoMH/AI,dir=rational-decisions/en]{Ramsey-thm}
 \importmhmodule[mhrepos=MiKoMH/AI,dir=probabilistic-reasoning/en]{condprob}
 \gimport[smglom/probability]{expectation}
-\symdef[name=expected-utility]{expectedUtilityOp}{EU}
-\symdef[name=expected-utility]{expectedUtility}[1]{\prefix\expectedUtilityOp{#1}}
-\symdef[name=expected-utility-given]{expectedUtilityGiven}[2]{\prefix\expectedUtilityOp{#1|#2}}
+\symdef{expectedUtilityOp}{EU}
+\symdef{expectedUtility}[1]{\prefix\expectedUtilityOp{#1}}
+\symdef{expectedUtilityGiven}[2]{\prefix\expectedUtilityOp{#1|#2}}
 \symdef{agactres}[1]{R_{#1}}
 
 \begin{definition}
-  The \defii{expected}{utility} $\expectedUtilityGiven{a}{\mathbf{e}}$ of an
-  \trefi[agent-math]{action} $a$ (given evidence $\mathbf{e}$) is
-  \[\fundefeq{a,\mathbf{e}}{\expectedUtilityGiven{a}{\mathbf{e}}}
+The \trefii{expected}{utility} $\expectedUtilityGiven{a}{\mathbf{e}}$ of an
+\trefi[agent-math]{action} $a$ (given evidence $\mathbf{e}$) is
+\[\fundefeq{a,\mathbf{e}}{\expectedUtilityGiven{a}{\mathbf{e}}}
     {\SumInColl{s}\Omega
-      {\realtimes[cdot]{\CondProb{\agactres{a}=s}{a,\mathbf{e}},\utilityof{s}}}}
-  \]
+    {\realtimes[cdot]{\CondProb{\agactres{a}=s}{a,\mathbf{e}},\utilityof{s}}}}
+\]
+where $\agactres{a}$  is a \trefii[unconditional-prob]{random}{variable} whose 
+values are the results of performing $a$ in the current state.
 \end{definition}
 \end{module}
+\end{verbatim}
+\end{footnotesize}
+
+The first line introduces a module, the next three lines make available the semantic
+macros introduced by two modules in the \sTeX-based AI lecture hosted at
+\url{https://gl.mathhub.info/MiKoMH/AI} and another from the SMGloM glossary archive at
+\url{https://gl.mathhub.info/smglom/probability}. The next three lines introduce semantic
+macros we use in the definition itself. With all the semantic macros (included and
+directly provided), we can mark up the formulae and technical terms in the usual \sTeX
+way. This gives the following result:\ednote{there is still a problem here, the
+  \texttt{definition} environment does not produce a good label.}
+\begin{quote}
+\begin{module}[id=exputil]
+\importmhmodule[mhrepos=MiKoMH/AI,dir=rational-decisions/en]{Ramsey-thm}
+\importmhmodule[mhrepos=MiKoMH/AI,dir=probabilistic-reasoning/en]{condprob}
+\gimport[smglom/probability]{expectation}
+\symdef{expectedUtilityOp}{EU}
+\symdef{expectedUtility}[1]{\prefix\expectedUtilityOp{#1}}
+\symdef{expectedUtilityGiven}[2]{\prefix\expectedUtilityOp{#1|#2}}
+\symdef{agactres}[1]{R_{#1}}
+
+\begin{definition}
+The \trefii{expected}{utility} $\expectedUtilityGiven{a}{\mathbf{e}}$ of an
+\trefi[agent-math]{action} $a$ (given evidence $\mathbf{e}$) is
+\[\fundefeq{a,\mathbf{e}}{\expectedUtilityGiven{a}{\mathbf{e}}}
+    {\SumInColl{s}\Omega
+    {\realtimes[cdot]{\CondProb{\agactres{a}=s}{a,\mathbf{e}},\utilityof{s}}}}
+\]
+where $\agactres{a}$  is a \trefii[unconditional-prob]{random}{variable} whose 
+values are the results of performing $a$ in the current state.
+\end{definition}
+\end{module}
+\end{quote}
+Note that we are taking
+
+\section{Localizing the Papers}\label{sec:easychair}
+
+To make the paper sources into a self-contained folder, the \sTeX tools distribution at
+\url{https://github.com/sLaTeX/lmhtools} provides the python script \texttt{localize} that
+copies (the necessary parts) of MathHub archives into the \texttt{lmh} subdir in the
+current directory.
+\begin{verbatim}
+python3 localize --localmh /path/to/MathHub paper.tex
+\end{verbatim}
+extracts all archive inclusions from the \sTeX document with main file \verb|paper.tex|
+and recursively copies (or updates) all used files into the local \verb|lmh| directory
+respecting the archive structure. This has two applications:
+\begin{enumerate}
+\item \textbf{Collaborative Authoring in GIT}: Instead of requiring all co-authors have
+  the MathHub archives cloned, you can commit the \texttt{localize}d snapshot and use
+  that. This has the advantage that the late-binding problem inherent in using central
+  archives is mitigated as all co-authors use the same \texttt{lmh} folder. And it is
+  sufficient that one co-author has the MathHub archives cloned, and \texttt{localize}s
+  it.
+\item \textbf{Submission via a Conference or Journal Submission system}: For submission,
+  we need a self-contained zip file which we can now create by \texttt{localize}ing and
+  \texttt{zip}ping.
+\end{enumerate}
 
 \section{Conclusion}\label{sec:conc}
-
+\ednote{tbw}
 \printbibliography
 \end{document}
+
+%  LocalWords:  llncs.cls llncs mhlocalize mathhub lmh.sty lmh exputil Ramsey-thm tbw
+%  LocalWords:  condprob agactres fundefeq utilityof sec:easychair sec:conc
