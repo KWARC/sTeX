@@ -416,13 +416,13 @@
 
 \ifcsvoid{mathhub@path}{
   \kpsewhich\mathhub@path{--var-value MATHHUB}
-  \if@iswindows@\windows@to@path\mathhub@path\fi
-  \ifx\mathhub@path\@empty%
-  \PackageError{mathhub}
-    {MATHHUB system variable not found or wrongly set}
-    {use export MATHHUB="<path>", where <path> points your MathHub direcctory}
-  \else\defpath{MathHub}{\mathhub@path}\fi
 }{}
+\if@iswindows@\windows@to@path\mathhub@path\fi
+\ifx\mathhub@path\@empty%
+\PackageError{mathhub}
+  {MATHHUB system variable not found or wrongly set}
+  {use export MATHHUB="<path>", where <path> points your MathHub direcctory}
+\else\defpath{MathHub}{\mathhub@path}\fi
 \ifcsvoid{mathhub@path}{}{\message{^^JMATHHUB: \mathhub@path}}
 
 %    \end{macrocode}
