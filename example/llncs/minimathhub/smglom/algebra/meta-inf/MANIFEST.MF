@@ -1,0 +1,8 @@
+id: smglom/algebra
+source-base: http://mathhub.info/smglom/algebra
+narration-base: http://mathhub.info/smglom/algebra
+dependencies: smglom/mv,smglom/sets,smglom/calculus,smglom/linear-algebra,smglom/arithmetics,smglom/manifolds,smglom/topology
+responsible: Michael.Kohlhase@FAU.de
+title: Elementary Algeba
+teaser: Elementary algebra encompasses some of the basic concepts of algebra, one of the main branches of mathematics.
+description: desc.html
