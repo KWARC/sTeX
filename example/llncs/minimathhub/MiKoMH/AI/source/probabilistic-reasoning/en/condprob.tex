@@ -1,0 +1,42 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=condprob]
+\importmhmodule[dir=probabilistic-reasoning/en]{unconditional-prob}
+\symdef[name=CondProb]{CondProbOp}{P}
+\symdef{CondProb}[2]{\mixfixii[p=800,pi=\niprec,pii=\niprec]{\CondProbOp(}{#1}\mid{#2})}
+
+\begin{frame}
+  \frametitle{Conditional Probabilities: Definition}
+  \begin{itemize}
+  \item 
+    \begin{definition}
+      Given propositions $A$ and $B$ where $\notequal{\uProb{b}}0$, the
+      \defii{conditional}{probability}, or
+      \defii[name=conditional-probability]{posterior}{probability}, of $a$ given $b$, written
+      $\CondProb{a}b$, is defined as:
+      \[\fundefeq{a,b}{\CondProb{a}b}{\frac{\uProb{\lconj{a,b}}}{\uProb{b}}}\]
+    \end{definition} 
+  \item 
+    \begin{omtext}[title=Intuition]
+      The likelihood of having $a$ and $b$, within the set of outcomes where we have $b$.
+    \end{omtext}
+  \item 
+    \begin{example}
+      $\uProb{\lconj{\rvval{cavity},\rvval{toothache}}} = 0.12$ and
+      $\uProb{\rvval{toothache}} = 0.2$ yield
+      $\CondProb{\rvval{cavity} }{\rvval{toothache}} = 0.6$.
+    \end{example}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  condprob importmhmodule gimport smglom realarith symdef CondProbOp neq
+%  LocalWords:  mixfixii frametitle itemize defii fundefeq a,b lconj a,b omtext mathit
+%  LocalWords:  mathit 800,pi niprec,pii niprec rvval rvval

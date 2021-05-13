@@ -1,0 +1,34 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{rationalnumbers}
+  \gimport{intarith}
+  \gimport[smglom/sets]{quotientspace}
+  \MSC{03Exx,11A99,11B99}
+  \symdef[noverb]{RationalNumbers}{\mathbb{Q}}
+  \symtest{RationalNumbers}{\RationalNumbers}
+  \symii{rational}{number}
+
+  \symdef[noverb]{PositiveRationalNumbers}{\mathbb{Q}^+}
+  \symtest{PositiveRationalNumbers}{\PositiveRationalNumbers}
+
+  \symdef[noverb]{NonPositiveRationalNumbers}{\mathbb{Q}^-_0}
+  \symtest{NonPositiveRationalNumbers}{\NonPositiveRationalNumbers}
+
+  \symdef[noverb]{NegativeRationalNumbers}{\mathbb{Q}^-}
+  \symtest{NegativeRationalNumbers}{\NegativeRationalNumbers} 
+
+  \symdef[noverb]{NonNegativeRationalNumbers}{\mathbb{Q}^-_0}
+  \symtest{NonNegativeRationalNumbers}{\NonNegativeRationalNumbers} 
+
+  \symiii{positive}{rational}{number}
+  \symiii{negative}{rational}{number}
+  \symiii{non-positive}{rational}{number}
+  \symiii{non-negative}{rational}{number}
+
+  \symdef{fraction}[2]{\frac{#1}{#2}}
+  \symtest{fraction}{\fraction12}
+  \symi{denominator}
+  \symi{numerator}
+\end{modsig}
+\end{document}

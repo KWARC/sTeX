@@ -1,0 +1,44 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=agent-math]
+\importmhmodule[dir=rational-agents/en]{agentenv}
+\gimport[smglom/sets]{words}
+\symdef{percepts}{\mathcal{P}}
+\symdef{agentactions}{\mathcal{A}}
+\symdef{agentfunction}[1]{f_{#1}}
+
+\begin{frame}[label=slide.agent-math]
+  \frametitle{Modeling Agents Mathematically and Computationally}
+  \begin{itemize}
+  \item 
+    \begin{definition}
+      A \defi{percept} is the perceptual input of an \trefi[agentenv]{agent} at a specific instant. 
+    \end{definition}
+  \item 
+    \begin{definition}
+      Any recognizable, coherent employment of the \trefis[agentenv]{actuator} of an
+      \trefi[agentenv]{agent} is called an \defi{action} .
+    \end{definition}
+  \item
+    \begin{definition}
+      The \defii{agent}{function} $\agentfunction{a}$ of an agent $a$ maps
+      from \trefi{percept} histories to \trefis{action}:
+      \[\fun{\agentfunction{a}}{\kleenestar\percepts}\agentactions\]
+    \end{definition}
+  \item We assume that \trefis[agentenv]{agent} can always perceive their own
+    \trefis{action}.\lec{but not necessarily their consequences} 
+  \item 
+    \begin{omtext}[title=Problem]
+      \trefiis{agent}{function} can become very big\lec{theoretical tool only}
+    \end{omtext}
+  \item
+    \begin{definition}
+      An \trefii{agent}{function} can be implemented by an \defii{agent}{program} that
+      runs on a physical \defii{agent}{architecture}.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+
+\end{document}

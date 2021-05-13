@@ -1,0 +1,73 @@
+\RequirePackage{listings}
+\lstset{inputencoding=utf8,escapechar=\&}
+\newcommand{\delima}{\mid\negmedspace \mid}
+\newcommand{\delimb}{\delima\negmedspace \delima}
+\newcommand{\delimGS}{\ensuremath{\textcolor{RedViolet}{\delimb\negmedspace\delimb}}}
+\newcommand{\delimRS}{\ensuremath{\textcolor{Green}{\delimb}}}
+\newcommand{\delimUS}{\ensuremath{\textcolor{Turquoise}{\delima}}}
+
+\lstdefinestyle{mmt}{	
+	columns=flexible
+}
+\lstdefinelanguage{mmt}{
+	morekeywords={theory,view,include,namespace,rule,role,implicit,import,structure},
+	keywordstyle=\color{Emerald},
+	morecomment=[l][\color{Gray}]{//},
+	% morecomment={[s]{//}{❚},[s]{//}{❙},[s]{//}{❘}}
+}
+\lstnewenvironment{mmtcode}[1][language=mmt]{\lstset{language=mmt,style=mmt,inputencoding=utf8,escapechar=\&,#1}}{}
+\lstnewenvironment{nmmtcode}[1][language=mmt]{\lstset{xleftmargin=1.2em,numbers=left,language=mmt,style=mmt,inputencoding=utf8,escapechar=\&,#1}}{}
+
+\lstset{
+	literate={→}{\ensuremath{\rightarrow\ }}1
+			{⟶}{\ensuremath{\rightarrow\ }}1
+			{Π}{\ensuremath{\Pi}}1
+			{⟹}{\ensuremath{\Longrightarrow\ }}1
+			{λ}{\ensuremath{\lambda}}1
+			{⟨}{\ensuremath{\langle}}1
+			{⟩}{\ensuremath{\rangle}}1
+			{❚}{\delimGS\;}1
+			{❙}{\delimRS\;}1
+			{❘}{\delimUS\;}1
+			{Σ}{\ensuremath{\sum}}1
+			{…}{\ldots}1
+			{×}{\ensuremath{\times}}1
+			{π}{\ensuremath{\pi}}1
+			{⨁}{\ensuremath{\bigoplus}}1
+			{↪}{\ensuremath{\hookrightarrow}}1
+			{↩}{\ensuremath{\hookleftarrow}}1
+			{⊕}{\ensuremath{\oplus}}1
+			{∅}{\ensuremath{\emptyset}}1
+			{★}{\ensuremath{\star}}1
+			{ℕ}{\ensuremath{\mathbb N}}1
+			{ℤ}{\ensuremath{\mathbb Z}}1
+			{∘}{\ensuremath{\circ}}1
+			{∀}{\ensuremath{\forall}}1
+			{∃}{\ensuremath{\exists}}1
+			{≐}{\ensuremath{\doteq}}1
+			{⊦}{\ensuremath{\vdash}}1
+                        {⊢}{\ensuremath{\vdash}}1
+			{𝒰}{\ensuremath{\mathcal U}}1
+			{⊤}{\ensuremath{\top}}1
+			{⊥}{\ensuremath{\bot}}1
+			{∼}{\ensuremath{\sim}}1
+			{≃}{\ensuremath{\simeq}}1
+			{≠}{\ensuremath{\neq}}1
+			{⋅}{\ensuremath{\cdot}}1
+			{⁻}{\ensuremath{^-}}1
+			{¹}{\ensuremath{^1}}1
+			{∈}{\ensuremath{\in}}1
+			{∪}{\ensuremath{\cup\;}}1
+			{⊗}{\ensuremath{\otimes\;}}1
+			{ε}{\ensuremath{\varepsilon\;}}1
+			{⊸}{\ensuremath{\multimap\;}}1
+			{∧}{\ensuremath{\wedge\;}}1
+			{∨}{\ensuremath{\vee\;}}1
+			{⇒}{\ensuremath{\Rightarrow\;}}1
+			{¬}{\ensuremath{\neg}}1
+			{⇔}{\ensuremath{\Leftrightarrow\;}}1
+			{⊓}{\ensuremath{\sqcap}}1
+			{α}{\ensuremath{\alpha\;}}1
+			{≤}{\ensuremath{\leq\;}}1
+                        {ι}{\ensuremath{\iota\;}}1
+}	

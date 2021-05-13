@@ -1,0 +1,9 @@
+id: MiKoMH/CompLog
+source-base: http://mathhub.info/MiKoMH/CompLog
+narration-base: http://mathhub.info/MiKoMH/CompLog
+dependencies: MiKoMH/KWARC,smglom/sets,MiKoMH/GenCS,smglom/arithmetics,MiKoMH/talks,MiKoMH/TDM,smglom/smglom,smglom/mv,MiKoMH/ACS,MiKoMH/ComSem,MiKoMH/AI,smglom/graphs,MiKoMH/LBS,BaseMH/physics
+description:desc.html
+title: Course Notes for the course Computational Logic at Jacobs University
+teaser: A basic course on Computational logic presenting the syntax, semantics, and calculi of various logics from a computational perspective. 
+responsible: Michael.Kohlhase@FAU.de  
+no-omdoc: .*/legacyslides.tex|.*/atphol/src/.*|.*/formath/.*

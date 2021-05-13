@@ -1,0 +1,8 @@
+id: smglom/computing
+source-base: http://mathhub.info/smglom/computing
+narration-base: http://mathhub.info/smglom/computing
+dependencies: 
+description: desc.html
+responsible: michaelkohlhase@fau.de
+teaser: Basic concepts about computers and programming
+title: Basic concepts about computers and programming

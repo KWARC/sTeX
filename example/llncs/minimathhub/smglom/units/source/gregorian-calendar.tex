@@ -1,0 +1,23 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}{gregorian-calendar}
+  \gimport{solar-calendar}
+  \abbrdef{gregorianADOp}{\operatorname{AD}}
+  \symdef{gregorianADdate}[3]{\mixfixiii[nobrackets]{}{#1}{.\;}{#2}{.\;}{#3}\gregorianADOp}
+  \symdef{gregorianADmonth}[2]{\mixfixii[nobrackets]{}{#1}{.\;}{#2}\gregorianADOp}
+  \symdef{gregorianADyear}[1]{\mixfixi[nobrackets]{}{#1}\gregorianADOp}
+  \abbrdef{gregorianBCOp}{\operatorname{BC}}
+  \symdef{gregorianBCdate}[3]{\mixfixiii[nobrackets]{}{#1}{.\;}{#2}{.\;}{#3}\gregorianBCOp}
+  \symdef{gregorianBCmonth}[2]{\mixfixii[nobrackets]{}{#1}{.\;}{#2}\gregorianBCOp}
+  \symdef{gregorianBCyear}[1]{\mixfixi[nobrackets]{}{#1}\gregorianBCOp}
+  \symii{Gregorian}{calendar}
+  \symii{solar}{calendar}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

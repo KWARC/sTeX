@@ -1,0 +1,17 @@
+\lstdefinelanguage{SW}%
+  {morekeywords={var,end,return,while,if,then,else,do},
+   alsoother=$,%$
+   alsoletter=:,%
+   showstringspaces=false,
+   sensitive=true,
+   morecomment=[l]{\#}}
+
+\lstdefinelanguage{VM}%
+  {morekeywords={con,add,sub,mul,leq,jp,cjp,halt,peek,poke},
+   alsoother=$,%$
+   alsoletter=:,%
+   showstringspaces=false,
+   sensitive=true,
+   morecomment=[l]{\#}}
+
+\lstdefinelanguage{VMP}[]{VM}{morekeywords={proc,arg,return,call}}

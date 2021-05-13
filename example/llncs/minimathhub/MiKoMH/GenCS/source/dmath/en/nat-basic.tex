@@ -1,0 +1,79 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=nat-basic]
+ \importmhmodule[mhrepos=MiKoMH/KWARC,dir=missing/en]{dates}
+  \symdef[name=sslash]{sslashFN}{/}
+  \symdef{sslash}[1]{\mixfixi[p=1,pi=0]{}{#1}\sslashFN{}}
+  \symdef{szero}{\;}
+
+  \begin{frame}
+  \frametitle{Something very basic:}
+  \begin{itemize} 
+  \item Numbers are symbolic representations of numeric quantities.
+  \item There are many ways to represent numbers\lec{more on this later}
+  \item let's take the simplest one\lec{about 8,000 to 10,000 years old}
+    \cmhgraphics[width=10cm]{dmath/PIC/Ishango_bone}
+  \item we count by making marks on some surface.
+  \item For instance $\LXMID{four-unary}{\sslash{\sslash{\sslash{\sslash\szero}}}}$
+    stands for the number four\lec{be it in 4 apples, or 4 worms}
+\newpage
+  \item Let us look at the way we construct numbers a little more algorithmically,
+  \item
+    \begin{definition}[display=flow,id=unary-nats-def-by-rules.def,for={szero,sslash}]
+      these representations are those that can be created by the following two rules.
+      \begin{description}
+      \item[$o$-rule] consider '$\szero$' as an empty space.
+      \item[$s$-rule] given a row of marks or an empty space, make another $\sslashFN$
+        mark at the right end of the row.
+      \end{description}
+    \end{definition}
+  \item
+    \begin{example}[id=ex-four-unary,for=nat-basic]
+      For $\sslash{\sslash{\sslash{\sslash\szero}}}$, Apply the $o$-rule once and then the $s$-rule four
+      times.
+    \end{example}
+  \item
+    \begin{definition}[id=unary-natural-numbers.def]
+      we call these representations \defiii{unary}{natural}{numbers}.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+
+
+\begin{note}
+  \begin{omtext}
+    In addition to manipulating normal objects directly linked to their daily survival,
+    humans also invented the manipulation of place-holders or symbols. A {\emph{symbol}}
+    represents an object or a set of objects in an abstract way. The earliest examples for
+    symbols are the cave paintings showing iconic silhouettes of animals like the famous
+    ones of Cro-Magnon.  The invention of symbols is not only an artistic, pleasurable
+    ``waste of time'' for mankind, but it had tremendous consequences. There is
+    archaeological evidence that in ancient times, namely at least some 8000 to 10000
+    years ago, men started to use tally bones for counting. This means that the symbol
+    ``bone with marks'' was used to represent numbers. The important aspect is that this
+    bone is a symbol that is completely detached from its original down to earth meaning,
+    most likely of being a tool or a waste product from a meal. Instead it stands for a
+    universal concept that can be applied to arbitrary objects.
+  \end{omtext}
+
+  \begin{omtext}
+    Instead of using bones, the slash $\sslashFN$ is a more convenient symbol, but it is
+    manipulated in the same way as in the most ancient times of mankind. The $o$-rule
+    allows us to start with a blank slate or an empty container like a bowl. The $s$- or
+    successor-rule allows to put an additional bone into a bowl with bones, respectively,
+    to append a slash to a sequence of slashes. For instance $\LXMRef{four-unary}$ stands
+   for the number four --- be it 4 apples, or 4 worms. This representation is constructed
+    by applying the $o$-rule once and then the $s$-rule four times.
+  \end{omtext}
+\end{note}
+\end{module}
+
+
+
+\end{document}
+% LocalWords:  en highschool nat sslashFN sslash szero sslashx Cro Magnon stex
+% LocalWords:  Giuseppesymdef mixfixi PeanoAxiom mathbf frametitle
+% LocalWords:  lec mycgraphics dmath unary-nats-def-by-rules.def defiii omtext
+% LocalWords:  emph defi peano-axioms.def peano-axioms Peano inlinedef twintoo
+% LocalWords:  trefi defii itemize

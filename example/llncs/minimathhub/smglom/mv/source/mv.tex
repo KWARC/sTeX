@@ -1,0 +1,71 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{mv}
+  \abbrdef{sdotgroupOp}{\mathop{\rule{.3ex}{.3ex}}}
+  \symdef[noverb,name=disj,gfc=Conj]{disjFN}{\mathop\vee}
+  \symdef[noverb,assocarg=1]{disj}[1]{\assoc[p=600]\disjFN{#1}}
+  \symtest{disj}{\disj{a,b,c}}
+  \symvariant{disj}[1]{or}{\assoc[p=600]{\text{ or }}{#1}}
+
+  \symdef[noverb,name=conj,gfc=Conj]{conjFN}{\mathop\wedge}
+  \symdef[noverb,assocarg=1]{conj}[1]{\assoc[p=500]\conjFN{#1}{}}
+  \symtest{conj}{\conj{a,b,c}}
+  \symvariant{conj}[1]{and}{\assoc[p=500]{\text{ and }}{#1}{}}
+  \symtest[variant=and]{conj}{\conj[and]{a,b,c}}
+
+  \symdef[noverb,name=negate]{negateFN}{\mathop\neg}
+  \symdef[noverb]{negate}[1]{\prefix[p=650]\negateFN{#1}}
+  \symtest{negate}{\negate{a}}
+
+  \symdef[noverb,name=imply,gfc=Conj]{implyFN}{\mathop\Rightarrow}
+  \symdef[noverb]{imply}[2]{\infix[p=500]\implyFN{#1}{#2}} 
+  \symtest{imply}{\imply{a}b}
+  \symvariant{imply}[2]{if}{\infix[p=500]{\text{ if }}{#2}{#1}} 
+
+  \symdef[name=iff,gfc=Conj]{biimplFN}{\mathop\Leftrightarrow} 
+  \symdef[name=iff]{biimpl}[2]{\infix[p=300]\biimplFN{#1}{#2}}
+  \symtest[name=iff]{biimpl}{\biimpl{a}b}
+
+  \symdef[noverb,name=foral,gfc=Predet]{foralFN}{\mathop\forall}
+  \symdef[noverb,bvars=1,assocarg=1]{foral}[2]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\foralFN{#1}\sdotgroupOp{#2}{}{,}}
+  \symtest{foral}{\foral{x}{x=x}}
+  \symvariant{foral}[2]{forall}{#2\text{ for all }#1}
+
+  \symdef[noverb,bvars=1,assocarg=1,bargs=2]{foralS}[3]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\foralFN{#1}{\in{#2}\sdotgroupOp}{#3}{}{,}}
+  \symtest{foralS}{\foralS{x}S{x=x}}
+
+  \symdef[noverb,name=exis,gfc=Predet]{exisFN}{\mathop\exists} 
+  \symdef[noverb,bvars=1,assocarg=1]{exis}[2]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\exisFN{#1}\sdotgroupOp{#2}{}{,}}
+  \symtest{exis}{\exis{x}{x=x}}
+  \symvariant{exis}[2]{forsome}{#2\text{ for some }#1}
+  \symtest[variant=forsome]{exis}{\exis[forsome] x{x=x}}
+
+  \symdef[noverb,bvars=1,assocarg=1,bargs=2]{exisS}[3]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\exisFN{#1}{\in{#2}\sdotgroupOp}{#3}{}{,}}
+  \symtest{exisS}{\exisS{x}S{x=x}}
+
+  \symdef[noverb,name=uexis,gfc=Predet]{uexisFN}{\mathop{\exists^1}}
+  \symdef[noverb,bvars=1,assocarg=1]{uexis}[2]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\uexisFN{#1}\sdotgroupOp{#2}{}{,}} 
+  \symtest{uexis}{\uexis{x}{x=x}}
+
+  \symdef[noverb,bvars=1,assocarg=1,bargs=2]{uexisS}[3]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\uexisFN{#1}{\in{#2}\sdotgroupOp}{#3}{}{,}} 
+  \symtest{uexisS}{\uexisS{x}S{x=x}}
+
+  \symdef[noverb,name=nexis]{nexisFN}{\mathop{\not\kern-.2em\exists}}
+  \symdef[noverb,bvars=1,assocarg=1]{nexis}[2]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\nexisFN{#1}\sdotgroupOp{#2}{}{,}}
+  \symtest{nexis}{\nexis{x}{x=x}}
+
+  \symdef[noverb,bvars=1,assocarg=1,bargs=2]{nexisS}[3]{\mixfixai[p=100,pi=\niprec,pii=\niprec]\nexisFN{#1}{\in{#2}\sdotgroupOp}{#3}{}{,}}
+  \symtest{nexisS}{\nexisS{x}S{x=x}}
+  
+  \symi{formula}
+  \symi{mv}
+  \symii{math}{idiom}
+  \symi{connective}
+  \symi{quantifier}
+\end{modsig}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

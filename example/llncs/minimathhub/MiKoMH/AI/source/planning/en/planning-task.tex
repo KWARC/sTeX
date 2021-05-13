@@ -1,0 +1,45 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=planning-task]
+\importmhmodule[dir=planning/en]{planning-vs-search}
+\importmhmodule[dir=search/en]{search-problem-detenv}
+
+\begin{frame}
+  \frametitle{How does a planning language describe a problem?}
+  \begin{itemize}
+  \item
+    \begin{definition}
+      A \defii{planning}{language} is a logical language for the components of a
+      \trefii[search-problem]{search}{problem}; in particular a \emph{logical description}
+      of the 
+      \begin{itemize}
+      \item<1-> possible \trefis[search-problem]{state} (vs.\ blackbox: data
+        structures). \lec{E.g.: predicate $Eq(.,.)$.}
+      \item<2-> \trefii[search-problem]{initial}{state} $I$ (vs.\ data structures).
+        \lec{E.g.: $Eq(x,1)$.}
+      \item<3-> \trefii[search-problem-detenv]{goal}{test} $G$ (vs.\ a goal-test
+        function). \lec{E.g.: $Eq(x,2)$.}
+      \item<4-> set $A$ of \trefis[search-problem]{action} in terms of
+        \defis{precondition} and \defis{effect} (vs.\ functions returning applicable
+        actions and successor states).  \lec{E.g.: ``increment $x$: pre $Eq(x,1)$, eff
+          $Eq(x,2) \land \lnot Eq(x,1)$''.}
+      \end{itemize}
+      A logical description of all of these is called a \defii{planning}{task}.
+    \end{definition}
+  \item
+    \begin{definition}
+      Solution (\defi{plan}) \hateq sequence of actions from $A$, transforming $I$ into a
+      state that satisfies $G$. \lec{E.g.: ``increment $x$''.}
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  search-problem-detenv lnot

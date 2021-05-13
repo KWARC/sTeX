@@ -1,0 +1,109 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=TypedSet]{set}
+\gimport[smglom/mv]{equal}
+\gimport[smglom/mv]{defeq}
+\gimport[smglom/mv]{expression}
+\gimport[smglom/mv]{mv}
+
+\MSC{03Exx}
+
+\symi{set}
+\symdef[noverb,assocarg=1,name=setlist,align=setList]{set}[1]{\mixfixa[nobrackets]{\{}{#1}{\}},}
+\symtest{set}{\set{1,2,3}}
+% \symvariant{set}[1]{stretchy}{\left\{\assoc{,}{#1}\right\}}
+% \symvariant{set}[1]{stretchy}{\mixfixa[nobrackets]{\left\{}{#1}{\right\}},}
+% \symvariant{set}[1]{big}{\left\{\mixfixA[nobrackets]{}{#1}{},x\../right\}}
+ 
+\abbrdef{setdots}[1]{\set{\aseqdots{#1}}}
+\abbrtest{setdots}{\setdots{1,3}}
+ 
+\abbrdef{dotsset}[1]{\set{\dotsaseq{#1}}}
+\abbrtest{dotsset}{\dotsset{1,3}}
+
+\abbrdef{dotssetdots}[1]{\set{\dotsaseqdots{#1}}}
+\abbrtest{dotssetdots}{\dotssetdots{-1,0,1}}
+
+\abbrdef{setfromto}[2]{\set{\aseqfromto{#1}{#2}}}
+\abbrtest{setfromto}{\setfromto1n}
+
+\abbrdef{nsete}[2]{\set{\naseqe{#1}{#2}}}
+\abbrtest{nsete}{\nsete17}
+
+\abbrdef{nsetli}[3]{\set{\naseqli{#1}{#2}{#3}}}
+\abbrtest{nsetli}{\nsetli{x}17}
+
+\abbrdef{nsetui}[3]{\set{\nasequi{#1}{#2}{#3}}}
+\abbrtest{nsetui}{\nsetui{x}17}
+
+\symdef[noverb,bvars=1,align=bsetst]{setst}[2]{\mixfixii[nobrackets]{\{}{#1}{\,\vert\,}{#2}{\}}}
+\symtest{setst}{\setst{a}{a>0}}
+% \symvariant{setst}[2]{stretchy}{\mixfixia[nobrackets]{\left\{}{#1}{\,\middle\vert}{#2}{\right\}},}
+
+\symdef[noverb,bvars=1,align=bsetst]{bsetst}[3]{\mixfixii[nobrackets]{\{}{#2}{\,\vert\,}{#3}{\}}}
+\symtest{bsetst}{\bsetst{a,b}{(a,b)}{a>b}}
+
+\symdef[noverb,bvars=1,bargs=2]{rsetst}[3]{\mixfixii[nobrackets]{\{}{#1\in #2}{\,\vert\,}{#3}{\}}}
+\symtest{rsetst}{\rsetst{n}{\mathbb{N}}{n>7}}
+
+\symdef[noverb,bvars=1,bargs={2,3}]{brsetst}[4]{\mixfixii[nobrackets]{\{}{#2\in #3}{\,\vert\,}{#4}{\}}}
+\symtest{brsetst}{\brsetst{n,m}{\frac{n}m}{\mathbb{N}\times\mathbb{Z}}{m\ne0}}
+
+\symdef[name=inset,align=inSet]{insetFN}{\mathrel\in}
+\symdef[align=inSet]{inset}[2]{\infix[p=650]\insetFN{#1}{#2}}
+\symtest{inset}{\inset{a}D}
+
+\symvariant{inset}[2]{argbrack}{\infix[p=650,pi=\iprec]\insetFN{#1}{#2}}
+\symtest[variant=argbrack]{inset}{\inset[argbrack]{a}D}
+
+\symdef[noverb,noalign,name=ninset]{ninsetFN}{\mathrel{\not\in}}
+\symdef[noverb,noalign]{ninset}[2]{\infix[p=650]{\ninsetFN}{#1}{#2}}
+\symtest{ninset}{\ninset{a}D}
+
+\symdef[noverb,assocarg=1]{minset}[2]{\mixfixai[p=650,pi=\niprec]{}{#1}\insetFN{#2}{},}
+\symtest{minset}{\minset{a,b}{C}}
+\symdef[noverb]{minsetli}[4]{\infix[p=650,pi=\niprec]\insetFN{#1_{#2},\ldots,#1_{#3}}{#4}}
+\symtest{minsetli}{\minsetli{a}1nC}
+
+
+\abbrdef{minsetdots}[2]{\minset{\aseqdots{#1}}{#2}}
+\abbrtest{minsetdots}{\minsetdots{a,b}{C}}
+
+\symdef[noverb,assocarg=1]{nminset}[2]{\mixfixai[p=650,pi=\niprec]{}{#1}\ninsetFN{#2}{},}
+\symtest{nminset}{\nminset{a,b}{C}}
+
+\abbrdef{nminsetdots}[2]{\nminset{\aseqdots{#1}}{#2}}
+\abbrtest{nminsetdots}{\nminsetdots{a,b}{C}}
+
+\symdef[noverb]{hasprop}[2]{\mixfixii[p=700]{}{#1}{\;\text{has property}\;}{#2}{}}
+\symtest{hasprop}{\setst{x}{\hasprop{a}{P}}}
+
+\symdef[name=setequal,align=SetRelations?sameSet]{setequalOp}{\mathrel\equiv}
+\symdef[assocarg=1]{setequal}[1]{\assoc[p=300]\setequalOp{#1}}
+\symtest{setequal}{\setequal{S,T,R}}
+
+\symdef[noverb,noalign]{nsetequal}[2]{\infix[p=300]{\not\setequalOp}{#1}{#2}}
+\symtest{nsetequal}{\nsetequal{S}T}
+
+\symdef[noverb,name=setwith]{setwithOp}{\mathop\ast}
+\symdef[noverb]{setwith}[2]{\infix[p=600]{\setwithOp}{#1}{#2}}
+\symtest{setwith}{\setwith{N}0}
+
+\symi{element}
+\end{modsig}
+
+\end{document}
+% LocalWords:  en setst insetFN ninset minset nminset def Georg stex symdef lec
+% LocalWords: assocarg mixfixa nobrackets setdots ldots nsete defi
+% LocalWords:  mixfixai nsetli mixfixii nsetui setstnl niprec minsetdots omtext
+% LocalWords:  nminsetdots hasprop frametitle notatiendum inlinedef defii miko
+% LocalWords:  gimport defeq argaseq 03Exx symtest symvariant assoc abbrdef
+% LocalWords:  aseqdots abbrtest dotsset dotsaseq dotssetdots dotsaseqdots naseqe
+% LocalWords:  naseqli nasequi mixfixia setequal setequalOp equiv nsetequal setwo
+% LocalWords:  setwoOp setwith setwithOp
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

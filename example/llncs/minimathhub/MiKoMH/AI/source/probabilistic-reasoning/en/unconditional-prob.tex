@@ -1,0 +1,110 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=unconditional-prob]
+\importmhmodule[dir=probabilistic-reasoning/en]{uncert-logic}
+\importmhmodule[mhrepos=MiKoMH/GenCS,dir=logic/en]{semantics-base}
+\gimport[smglom/probability]{random-variable}
+
+\symdef{rvval}[1]{\text{#1}}
+\symdef{rvvalset}[1]{\mathbf{#1}}
+\symdef{randvar}[1]{\text{#1}}
+\symdef{randvarset}[1]{\mathbf{#1}}
+\symdef[name=uProb]{uProbOp}{P} 
+\symdef{uProb}[1]{\prefix[p=800]\uProbOp{#1}}
+
+\begin{frame}
+  \frametitle{Unconditional Probabilities, Random Variables, and Events}
+  \begin{itemize}
+    \item 
+      \begin{definition}
+        A \drefii[random-variable]{random}{variable} (also called
+        \drefii[random-variable?random-variable]{random}{quantity},
+        \drefii[random-variable?random-variable]{aleatory}{variable}, or
+        \drefii[name=random-variable?random-variable]{stochastic}{variable}) is a variable
+        quantity whose \defi{value} depends on possible outcomes of unknown
+        \trefis[random-variable?random-variable]{variable} and processes we do not
+        understand.
+      \end{definition}
+  \item
+    \begin{definition} 
+      If $X$ is a \trefii{random}{variable} and $x$ a possible \trefi{value}, we will
+      refer to the fact $X = x$ as an \defi{outcome} and a set of \trefis{outcome} as an
+      \defi{event}. The set of possible \trefis{outcome} of $X$ is called the
+      \defi{domain} of $X$.
+    \end{definition}
+  \item The notation \nlex{uppercase ``$X$''} for a \trefii{random}{variable}, and
+    \red{lowercase ``$x$''} for one of its values will be used frequently. \lec{Follows
+      Russel/Norvig}
+  \item
+    \begin{definition}
+      Given a \trefii{random}{variable} $X$, $\uProb{X = x}$ denotes the
+      \defii[name=unconditional-probability]{prior}{probability}, or
+      \defii{unconditional}{probability}, that $X$ has value $x$ in the absence of any
+      other information.
+    \end{definition}
+  \item
+    \begin{module}[id=cavity-ex]
+      \begin{example}
+        $\uProb{\randvar{Cavity}=\semtrue} = 0.2$, where $\randvar{Cavity}$ is a random
+        variable whose value is true iff some given person has a cavity.
+      \end{example}
+    \end{module}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Types of Random Variables}
+  \begin{itemize}
+  \item
+    \begin{definition}
+      We say that a \trefii[unconditional-prob]{random}{variable} $X$ is
+      \defi{finite-domain}, iff the \trefi{domain} $D$ of $X$ is
+      \trefi[finite-cardinality]{finite} and \defi{Boolean}, iff
+      $D=\set{\semtrue,\semfalse}$.
+    \end{definition}
+  \item 
+    \begin{omtext}[title=Note]
+      In general, \trefiis{random}{variable} can have arbitrary \trefis{domain}. In
+      \useSGvar{courseacronym}, we restrict ourselves to \trefi{finite-domain} and
+      \trefi{Boolean} \trefiis[unconditional-prob]{random}{variable}.
+    \end{omtext}
+  \item
+    \begin{module}[id=weather-ex]
+      \symdef{sunny}{\rvval{sunny}} \symdef{rain}{\rvval{rain}}
+      \symdef{cloudy}{\rvval{cloudy}} \symdef{snow}{\rvval{snow}}
+      \begin{example}
+        Some \trefiis[?unconditional-probability]{prior}{probabilities}
+        \begin{align*}
+          \uProb{\randvar{Weather}=\sunny}      &= 0.7 \\
+          \uProb{\randvar{Weather}=\rain}       &= 0.2 \\
+          \uProb{\randvar{Weather}=\cloudy}     &= 0.08 \\
+          \uProb{\randvar{Weather}=\snow}       &= 0.02 \\
+          \uProb{\randvar{Headache}=\semtrue}      &= 0.1
+        \end{align*}
+        Unlike us, Russel and Norvig live in California \dots\ :-( :-(
+      \end{example}
+    \end{module}
+  \item
+    \begin{omtext}[title=Convenience Notations]
+      \begin{itemize}
+      \item By convention, we denote \trefi{Boolean}
+        \trefiis[unconditional-prob]{random}{variable} with $A$, $B$, and more general
+        \trefi{finite-domain} \trefiis[unconditional-prob]{random}{variable} with $X$,
+        $Y$.
+      \item For a \trefi{Boolean} \trefii[unconditional-prob]{random}{variable}
+        $\randvar{Name}$, we write $\rvval{name}$ for the
+        \trefi[unconditional-prob]{outcome} $\randvar{Name} = \semtrue$ and
+        $\lneg{\rvval{name}}$ for $\randvar{Name} = \semfalse$. \lec{Follows
+        Russel/Norvig as well}
+    \end{itemize}
+  \end{omtext}
+\end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

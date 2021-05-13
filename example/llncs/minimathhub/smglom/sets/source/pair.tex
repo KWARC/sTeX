@@ -1,0 +1,39 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{pair}
+  \gimport{set}
+  \MSC{54B10}
+  \symdef[name=pair]{pairOp}{(\cdot,\cdot)}
+  \symtest{pairOp}{\pairOp}
+  \symdef{pair}[2]{\mixfixii[nobrackets]({#1},{#2})}
+  \symtest{pair}{\pair12}
+  \symvariant{pairOp}{angle}{\langle\cdot,\cdot\rangle}
+  \symtest[variant=angle]{pairOp}{\pairOp[angle]}
+  \symvariant{pair}[2]{angle}{\mixfixii[nobrackets]\langle{#1},{#2}\rangle}
+  \symtest[variant=angle]{pair}{\pair[angle]12}
+  \symdef[name=set-of-pairs]{pairsFN}{\mathop\times}
+  \symdef[name=set-of-pairs]{pairs}[2]{\infix[p=700]\pairsFN{#1}{#2}}
+  \symtest{pairs}{\pairs{A}B}
+  
+  \symdef[noverb]{twodim}[1]{#1^2}
+  \symtest{twodim}{\twodim{A}}
+  
+  \symdef[name=first-component]{firstcomp}[1]{#1^1}
+  \symtest{firstcomp}{\firstcomp{P}}
+  \symvariant{firstcomp}[1]{sub}{#1_1}
+  \symtest[variant=sub]{firstcomp}{\firstcomp[sub]{P}}
+  \symvariant{firstcomp}[1]{pi}{\prefix{\pi_1}{#1}}
+  \symtest[variant=pi]{firstcomp}{\firstcomp[pi]{P}}
+  
+  \symdef[name=second-component]{secondcomp}[1]{#1^2}
+  \symtest{secondcomp}{\secondcomp{P}}
+  \symvariant{secondcomp}[1]{sub}{#1_2}
+  \symtest[variant=sub]{secondcomp}{\secondcomp[sub]{P}}
+  \symvariant{secondcomp}[1]{pi}{\prefix{\pi_2}{#1}}
+  \symtest[variant=pi]{secondcomp}{\secondcomp[pi]{P}}
+\end{modsig}
+
+
+\end{document}
+% LocalWords:  gimport symdef mixfixii nobrackets langle assocarg

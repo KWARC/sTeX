@@ -1,0 +1,5 @@
+id: MiKoMH/KWARC
+source-base: http://mathhub.info/MiKoMH/KWARC
+narration-base: http://mathhub.info/MiKoMH/KWARC
+dependencies: MiKoMH/TDM,MiKoMH/talks,MiKoMH/GenCS,smglom/arithmetics
+no-omdoc:.*/tikz/.*

@@ -1,0 +1,31 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{realnumbers}
+  \gimport{rationalnumbers}
+  \MSC{03Exx,11A99,11B99}
+  \symdef{RealNumbers}{\mathbb{R}}
+  \symtest{RealNumbers}{\RealNumbers}
+
+  \symdef[noverb]{PositiveRealNumbers}{\mathbb{R}^+}
+  \symtest{PositiveRealNumbers}{\PositiveRealNumbers}
+
+  \symdef[noverb]{NonNegativeRealNumbers}{\mathbb{R}^+_0}
+  \symtest{NonNegativeRealNumbers}{\NonNegativeRealNumbers}
+
+  \symdef[noverb]{NegativeRealNumbers}{\mathbb{R}^-}
+  \symtest{NegativeRealNumbers}{\NegativeRealNumbers}
+
+  \symdef[noverb]{NonPositiveRealNumbers}{\mathbb{R}^-_0}
+  \symtest{NonPositiveRealNumbers}{\NonPositiveRealNumbers}
+
+  \symiii{positive}{real}{number}
+  \symiii{negative}{real}{number}
+  \symiii{non-positive}{real}{number}
+  \symiii{non-negative}{real}{number}
+
+  \symdef[noverb]{startswith}[2]{#1=#2\ldots}
+  \symtest{startswith}{\startswith\pi{3.14}}
+  \symii{real}{number}
+\end{modsig}
+\end{document}

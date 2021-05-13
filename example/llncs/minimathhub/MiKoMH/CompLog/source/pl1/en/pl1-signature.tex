@@ -1,0 +1,107 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=pl1-signature]
+\importmhmodule[mhrepos=MiKoMH/GenCS,dir=dmath/en]{sets-operations}
+\importmhmodule[mhrepos=MiKoMH/GenCS,dir=pl0/en]{pl0-syntax}
+
+\symdef{PREDLOG}{\operatorname{PL}^1} 
+
+\symdef{typeind}{\iota}
+\abbrdef{indVars}{\TVars\typeind}
+\abbrdef{indSig}{\TSignature\typeind}
+
+\symdef{SignaturePart}[1]{\Signature^{#1}}
+\symdef{connectives}{\SignaturePart\typebool}
+\symdef{SignaturePartArity}[2]{\SignaturePart{#1}_{#2}}
+\symdef{functionSymbolsArity}[1]{\SignaturePart{f}_{#1}}
+\abbrdef{constantSymbols}{\SignaturePart{f}_0}
+\abbrdef{predicateSymbolsArity}[1]{\SignaturePart{p}_{#1}}
+\abbrdef{SkolemFunctionsArity}[1]{\SignaturePart{sk}_{#1}}
+\abbrdef{functionSymbols}{\SignaturePart{f}}
+\abbrdef{predicateSymbols}{\SignaturePart{p}}
+\abbrdef{SkolemFunctions}{\SignaturePart{sk}}
+
+\begin{nomtext}
+  The first step of defining a formal language is to specify the alphabet, here the
+  first-order signatures and their components.
+\end{nomtext}
+
+\begin{frame}
+  \frametitle{$\PREDLOG$ Syntax (Signature and Variables)}
+  \begin{itemize}
+  \item 
+    \begin{definition}[for=PREDLOG,id=predlog.def]
+      \Defii{first-order}{logic} ($\PREDLOG$), is a formal logical system extensively used
+      in mathematics, philosophy, linguistics, and computer science. It combines
+      propositional logic with the ability to quantify over individuals.
+    \end{definition}
+  \item 
+    \begin{omtext}
+      $\PREDLOG$ talks about two kinds of objects:\lec{so we have two kinds of symbols}
+      \begin{itemize}
+      \item \inlinedef{\defiis{truth}{value}; sometimes annotated by type
+          $\typebool$}\lec{like in $\PropLog$}
+      \item \inlinedef{\defis{individual}; sometimes annotated by type
+          $\typeind$}\lec{numbers, foxes, Pok\'emon,\ldots}
+      \end{itemize}
+    \end{omtext}
+  \item
+    \begin{definition}[id=fo-signature.def,
+      for={connectives,functionSymbolArity,functionSymbol,predicateSymbolsArity,predicateSymbols,SkolemFunctionsArity,SkolemFunctions
+        constantSymbols}]
+      A \defii{first-order}{signature} consists of \lec{all disjoint; $\inset{k}\NaturalNumbers$}
+      \begin{itemize}
+      \item\strut \defis{connective}:
+        $\connectives=\set{\trueconst,\falseconst,\negationOp,\disjunctionOp,\conjunctionOp,
+          \implicationOp,\equivalenceOp,\ldots}$\lec{functions
+          on truth values}
+      \item\strut\defiis{function}{constant}:
+        $\functionSymbolsArity{k}=\setdots{f,g,h}$\lec{functions on individuals}
+      \item\strut \defiis{predicate}{constant}:
+        $\predicateSymbolsArity{k}=\setdots{p,q,r}$ \lec{relations
+          among inds.}
+      \item\strut (\defiis{Skolem}{constant}:
+        $\SkolemFunctionsArity{k}=\set{\ulivar{f}k1,\ulivar{f}k2,\ldots}$)\lec{witness
+          constructors; countably $\infty$}
+      \item We take $\indSig$ to be all of these together:
+        $\defeq\indSig{\union{\functionSymbols,\predicateSymbols,\SkolemFunctions}}$,
+        where
+        $\defeq{\SignaturePart{*}}{\munionCollection{k}\NaturalNumbers{\SignaturePartArity{*}k}}$
+        and define $\defeq\Signature{\union{\indSig,\connectives}}$.
+      \end{itemize}
+    \end{definition}
+  \item 
+    \begin{definition}[id=fologic.def,for=indVars,display=flow]
+      We assume a set of \defiis{individual}{variable}:
+      $\indVars=\setdots{\livar{X}\typeind,\livar{Y}\typeind,\livar{Z}\typeind,\ulivar{X}1\typeind,\ulivar{X}2\typeind}$
+      \lec{countably $\infty$}
+   \end{definition}
+  \end{itemize}
+\end{frame}
+
+\begin{nomtext}
+  We make the deliberate, but non-standard design choice here to include Skolem constants
+  into the signature from the start. These are used in inference systems to give names to
+  objects and construct witnesses. Other than the fact that they are usually introduced by
+  need, they work exactly like regular constants, which makes the inclusion rather
+  painless. As we can never predict how many Skolem constants we are going to need, we
+  give ourselves countably infinitely many for every arity. Our supply of individual
+  variables is countably infinite for the same reason.
+\end{nomtext}
+\end{module}
+
+
+\end{document}
+% LocalWords:  pl typebool typeind propVars indVars FOSignature SignaturePart sk
+% LocalWords:  SignaturePartArity functionSymbolsArity predicateSymbolsArity
+% LocalWords:  SkolemFunctionsArity functionSymbols predicateSymbols wffbool
+% LocalWords:  SkolemFunctions wffind wffall Pok emondmath symdef
+% LocalWords:  abbrdef foterms mathit wff foTermsS foprops foPropsS gimport
+% LocalWords:  fowff PREDLOG forall sdot hskip.1ex assocarg allcdot mixfixai
+% LocalWords:  excdot frametitle lec inlinedef defii defi ldots trueconst inds
+% LocalWords:  fo-signature.def falseconst setdots ulivar ulivar infty defeq
+% LocalWords:  munionCollection fologic.def fo-terms.def sseteq lethan sneg
+% LocalWords:  fo-propositions.def fo-connectives.def limpl siff simpl simpl
+% LocalWords:  fo-exquant.def fo-atoms.def adefii naturalnumbers TVars itemize
+% LocalWords:  TSignature omtext

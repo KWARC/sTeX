@@ -1,0 +1,51 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{numbers-orders}
+  \gimport[smglom/sets]{linear-order}
+  \gimport{numbers}
+
+  \symdef[noverb,name=morethan]{morethanFN}{\mathord{>}}
+  \symdef[noverb]{morethan}[2]{\infix[p=300]\morethanFN{#1}{#2}}
+  \symtest{morethan}{\morethan12}
+
+  \symdef[noverb,assocarg=1]{mmorethan}[2]{\mixfixai[p=300]{}{#1}\morethanFN{#2}{}{,}}
+  \symtest{mmorethan}{\mmorethan{1,2}2}
+
+  \symdef[noverb,name=lessthan]{lessthanFN}{\mathord{<}}
+  \symdef[noverb]{lessthan}[2]{\infix[p=300]\lessthanFN{#1}{#2}}
+  \symtest{lessthan}{\lessthan12}
+
+  \symdef[noverb,assocarg=1]{mlessthan}[2]{\mixfixai[p=300]{}{#1}\lessthanFN{#2}{}{,}}
+  \symtest{mlessthan}{\mlessthan{1,2}2}
+
+  \symdef[noverb,name=methan]{methanFN}{\mathord\geq}
+  \symdef[noverb]{methan}[2]{\infix[p=300]\methanFN{#1}{#2}}
+  \symtest{methan}{\methan12}
+
+  \symdef[noverb,assocarg=1]{mmethan}[2]{\mixfixai[p=300]{}{#1}\methanFN{#2}{}{,}}
+  \symtest{mmethan}{\mmethan{1,2}2}
+
+  \symdef[noverb,name=lethan]{lethanFN}{\mathord\leq}
+  \symdef[noverb]{lethan}[2]{\infix[p=300]\lethanFN{#1}{#2}}
+  \symtest{lethan}{\lethan12}
+
+  \symdef[noverb,assocarg=1]{mlethan}[2]{\mixfixai[p=300]{}{#1}\lethanFN{#2}{}{,}}
+  \symtest{mlethan}{\mlethan{1,2}2}
+
+  \symdef[noverb,assocarg=1]{alethan}[1]{\assoc[p=300]\lethanFN{#1}}
+  \symtest{mlethan}{\alethan{1,2,3}}
+
+  \abbrdef{betweenss}[3]{\pobetween{#2}\lessthanFN{#1}\lessthanFN{#3}}
+  \abbrtest{betweenss}{\betweenss{i,j}13}
+
+  \abbrdef{betweense}[3]{\pobetween{#2}\lessthanFN{#1}\lethanFN{#3}}
+  \abbrtest{betweense}{\betweense{i,j}13}
+
+  \abbrdef{betweenes}[3]{\pobetween{#2}\lethanFN{#1}\lessthanFN{#3}}
+  \abbrtest{betweenes}{\betweenes{i,j}13}
+
+  \abbrdef{betweenee}[3]{\pobetween{#2}\lethanFN{#1}\lethanFN{#3}}
+  \abbrtest{betweenee}{\betweenee{i,j}13}
+\end{modsig}
+\end{document}

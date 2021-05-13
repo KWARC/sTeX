@@ -1,0 +1,29 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=simple-reflex-agent]
+  \importmhmodule[dir=rational-agents/en]{agent-schema}
+  \importmhmodule[dir=rational-agents/en]{agent-math}
+\begin{frame}[label=slide.simple-reflex-agent]
+  \frametitle{Simple reflex agents}
+  \begin{itemize}
+  \item
+    \begin{definition}
+      A \defiii{simple}{reflex}{agent} is an \trefi[agentenv]{agent} $a$ that only bases
+      its \trefis[agent-math]{action} on the last \trefi[agent-math]{percept}:
+      $\fun{\agentfunction{a}}\percepts\agentactions$.
+    \end{definition}
+  \item
+    \begin{omtext}[title=Agent Schema]
+      \cmhgraphics[width=.5\slidewidth]{rational-agents/PIC/simple-reflex-agent}
+    \end{omtext}
+  \item
+    \begin{example}[title=Agent Program]\\
+      \lstinputmhlisting[language=pseudocode,mathescape]{rational-agents/ex/reflex-vacuum-agent-short.pcode}
+    \end{example}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%  LocalWords:  pseudocode,mathescape

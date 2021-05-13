@@ -1,0 +1,29 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{fundefeq}
+  \gimport{functions}
+%  \symdef[bvars=1,assocarg=1,bargs=2]{fundefeq}[3]{\infix[p=350]\defeqOp{#2}{#3}}
+  \symdef[name=function-definition,assocarg=1]{fundefeq}[3]{\infix[p=350]\defeqOp{#2}{#3}}
+  \symtest[name=function-definition]{fundefeq}{\fundefeq{a}{\nappa{f}a}B}
+
+  \symdef[noverb,bvars=1,assocarg=1,bargs=2]{fundefequiv}[3]{\infix[p=350]\defequivOp{#2}{#3}}
+  \symtest{fundefequiv}{\fundefequiv{a}{\nappa{p}a}B}
+
+  \symdef[noverb,bvars={1,2}]{nfundefeq}[4]{\infix[p=350]\defeqOp{#3}{#4}}
+  \symtest{nfundefeq}{\nfundefeq{a}z{\nappe{f}az}B}
+
+  \symdef[noverb,bvars={1,2}]{nfundefequiv}[4]{\infix[p=350]\defequivOp{#3}{#4}}
+  \symtest{nfundefequiv}{\nfundefequiv{a}z{\nappe{p}az}B}
+
+  \symdef[noverb,bvars=1]{nfundefeqli}[5]{\infix[p=350]\defeqOp{#4}{#5}}
+  \symtest{nfundefeqli}{\nfundefeqli{a}1n{\nappli{f}a1n}B}
+
+  \symdef[noverb,bvars=1]{nfundefequivli}[5]{\infix[p=350]\defequivOp{#4}{#5}}
+  \symtest{nfundefeqli}{\nfundefequivli{a}1n{\nappli{p}a1n}B}
+
+  \symii[gfc=N]{function}{pattern}
+  \symi[gfc=N]{body}
+  \symi{argument}
+\end{modsig}
+\end{document}

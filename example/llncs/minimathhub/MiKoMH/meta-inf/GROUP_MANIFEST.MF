@@ -1,0 +1,6 @@
+description:desc.html
+profile:stex-slides-module.opt
+teaser:<p>The course materials (slides, course notes, problems, and exams of six courses) and scientific talks flexiformally preloaded in sTeX.</p> 
+responsible:Michael.Kohlhase@FAU.de
+title:MiKoMH: Michael Kohlhase's Flexiformal Course Materials and Talks
+tags: teaching

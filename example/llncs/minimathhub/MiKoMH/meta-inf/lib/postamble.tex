@@ -1,0 +1,9 @@
+% print the bibliography (and possibly index)
+\ifinputref\else% but only at the end of the overall document 
+\ifnotes
+\printbibliography\newpage\printindex
+\else
+\begin{frame}[allowframebreaks,noframenumbering]\frametitle{References}
+\printbibliography
+\end{frame}
+\fi\fi

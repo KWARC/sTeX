@@ -1,0 +1,18 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=MetricSpace]{metric-space}
+  \gimport[smglom/arithmetics]{realarith}
+
+  \symdef[noverb,align=signature_theory?d]{ametricOp}{d}
+  \symdef[noverb,align=signature_theory?d]{ametric}[2]{\prefix\ametricOp{#1,#2}}
+  \symii{distance}{function}
+  \symiii[align=prop_identityOfIndiscernibles]{identity}{of}{indiscernibles}
+  \symi[align=prop_symmetry]{symmetry}
+  \symii*{metric}{space}
+  \symii{base}{set}
+  \symii[align=prop_triangleInequality]{triangle}{inequality}
+  \symii[align=prop_positiveDefinite]{positive}{definite}
+  \symi{metric}
+\end{modsig}
+\end{document}

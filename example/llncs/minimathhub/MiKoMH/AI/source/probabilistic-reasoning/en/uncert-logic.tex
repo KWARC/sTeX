@@ -1,0 +1,92 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=uncert-logic]
+\importmhmodule[mhrepos=MiKoMH/CompLog,dir=pl1/en]{pl1-syntax}
+\symdef[name=Symptom]{SymptomOp}{\text{Symptom}}
+\symdef{Symptom}[2]{\prefix\SymptomOp{#1,#2}}
+\symdef[name=Disease]{DiseaseOp}{\text{Disease}}
+\symdef{Disease}[2]{\prefix\DiseaseOp{#1,#2}}
+\symdef{toothache}{\text{toothache}}
+\symdef{cavity}{\text{cavity}} \symdef{gumdisease}{\text{gingivitis}}
+
+\begin{frame}[label=slide.uncert-logic]
+  \frametitle{Uncertainty and Logic}
+  \begin{itemize}
+  \item
+    \begin{omtext}[title=Diagnosis]
+      We want to build an expert dental diagnosis system, that deduces the cause (the
+      disease) from the symptoms.
+    \end{omtext}
+  \item Can we base this on logic? \pause
+  \item
+    \begin{omtext}[title=Attempt 1]
+      Say we have a toothache. How's about:
+      \[\allcdot{p}{\limpl{\Symptom{p}{\toothache}}{\Disease{p}{\cavity}}}\]
+      \begin{itemize}
+      \item Is this rule correct? \pause
+      \item No, toothaches may have different causes (``cavity'' = ``Loch im Zahn'').
+      \end{itemize}
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Attempt 2]
+      So what about this:
+      \[\allcdot{p}{\limpl{\Symptom{p}{\toothache}}
+          {\ldisj{\Disease{p}{\cavity},\Disease{p}{\gumdisease},\ldots}}}
+      \]
+      \begin{itemize}
+      \item We don't know all possible causes.
+      \item And we'd like to be able to deduce which causes are more plausible!
+      \end{itemize}
+    \end{omtext}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[label=slide.uncert-logic2]
+  \frametitle{Uncertainty and Logic, ctd.}
+  \begin{itemize}
+  \item
+    \begin{omtext}[title=Attempt 3]
+      Perhaps a \blue{causal} rule is better?
+      \[\allcdot{p}{\limpl{\Disease{p}{\cavity}}{\Symptom{p}{\toothache}}}\]
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Question]
+      Is this rule correct? \pause
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Answer]
+      No, not all cavities cause toothaches.
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Question]
+      Does this rule allow to deduce a cause from a symptom?  \pause
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Answer]
+      No, setting $\Symptom{p}{\toothache}$ to true here has no consequence on the truth
+      of $\Disease{p}{\cavity}$. \pause
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Note]
+      If $\Symptom{p}{\toothache}$ is \emph{false}, we would conclude
+      $\lneg{\Disease{p}{\cavity}}$ \dots which would be incorrect, cf.  previous
+      question.  \pause
+    \end{omtext}
+  \item Anyway, this still doesn't allow to compare the plausibility of different causes.
+  \item Logic does not allow to weigh different alternatives, and it does not allow to
+    express incomplete knowledge (``cavity does not always come with a toothache, nor vice
+    versa'').
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+% LocalWords:  uncert-logic importmhmodule CompLog,path pl1-syntax symdef gumdisease ctd
+%  LocalWords:  frametitle itemize textbf allcdot limpl ldisj ldots emph lneg CompLog,dir
+

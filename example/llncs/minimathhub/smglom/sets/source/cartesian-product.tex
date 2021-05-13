@@ -1,0 +1,75 @@
+ a\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{cartesian-product}
+  \gimport[smglom/arithmetics]{natarith}
+  \gimport{union}
+  \MSC{54B10}
+  \symdef[name=tuple,gfc=N]{tupOp}{\langle\cdot\rangle}
+  \symtest{tupOp}{\tupOp}
+  \symdef[name=tuple,assocarg=1]{tup}[1]{\mixfixa[nobrackets]\langle{#1}\rangle{,}}
+  \symtest{tup}{\tup{a,b,c}}
+
+  \abbrdef{ntupe}[2]{\tup{\naseqe{#1}{#2}}}
+  \abbrtest{ntupe}{\ntupe17}
+
+   \abbrdef{ntupee}[3]{\tup{\naseqee{#1}{#2}{#3}}}
+   \abbrtest{ntupee}{\ntupee1{4,5,6}9}
+   
+   \abbrdef{ntupli}[3]{\tup{\naseqli{#1}{#2}{#3}}}
+   \abbrtest{ntupli}{\ntupli{a}17}
+
+   \abbrdef{ntupui}[3]{\tup{\nasequi{#1}{#2}{#3}}}
+   \abbrtest{ntupli}{\ntupui{a}17}
+
+   \abbrdef{tupfromto}[2]{\tup{\aseqfromto{#1}{#2}}}
+   \abbrtest{tupfromto}{\tupfromto1n}
+
+   \symdef{tupsel}[2]{#1_{#2}}
+   
+   \symdef[name=nCartProd]{cartFN}{\mathop\times}
+   \symdef[name=nCartProd,assocarg=1]{cart}[1]{\assoc[p=700]\cartFN{#1}}
+   \symtest{cart}{\cart{A,B,C}}
+
+   \symdef[noverb,assocarg=1]{ncarte}[2]{\mixfixai[nobrackets]{}{#1}{\cartFN\cdots\cartFN}{#2}{}\cartFN}
+   \symtest{ncarte}{\ncarte{N^1}{N^7}}
+
+   \symdef[noverb]{ncartli}[3]{\mixfixii[nobrackets]{}{#1_{#2}}{\cartFN\ldots\cartFN}{#1_{#3}}{}}
+   \symtest{ncartli}{\ncartli{A}17}
+
+   \symdef[noverb]{ncartui}[3]{\mixfixii[nobrackets]{}{#1_{#2}}{\cartFN\ldots\cartFN}{#1_{#3}}{}}
+   \symtest{ncartui}{\ncartui{A}17}
+
+   \symdef[noverb,assocarg=1]{cartdots}[1]{\mixfixa[nobrackets]{}{#1}{\cartFN\ldots}\cartFN}
+   \symtest{cartdots}{\cartdots{A,B,C}}
+
+  \symdef[name=projection,gfc=N]{csprojectionFN}[1]{\mathop{\pi_{#1}}}
+  \symtest{csprojectionFN}{\csprojectionFN{i}}
+
+  \symdef[name=projection]{csprojection}[2]{\prefix{\csprojectionFN{#1}}{#2}}
+  \symtest{csprojection}{\csprojection{i}X}
+
+  \symdef[name=injection,gfc=N]{csinjectionFN}[2]{\mathop{\iota^{#1}_v}}
+  \symtest{csinjectionFN}{\csinjectionFN{i}v}
+
+  \symdef[name=injection]{csinjection}[3]{\prefix{\csinjectionFN{#1}{#2}}{#3}}
+  \symtest{csinjection}{\csinjection{i}vX}
+
+  \symdef[noverb,bvars=1,bargs={2,3}]{CartProdfromto}[4]{\prod_{#1=#2}^{#3}{#4}}
+  \symtest{CartProdfromto}{\CartProdfromto{i}1\infty{i}}
+
+  \symdef{CartProdColl}[2]{\prod_{#1}{#2}}
+  \symtest{CartProdColl}{\CartProdColl{i>0}{i}}
+
+  \symdef[bvars=1,bargs=2]{CartProdInColl}[3]{\prod_{#1\in{#2}}{#3}}
+  \symtest{CartProdInColl}{\CartProdInColl{i}{\mathbb{N}}{i}}
+
+  \symdef[noverb,bvars=1]{CartProdOver}[2]{\prod_{#1}{#2}}
+  \symtest{CartProdOver}{\CartProdOver{i}i}
+
+  \symdef[noverb,bvars=1,bargs=2]{CartProdProp}[3]{\prod_{#2}{#3}}
+  \symtest{CartProdProp}{\CartProdProp{i}{i\in\mathbb{N}\;\text{prime}}{i^2}}
+
+  \symi[gfc=N]{dimension}
+\end{modsig}
+\end{document}

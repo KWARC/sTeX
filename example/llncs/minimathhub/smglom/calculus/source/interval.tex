@@ -1,0 +1,22 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{interval}
+  \gimport[smglom/arithmetics]{realarith}
+
+  \symdef[noverb]{oointerval}[2]{\mixfixii[nobrackets]({#1}{,}{#2})}
+  \symtest{oointerval}{\oointerval01}
+
+  \symdef[noverb]{ocinterval}[2]{\mixfixii[nobrackets]({#1}{,}{#2}]}
+  \symtest{ocinterval}{\ocinterval01}
+
+  \symdef[noverb]{cointerval}[2]{\mixfixii[nobrackets][{#1}{,}{#2})}
+  \symtest{cointerval}{\cointerval01}
+
+  \symdef[noverb]{ccinterval}[2]{\mixfixii[nobrackets][{#1}{,}{#2}]}
+  \symtest{ccinterval}{\ccinterval01}
+
+  \symi*{interval}
+\end{modsig}
+
+\end{document}

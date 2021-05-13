@@ -1,0 +1,54 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=typed-syntax-base]
+\gimport[smglom/logic]{wff}
+\importmhmodule[dir=logic/en]{types-base}
+\symdef{TVars}[1]{\Vars_{#1}}
+\symdef{TVarsall}{\TVars\Types}
+\symdef{TSignature}[1]{\mixfixi[nobrackets]{}{\Signature_{#1}}{}}    % typed component of signature
+\symdef{TSignatureall}{\Signature{}}    % typed component of signature
+                              % well-formed formulae of a type, signature and context
+\symdef{Twff}[3]{\prefix{\wffOp_{\withpreci\niprec{#1}}}{#2,#3}}
+\abbrdef{TWff}[2]{\Twff{#1}{\TSignatureall}{#2}}  
+\abbrdef{TWFf}[1]{\Twff{#1}\TSignatureall\TVarsall}
+\abbrdef{Twffall}[2]{\Twff\Types{#1}{#2}}
+\abbrdef{TWffall}[1]{\TWff\Types{#1}}
+\abbrdef{TWFfall}{\TWFf\Types}
+
+\symdef{Twffcl}[2]{c\wffOp_{#1}(#2)}
+\abbrdef{TWffcl}[1]{\Twffcl{#1}\TSignatureall}  
+\abbrdef{TWFfcl}[1]{\Twffcl{#1}\TSignatureall}
+\abbrdef{Twffclall}[1]{\Twffcl\Types{#1}}
+\abbrdef{TWffclall}[1]{\TWffcl\Types{#1}}
+\abbrdef{TWFfclall}{\TWFfcl\Types}
+
+\abbrdef{Twffa}[2]{\Twff\typea{#1}{#2}}
+\abbrdef{TWffa}[1]{\TWff\typea{#1}}
+\abbrdef{TWFfa}{\TWFf\typea}
+\abbrdef{Twffb}[2]{\Twff\typeb{#1}{#2}}
+\abbrdef{TWffb}[1]{\TWff\typeb{#1}}
+\abbrdef{TWFfb}{\TWFf\typeb}
+
+\abbrdef{Twffbool}[2]{\Twff\typebool{#1}{#2}}
+\abbrdef{TWffbool}[1]{\TWff\typebool}
+\abbrdef{TWFfbool}{\TWFf\typebool}
+\abbrdef{Twffind}[2]{\Twff\typeind{#1}{#2}}
+\abbrdef{TWffind}[1]{\TWff\typeind{#1}}
+\abbrdef{TWFfind}{\TWFf\typeind}
+
+\symdef{tvar}[2]{\mixfixi [p=800,pi=700]{}{#1_{\withprecii\niprec #2}}{}}
+\symdef{tconst}[2]{\mixfixi [p=800,pi=700]{}{#1_{\withprecii\niprec #2}}{}}
+\symdef{tterm}[2]{\mixfixi [p=800,pi=700]{}{#1_{\withprecii\niprec #2}}{}}
+
+\begin{omtext}[title=test]
+  testing $\TVars\typea$
+\end{omtext}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

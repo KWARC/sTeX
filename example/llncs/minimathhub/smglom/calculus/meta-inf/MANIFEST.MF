@@ -1,0 +1,8 @@
+id: smglom/calculus
+source-base: http://mathhub.info/smglom/calculus
+narration-base: http://mathhub.info/smglom/calculus
+dependencies: smglom/arithmetics,smglom/sets,smglom/topology,smglom/mv,smglom/linear-algebra,smglom/algebra
+responsible: Michael.Kohlhase@FAU.de
+title: Elementary Calculus
+teaser: Terminology for the mathematical study of change. 
+description: desc.html

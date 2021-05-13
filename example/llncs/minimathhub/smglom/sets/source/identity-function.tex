@@ -1,0 +1,11 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Functions]{identity-function}
+  \gimport{functions}
+  \symdef[name=identity-function,align=identityFunction]{Idon}[1]{\text{Id}_{#1}}
+  \symtest{Idon}{\Idon{S}}
+  \symvariant{Idon}[1]{delta}{\Delta_{#1}}
+  \symtest{Idon}{\Idon[delta]{S}}
+\end{modsig}
+\end{document}

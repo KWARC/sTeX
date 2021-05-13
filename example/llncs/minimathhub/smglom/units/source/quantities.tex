@@ -1,0 +1,49 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{quantities}
+\gimport[smglom/arithmetics]{realarith}
+\symdef{quantity}{Q}
+\symdef{unit}{U}
+\symdef{quantityof}[2]{#1#2}
+\symdef{quantityper}[2]{#1/#2}
+%\symtype{sts}{\fntype{\RealNumbers,\unit}\quantity}
+\symdef[name=scalar-multiple]{scalarqmulOp}{\cdot}
+\symdef[name=scalar-multiple]{scalarqmul}[2]{\infix[p=600]\scalarqmulOp{#1}{#2}}
+\symdef[name=scalar-fraction]{scalarqdivOp}{/}
+\symdef[name=scalar-fraction]{scalarqdiv}[2]{\infix[p=600]\scalarqdivOp{#1}{#2}}
+
+\symdef[name=qproduct]{qproductOp}{\cdot}
+\symdef{qproduct}[1]{\assoc[p=600]\qproductOp{#1}}
+\symdef{qfrac}[2]{\frac{#1}{#2}}
+\symdef[name=power]{qpower}[2]{\mixfixi[p=800,pi=700]{}{#1^{\withprecii\niprec #2}}{}}
+
+\symdef[name=quantityfunction]{quantityfunctionOp}{q}
+\symdef{quantityfunction}[1]{\quantityfunctionOp_{#1}}
+\symdef[name=qmorethan]{qmorethanFN}{>}
+\symdef{qmorethan}[2]{\infix[p=300]\qmorethanFN{#1}{#2}}
+\symdef[assocarg=1]{qmmorethan}[2]{\mixfixai[p=300]{}{#1}\qmorethanFN{#2}{}{,}}
+\symdef[name=lessthan]{qlessthanFN}{<}
+\symdef{qlessthan}[2]{\infix[p=300]\qlessthanFN{#1}{#2}}
+\symdef[assocarg=1]{qmlessthan}[2]{\mixfixai[p=300]{}{#1}\qlessthanFN{#2}{}{,}}
+\symdef[name=methan]{qmethanFN}{\geq}
+\symdef{qmethan}[2]{\infix[p=300]\qmethanFN{#1}{#2}}
+\symdef[assocarg=1]{qmmethan}[2]{\mixfixai[p=300]{}{#1}\qmethanFN{#2}{}{,}}
+\symdef[name=qlethan]{qlethanFN}{\leq}
+\symdef{qlethan}[2]{\infix[p=300]\qlethanFN{#1}{#2}}
+\symdef[assocarg=1]{qmlethan}[2]{\mixfixai[p=300]{}{#1}\qlethanFN{#2}{}{,}}
+\symdef[assocarg=1]{qalethan}[1]{\assoc[p=300]\qlethanFN{#1}}
+\symdef[assocarg=1]{qbetween}[3]{\mixfixaii[nobrackets]{}{#2}\qlethanFN{#1}\qlethanFN{#3}{}{,}}
+\symdef{qrange}[2]{\mixfixii[p=800]{}{#1}\,-\,{#2}{}}
+\symii{physical}{quantity}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+% LocalWords:  omgroup quantities.omdocdmath mathtalk arithmetics stlc
+% LocalWords:  symdef symboldec quantityof symtype sts fntype defii
+% LocalWords:  adefi

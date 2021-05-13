@@ -1,0 +1,34 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{integernumbers}
+  \gimport{naturalnumbers}
+  \gimport[smglom/sets]{union}
+  \MSC{03Exx,11A99,11B99}
+
+  \symdef{IntegerNumbers}{\mathbb{Z}}
+  \symtest{IntegerNumbers}{\IntegerNumbers}
+
+  \symdef[noverb,name=negative]{negativeOp}{\mathop{-}}
+  \symdef[noverb]{negative}[1]{\mixfixi[p=300]{\negativeOp}{}{#1}{}}
+  \symtest{negative}{\negative{3}}
+
+\symdef[noverb]{PositiveIntegerNumbers}{\mathbb{Z}^+}
+\symtest{PositiveIntegerNumbers}{\PositiveIntegerNumbers}
+
+\symdef[noverb]{NonNegativeIntegerNumbers}{\mathbb{Z}^+_0}
+\symtest{NonNegativeIntegerNumbers}{\NonNegativeIntegerNumbers}
+
+\symdef[noverb]{NegativeIntegerNumbers}{\mathbb{Z}^-}
+\symtest{NegativeIntegerNumbers}{\NegativeIntegerNumbers}
+
+\symdef[noverb]{NonPositiveIntegerNumbers}{\mathbb{Z}^-_0}
+\symtest{NonPositiveIntegerNumbers}{\NonPositiveIntegerNumbers}
+
+\symi{integer}
+\symii{positive}{integer}
+\symii{negative}{integer}
+\symii{non-positive}{integer}
+\symii{non-negative}{integer}
+\end{modsig}
+\end{document}

@@ -1,0 +1,9 @@
+id: smglom/mv
+source-base: http://mathhub.info/smglom/mv
+narration-base: http://mathhub.info/smglom/mv
+dependencies: smglom/sets
+description:desc.html
+title:Mathematical Vernacular
+teaser:The special language to express mathematical knowledge
+responsible: Michael.Kohlhase@FAU.de  
+generated-branches: latexml

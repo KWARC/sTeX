@@ -1,0 +1,84 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=rational-preferences]
+\importmhmodule[dir=rational-decisions/en]{preferences}
+\importmhmodule[mhrepos=MiKoMH/CompLog,dir=pl1/en]{pl1-syntax}
+
+\begin{frame}
+  \frametitle{Rational Preferences}
+  \begin{itemize}
+  \item 
+    \begin{omtext}[title=Idea]
+      \usemhmodule[dir=rational-decisions/en]{MEU-principle}
+      \Trefis[preferences]{preference} of a \trefi[MEU-principle]{rational} \trefi[agentenv]{agent} must obey constraints:\\
+      \Trefi{rational} \trefis[preferences]{preference} \ergo behavior describable as
+      \trefi[MEU-principle?MEU]{maximization} of
+      \trefii[MEU-principle]{expected}{utility}.
+    \end{omtext}
+  \item 
+    \begin{definition}[id=def.rational-preference]
+      We call a set $\ratprefOp$ of \trefis[preferences]{preference} \defi{rational}, iff
+      the following constraints hold:
+      \begin{center}\footnotesize
+      \begin{tabular}{ll}
+        \Defi{orderability} & $\ldisj{\ratpref{A}B,\ratpref{B}A,\ratindiff{A}B}$\\
+        \Defi{transitivity} & $\limpl{\lconj{\ratpref{A}B,\ratpref{B}C}}{\ratpref{A}C}$\\
+        \Defi{continuity} & $\limpl{\multirelii{A}{\ratprefOp}{B}{\ratprefOp}{C}}{\excdot{p}{\ratindiff{\binlottery{p}AC}B}}$\\
+        \Defi{substitutability} & $\limpl{\ratindiff{A}B}{\ratindiff{\binlottery{p}AC}{\binlottery{p}BC}}$\\
+        \Defi{monotonicity} &
+            $\limpl{\ratpref{A}B}{\lequiv{\realmorethan{p}q,\ratprefeq{\binlottery{p}AB}{\binlottery{q}AB}}}$\\
+        \Defi{decomposability} &
+            $\ratindiff{\binlottery{p}A{\binlottery{q}BC}}
+                            {\lottery{\lotic{p}A,
+                                          \lotic{\realtimes{\realminus{1,p},q}}B, 
+                                          \lotic{\realtimes{\realminus{1,p},\realminus{1,q}}}C}}$ 
+      \end{tabular}
+    \end{center}
+  \end{definition}
+  \end{itemize}
+\end{frame}
+
+\begin{nomtext}
+  \usemhmodule[dir=rational-decisions/en]{MEU-principle}
+  The \trefi[?rational]{rationality} constraints can be understood as follows:
+  \begin{enumerate}
+  \item[{\Trefi[rational-preferences]{orderability}:}]
+    $\ldisj{\ratpref{A}B,\ratpref{B}A,\ratindiff{A}B}$ Given any two
+    \trefis[preferences]{prize} or \trefi[preferences?lottery]{lotteries}, a
+    \trefi[MEU-principle]{rational} \trefi[agentenv]{agent} must either prefer one to the
+    other or else rate the two as equally preferable. That is, the \trefi[agentenv]{agent}
+    cannot avoid deciding. Refusing to bet is like refusing to allow time to pass.
+  \item[{\Trefi[rational-preferences]{transitivity}:}] $\limpl{\lconj{\ratpref{A}B,\ratpref{B}C}}{\ratpref{A}C}$
+  \item[{\Trefi[rational-preferences]{continuity}:}]
+    $\limpl{\multirelii{A}{\ratprefOp}{B}{\ratprefOp}{C}}{\excdot{p}{\ratindiff{\binlottery{p}AC}B}}$
+    If some \trefi[preferences]{lottery} $B$ is between $A$ and $C$ in
+    \trefi[preferences]{preference}, then there is some probability $p$ for which the
+    \trefi[MEU-principle]{rational} agent will be indifferent between getting $B$ for sure
+    and the \trefi[preferences]{lottery} that yields $A$ with probability $p$ and $C$ with
+    probability $\realminus{1,p}$.
+  \item[{\Trefi[rational-preferences]{substitutability}:}]
+    $\limpl{\ratindiff{A}B}{\ratindiff{\binlottery{p}AC}{\binlottery{p}BC}}$ If an \trefi[agentenv]{agent}
+    is indifferent between two \trefi[preferences?lottery]{lotteries} $A$ and $B$, then the \trefi[agentenv]{agent} is indifferent
+    between two more complex \trefi[preferences?lottery]{lotteries} that are the same except that $B$ is substituted
+    for $A$ in one of them. This holds regardless of the probabilities and the other
+    outcome(s) in the \trefi[preferences?lottery]{lotteries}.
+  \item[{\Trefi[rational-preferences]{monotonicity}:}]
+    $\limpl{\ratpref{A}B}{\lequiv{\realmorethan{p}q,\ratprefeq{\binlottery{p}AB}{\binlottery{q}AB}}}$
+    Suppose two \trefi[preferences?lottery]{lotteries} have the same two possible outcomes, $A$ and $B$. If an \trefi[agentenv]{agent}
+    prefers $A$ to $B$, then the \trefi[agentenv]{agent} must prefer the \trefi[preferences]{lottery} that
+    has a higher probability for $A$ (and vice versa).
+  \item[{\Trefi[rational-preferences]{decomposability}:}]
+    $\ratindiff{\binlottery{p}A{\binlottery{q}BC}}
+                    {\lottery{\lotic{p}A,
+                                  \lotic{\realtimes{\realminus{1,p},q}}B, 
+                                 \lotic{\realtimes{\realminus{1,p},\realminus{1,q}}}C}}$ 
+   Compound \trefi[preferences?lottery]{lotteries} can be reduced to simpler ones using the laws of probability. This
+   has been called the ``no fun in gambling'' rule because it says that two consecutive
+   \trefi[preferences?lottery]{lotteries} can be compressed into a single equivalent \trefi[preferences]{lottery}: the following two are
+   equivalent:
+   \cmhtikzinput{rational-decisions/tikz/decomposability}
+ \end{enumerate}
+\end{nomtext}
+\end{module}
+\end{document}

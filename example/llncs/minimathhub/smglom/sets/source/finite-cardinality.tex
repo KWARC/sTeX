@@ -1,0 +1,28 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=FiniteCardinality]{finite-cardinality}
+  \gimport[smglom/arithmetics]{naturalnumbers}
+  \gimport[smglom/arithmetics]{numbers-orders}
+  \gimport{bijective}
+  \symdef[name=cardinality,gfc=N2,align=cardinality]{cardOp}{\#}
+  \symdef[name=cardinality,align=cardinality]{card}[1]{\prefix\cardOp{#1}}
+  \symtest{card}{\card{A}}
+
+  \symvariant{card}[1]{bars}{\mixfixi[nobrackets]{|}{#1}{|}}
+  \symtest[variant=bars]{card}{\card[bars]{A}}
+
+  \symvariant{card}[1]{overbars}{\mixfixi[nobrackets]{}{\overline{\overline{#1}}}{}}
+  \symtest[variant=overbars]{card}{\card[overbars]{A}}
+
+  \symvariant{cardOp}{text}{\text{card}}
+  \symvariant{card}[1]{text}{\prefix{\cardOp[text]}{#1}}
+  \symtest[variant=text]{card}{\card[text]{A}}
+
+  \symvariant{cardOp}{n}{n}
+  \symvariant{card}[1]{n}{\prefix{\cardOp[n]}{#1}}
+  \symtest[variant=n]{card}{\card[n]{A}}
+  \symi[gfc=A,align=finite]{finite}
+  \symi[gfc=A,align=infinite]{infinite}
+\end{modsig}
+\end{document}

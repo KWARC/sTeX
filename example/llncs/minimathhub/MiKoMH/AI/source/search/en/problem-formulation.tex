@@ -1,0 +1,34 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=problem-formulation]
+\begin{frame}
+  \frametitle{Problem Formulation}
+  \begin{itemize}
+  \item
+    \begin{definition}[display=flow]
+      A \defii{problem}{formulation} models a situation using \defis{state} and
+      \defis{action} at an appropriate level of abstraction.\lec{do not model things like
+        ``put on my left sock'', etc.}
+      \begin{itemize}
+      \item it describes the \defii{initial}{state}\lec{we are in Arad}
+      \item it also limits the objectives by specifying \defiis{goal}{state}.
+        \lec{excludes, e.g. to stay another couple of weeks.}
+      \end{itemize}
+      A \defi{solution} is a sequence of \trefis{action} that leads from the
+      \trefii{initial}{state} to a \trefii{goal}{state}.
+
+      \Defii{problem}{solving} computes \trefis{solution} from
+      \trefiis{problem}{formulation}.
+    \end{definition}
+  \item Finding the right level of abstraction and the required (not more!) information is
+    often the key to success.
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

@@ -1,0 +1,68 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=sets-introduction]
+\gimport[smglom/sets]{set}
+
+\begin{frame}
+  \frametitle{Understanding Sets}
+  \begin{itemize}
+  \item Sets are one of the foundations of mathematics,
+  \item and one of the most difficult concepts to get right axiomatically
+  \item
+    \begin{omtext}[id=cantor-set.def,title=Early Definition Attempt]
+      \usemhmodule[mhrepos=MiKoMH/KWARC,dir=missing/en]{dates}
+
+      A set is ``everything that can form a unity in the face of God''. \lec{Georg Cantor
+        ($\born{1845}$, $\died{1918}$)}
+    \end{omtext}
+  \item For this course: no definition; just intuition\lec{naive set theory}
+  \item To understand a set $S$, we need to determine, what is an element of $S$
+    and what isn't.
+  \item
+    \begin{definition}[display=flow,for={set,setdots,nsete,nsetli,nsetui,setst,inset,ninset,minset,minsetdots,nminset,nminsetdots,hasprop},
+      title=Representations of Sets]
+      We can represent \drefis[set?set]{set} by 
+      \begin{itemize}
+      \item listing the elements within curly brackets: e.g. \notatiendum{$\set{a,b,c}$}
+      \item describing the elements via a property: \notatiendum{$\setst{x}{\hasprop{x}P}$}
+      \item stating element-hood (\notatiendum{$\inset{a}{S}$}) or not
+        (\notatiendum{$\ninset{b}{S}$}).
+      \end{itemize}
+    \end{definition}
+  \item 
+    \begin{axiom}[id=set-comprehension.ax]
+      Every set we can write down actually exists!\lec{Hidden Assumption}
+    \end{axiom}
+  \item
+    \begin{omtext}[title=Warning]
+      Learn to distinguish between objects and their representations!\lec{$\set{a,b,c}$
+        and $\set{b,a,a,c}$ are different representations of the same set}
+    \end{omtext}
+  \end{itemize}
+\end{frame}
+
+\begin{note}
+\begin{omtext}
+  Indeed it is very difficult to define something as foundational as a set. We want sets
+  to be collections of objects, and we want to be as unconstrained as possible as to what
+  their elements can be. But what then to say about them? Cantor's intuition is one
+  attempt to do this, but of course this is not how we want to define concepts in math.
+
+  $\bsetst[stretchy]{A}A{\begin{array}{c}a\\b\\b\end{array}}$
+
+  So instead of defining sets, we will directly work with representations of sets. For
+  that we only have to agree on how we can write down sets. Note that with this practice,
+  we introduce a hidden assumption: called \inlinedef{\defii{set}{comprehension},
+    i.e. that every set we can write down actually exists}. We will see below that we
+  cannot hold this assumption.
+\end{omtext}
+\end{note}
+\end{module}
+
+\end{document}
+% LocalWords:  en setst insetFN ninset minset nminset def Georg stex symdef lec
+% LocalWords: assocarg mixfixa nobrackets setdots ldots nsete defi
+% LocalWords:  mixfixai nsetli mixfixii nsetui setstnl niprec minsetdots omtext
+% LocalWords:  nminsetdots hasprop frametitle notatiendum inlinedef defii
+% LocalWords:  gimport itemize

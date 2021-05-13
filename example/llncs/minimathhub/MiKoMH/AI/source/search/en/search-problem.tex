@@ -1,0 +1,104 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=search-problem]
+\importmhmodule[dir=search/en]{problem-formulation}
+\gimport[smglom/sets]{powerset}
+\gimport[smglom/sets]{emptyset}
+\gimport[smglom/arithmetics]{realarith}
+\gimport[smglom/calculus]{sequences}
+\symdef{state}[1]{\mathop{#1}}
+\symdef[assocarg=1]{stateset}[1]{\mixfixa[p=400]\{{\state{#1}}\},}
+\symdef{gstate}[1]{{\mathbf{#1}}}
+\symdef[assocarg=1]{gstateset}[1]{\mixfixa[p=400]\{{\gstate{#1}}\},}
+\symdef{action}[1]{#1} 
+\symdef[assocarg=1]{actionset}[1]{\mixfixa[p=400]{[}{\action{#1}}{]},}
+\symdef{nextstate}[2]{\langle\action{#1}, \state{#2}\rangle}
+\symdef{withaction}[3]{#2\xrightarrow{#1}#3}
+\symdef{condition}[1]{#1}
+\symdef{opcostFN}{c}
+\symdef{opcost}[1]{\prefix\opcostFN{#1}}
+\symdef{SPresultRelation}[2]{#1_{#2}}
+
+\begin{frame}
+  \frametitle{The Math of Problem Formulation: Search Problems}
+  \begin{itemize}
+  \item
+    \begin{definition}[id=search-problem.def]
+      A \defii{search}{problem} $\defeq\Pi{\mvstructure{\cS,\cA,\cT,\cI,\cG}}$ consists of
+      a set $\cS$ of \defis{state}, a set $\cA$ of \defis{action}, and a
+      \defii{transition}{model} $\fun\cT{\pairs\cA\cS}{\powerset\cS}$ that assigns to any
+      action $\inset{a}\cA$ and state $\inset{s}\cS$ a set of \defiis{successor}{state}.
+
+      Certain states in $\cS$ are designated as \defiis{goal}{state} ($\sseteq\cG\cS$) and
+      \defiis{initial}{state} $\sseteq\cI\cS$.
+    \end{definition}
+  \item 
+    \begin{definition}
+      We say that an \trefi{action} $\inset{a}\cA$ is \defi{applicable} in a \trefi{state}
+      $\inset{s}\cS$, iff $\nappa\cT{a,s}\ne\eset$. We call
+      $\fun{\SPresultRelation\cT{a}}\cS{\powerset\cS}$ with
+      $\defeq{\nappa{\SPresultRelation\cT{a}}{s}}{\nappa\cT{a,s}}$ the
+      \defii{result}{relation} for $a$ and
+      $\defeq{\SPresultRelation\cT\cA}{\munionCollection{a}\cA{\SPresultRelation\cT{a}}}$ the
+      \trefii{result}{relation} of $\Pi$.
+    \end{definition}
+  \item
+    \begin{definition}[id=search-solution.def]
+      A \defi{solution} for a \trefii{search}{problem} $\mvstructure{\cS,\cA,\cT,\cI,\cG}$
+      consists of a \trefi[sequences]{sequence} of \trefis{action} $\nseqli{a}1n$ such
+      that for all $\natbetweenss1in$
+      \begin{itemize}
+      \item $\livar{a}i$ is \trefi{applicable} to \trefi{state}
+        $\livar{s}{i-1}$, where $\inset{\livar{s}0}\cI$,
+      \item $\inset{\livar{s}i}{\nappa{\SPresultRelation\cT{\livar{a}i}}{\livar{s}{i-1}}}$,
+        and $\inset{\livar{s}{n}}\cG$.
+      \end{itemize}
+    \end{definition}
+  \item
+    \begin{omtext}[title=Idea]
+      A \trefi{solution} bring us from $\cI$ to a \trefii{goal}{state}.
+    \end{omtext}
+  \item
+    \begin{definition}
+      Often we add a \defii{cost}{function} $\fun\opcostFN\cA\NonNegativeRealNumbers$ that
+      associates a \defii{step}{cost} $\opcost{a}$ to an \trefi{action}
+      $\inset{a}\cA$. The \defi{cost} of a \trefi{solution} is the sum of the
+      \trefiis{step}{cost} of its \trefis{action}.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+
+\begin{nomtext}[title=Observation]
+  The \trefi[problem-formulation?problem-formulation]{problem} of problems from
+  \sref{search-problem.def} is essentially a ``black-box'' description that provides the
+  functionality needed to construct the state space. We will come back to this in slide
+  \ref{slide.blackwhitebox}. 
+\end{nomtext}
+\end{module}
+
+\begin{note}
+  \begin{mhview}[display=flow,frompath=search/en/problem-formulation]{problem-formulation}{search-problem}
+    \tassign{state}{state}
+    \tassign{action}{action}
+    \tassign{initial-state}{initial-state}
+    \tassign{goal-state}{goal-state}
+    \begin{assertion}[type=remark]
+      Note that \trefiis[search-problem]{search}{problem} formalize
+      \trefiis[problem-formulation]{problem}{formulation} by making many of the implicit
+      constraints explicit.
+    \end{assertion}
+  \end{mhview}
+\end{note}
+\end{document}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  importmhmodule GenCS,path dmath gimport smglom realarith symdef assocarg
+%  LocalWords:  stateset mixfixa gstate mathbf gstateset actionset nextstate langle lec
+%  LocalWords:  xrightarrow opcostFN opcost frametitle defii defeq mvstructure defis sref
+%  LocalWords:  sseteq defis defiis Trefi trefiis trefis trefii omtext powerset
+%  LocalWords:  emptyset succesor natlethan a,s
+

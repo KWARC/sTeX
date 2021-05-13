@@ -1,0 +1,64 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=decision-theory]
+\importmhmodule[dir=rational-agents/en]{model-based-agent}
+\importmhmodule[dir=rational-agents/en]{envtypes}
+
+\begin{frame}
+  \frametitle{Decision Theory}
+  \begin{itemize}
+  \item 
+    \begin{definition}
+      \Defii{decision}{theory} investigates how an \trefi[agentenv]{agent} $a$ deals with
+      choosing among \trefis[agent-math]{action} based on the desirability of their
+      outcomes given by a \defii{utility}{function} on \trefi[model-based-agent]{state}.
+    \end{definition}
+  \item 
+    \begin{omtext}[title=Wait] 
+      Isn't that what we did in \sref[fallback=the chapter on ]{problem-solving} \emph{Problem Solving}?
+    \end{omtext}
+  \item 
+    \begin{omtext}[title={Yes, but}]
+      Now we do it for \trefi[envtypes]{stochastic}
+      (i.e. non-\trefi[envtypes]{deterministic}), \trefii[envtypes]{partially}{observable}
+      \trefis[agentenv]{environment}.
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Recall]
+      We call the \trefi[agentenv]{environment} of an \trefi[agentenv]{agent} $A$
+      \begin{itemize}
+      \item \trefii[envtypes]{fully}{observable}, iff the $A$'s sensors give it access to
+        the complete state of the environment at any point in time, else
+        \trefii[envtypes]{partially}{observable}.
+      \item \trefi[envtypes]{deterministic}, iff the next state of the environment is
+        completely determined by the current state and $A$'s action, else
+        \trefi[envtypes]{stochastic}.
+      \item \trefi[envtypes]{episodic}, iff $A$'s experience is divided into atomic
+        \trefis[envtypes]{episode}, where it perceives and then performes a single
+        action. Crucially the next episode does not depend on previous ones. Non-episodic
+        environments are called \trefi[envtypes]{sequential}.
+      \end{itemize}
+    \end{omtext}
+  \item
+    \begin{omtext}[title=For now]
+      We restrict ourselves to \inlinedef{\defiii{episodic}{decision}{theory}},
+      which deals with choosing among \trefis[agent-math]{action} based on the
+      desirability of their \emph{immediate} outcomes.\lec{no need to treat time
+        explicitly}
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Later]
+      \usemhmodule[dir=rational-decisions/en]{sequential-decision-problems}
+
+      We will study
+      \trefiiis[sequential-decision-problems]{sequential}{decision}{problem}, where the
+      \trefi[agentenv]{agent}'s utility depends on a sequence of
+      decisions.\lec{\sref[fallback=chapter 24]{sec.complex-decisions}}
+    \end{omtext}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%  LocalWords:  envtypes agentenv

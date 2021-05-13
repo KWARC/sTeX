@@ -1,0 +1,89 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=envtypes]
+\importmhmodule[dir=rational-agents/en]{agent-math}
+\begin{frame}
+  \frametitle{Environment types}
+  \begin{itemize}
+  \item 
+    \begin{assertion}[type=observation]
+      Agent design is largely determined by the type of \trefi[agentenv]{environment} it
+      is intended for. 
+    \end{assertion}
+  \item 
+    \begin{omtext}[title=Problem]
+      There is a vast number of possible kinds of \trefis[agentenv]{environment} in AI.
+    \end{omtext}
+  \item 
+    \begin{omtext}[title=Solution]
+      Classify along a few ``dimensions'' \lec{independent characteristics}
+    \end{omtext}
+  \item 
+    \begin{definition}
+      For an agent $a$ we classify the \trefi[agentenv]{environment} $e$ of $a$ by its
+      \defi{type}, which is one of the following. We call $e$
+      \begin{enumerate}
+      \item \defii{fully}{observable}, iff the $a$'s sensors give it access to the
+        complete state of the \trefi[agentenv]{environment} at any point in time, else
+        \defii{partially}{observable}.
+      \item \defi{deterministic}, iff the next state of the \trefi[agentenv]{environment} is completely
+        determined by the current state and $a$'s \trefi[agent-math]{action}, else \defi{stochastic}.
+      \item \defi{episodic}, iff $a$'s experience is divided into atomic \defis{episode},
+        where it perceives and then performs a single
+        \trefi[agent-math]{action}. Crucially the next episode does not depend on previous
+        ones. Non-\trefi{episodic} \trefis[agentenv]{environment} are called
+        \defi{sequential}.
+      \item \defi{dynamic}, iff the \trefi[agentenv]{environment} can change without an
+        \trefi[agent-math]{action} performed by $a$, else \defi{static}. If the
+        \trefi[agentenv]{environment} does not change but $a$'s performance measure does,
+        we call $e$ \defi{semidynamic}.
+      \item \defi{discrete}, iff the sets of $e$'s state and $a$'s
+        \trefis[agent-math]{action} are countable, else \defi{continuous}.
+      \item \defi{single-agent}, iff only $a$ acts on $e$; else \defi{multi-agent}\lec{when must we count parts of
+          $e$ as agents?}
+      \end{enumerate}
+    \end{definition}
+  \end{itemize}
+\end{frame}
+
+\begin{nomtext}
+  Some examples will help us understand this better.
+\end{nomtext} 
+
+\begin{frame}[label=slide.envtypes-ex]
+  \frametitle{Environment Types (Examples)}
+  \begin{itemize}
+  \item 
+    \begin{example}
+      Some \trefis[agentenv]{environment} classified: 
+      \begin{center}
+        \begin{tabular}{|@{\extracolsep\fill}|@{\quad}l@{\quad}|cccc@{\quad}|}\hline
+          & {Solitaire} & {Backgammon} & {Internet shopping} & {Taxi} \\\hline
+          \trefii{fully}{observable}   & Yes  & Yes  & No  & No \\
+          \trefi{deterministic}  & Yes  & No  & Partly  & No \\
+          \trefi{episodic}     & No  & No  & No  & No \\
+          \trefi{static}           & Yes  & Semi  & Semi  & No \\
+          \trefi{discrete}     & Yes  & Yes  & Yes  & No \\
+          \trefi{single-agent} & Yes & No & Yes (except auctions) & No \\\hline
+        \end{tabular}
+      \end{center}
+    \end{example}
+  \item
+    \begin{assertion}[type=observation]
+      The real world is (of course) \trefii{partially}{observable}, \trefi{stochastic},
+      \trefi{sequential}, \trefi{dynamic}, \trefi{continuous}, and 
+      \trefi{multi-agent}\lec{worst case for AI}
+    \end{assertion}
+  \end{itemize}
+\end{frame}
+
+\begin{nomtext}
+  In the \useSGvar{courseacronym} course we will work our way from the simpler
+  environment types to the more general ones. Each environment type wil need its own agent
+  types specialized to surviving and doing well in them.
+\end{nomtext}
+\end{module}
+\end{document}
+
+%  LocalWords:  envtypes semidynamic extracolsep

@@ -1,0 +1,8 @@
+id: smglom/measure-theory
+source-base: http://mathhub.info/smglom/measure-theory
+narration-base: http://mathhub.info/smglom/measure-theory
+dependencies: smglom/arithmetics,smglom/calculus
+description: desc.html
+responsible: Michael.Kohlhase@FAU.de
+teaser:Basic properties of measure theory
+title: Measure Theory

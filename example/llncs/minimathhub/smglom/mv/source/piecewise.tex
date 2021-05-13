@@ -1,0 +1,19 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{piecewise}
+\gimport[smglom/sets]{functions}
+\symdef[noverb]{piece}[2]{\parrayline{\parraycell{#1}}{\text{if}\;\;#2}}
+\symvariant{piece}[2]{de}{\parrayline{\parraycell{#1}}{\text{wenn}\;\;#2}}
+\symvariant{piece}[2]{noif}{\parrayline{\parraycell{#1}}{#2}}
+
+\symdef[noverb]{otherwise}[1]{\parrayline{\parraycell{#1}}{\text{else}}}
+\symvariant{otherwise}[1]{de}{\parrayline{\parraycell{#1}}{\text{sonst}}}
+
+\symdef[name=defined-piecewise]{piecewise}[1]{\left\{\parray{rl}{#1}\right.}
+\symtest{piecewise}{|x|:=\piecewise{\piece{x}{x>0}\piece{-x}{x<0}\otherwise{0}}}
+% \symdef[name=defined-piecewise,assocarg=1]{piecewise}[1]{\left\{\parray{rl}{\assoc{#1}{}}\right.}
+% \symtest{piecewise}{|x|:=\piecewise{\piece{x}{x>0},\piece{-x}{x<0},\otherwise{0}}}
+\symtest[variant=de]{piecewise}{|x|:=\piecewise{\piece[de]{x}{x>0}\piece[de]{-x}{x<0}\otherwise[de]{0}}}
+\end{modsig}
+\end{document}

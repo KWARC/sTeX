@@ -1,0 +1,9 @@
+id: MiKoMH/GenCS
+source-base: http://mathhub.info/MiKoMH/GenCS
+narration-base: http://mathhub.info/MiKoMH/GenCS
+dependencies: MiKoMH/KWARC,smglom/arithmetics,smglom/sets,smglom/calculus,smglom/primes,smglom/mv,MiKoMH/talks,MiKoMH/AI,BaseMH/physics,MiKoMH/CompLog,MiKoMH/talks,MiKoMH/TDM,MiKoMH/ACS,smglom/numbers,smglom/complexity,smglom/graphs
+description:desc.html
+title: Course Notes for the course General Computer Science at Jacobs University
+teaser: A basic course on Computer Science touching many core topics. 
+responsible: Michael.Kohlhase@FAU.de  
+no-omdoc:.*/tikz/.*

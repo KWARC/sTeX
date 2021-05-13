@@ -1,0 +1,8 @@
+id: smglom/sets
+source-base: http://mathhub.info/smglom/sets
+narration-base: http://mathhub.info/smglom/sets
+dependencies: smglom/mv,smglom/calculus,smglom/arithmetics
+description: desc.html
+responsible: Michael.Kohlhase@FAU.de
+teaser:Basic properties of sets
+title: Sets

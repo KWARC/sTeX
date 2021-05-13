@@ -1,0 +1,13 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{structure}
+  \symdef[assocarg=1,name=mathematical-structure,gfc=N]{mvstructure}[1]{\mixfixa[nobrackets]\langle{#1}\rangle{,}}
+  \symtest[name=mathematical-structure]{mvstructure}{\mvstructure{G,\circ,e}}
+  \symi[gfc=N]{component}
+\end{modsig}
+
+
+
+\end{document}
+% LocalWords:  symdef assocarg mixfixa nobrackets langle

@@ -1,0 +1,83 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=mathtalk-definitions]
+  \importmhmodule[dir=dmath/en]{mathtalk}
+  \gimport[smglom/sets]{fundefeq}
+
+\begin{note}
+\begin{omtext}
+  Mathematics uses a very effective technique for dealing with conceptual complexity. It
+  usually starts out with discussing simple, {\emph{basic}} objects and their
+  properties. These simple objects can be combined to more complex, {\emph{compound}}
+  ones. Then it uses a definition to give a compound object a new name, so that it can be
+  used like a basic one. In particular, the newly defined object can be used to form
+  compound objects, leading to more and more complex objects that can be described
+  succinctly. In this way mathematics incrementally extends its vocabulary by add layers
+  and layers of definitions onto very simple and basic beginnings. We will now discuss
+  four definition schemata that will occur over and over in this course.
+\end{omtext}
+
+\begin{definition}[id=simpledef.def,for={eqdef,defeq}]
+  The simplest form of definition schema is the \defii{simple}{definition}. This just
+  introduces a name (the \defi{definiendum}) for a compound object (the
+  \defi{definiens}). Note that the name must be new, i.e. may not have been used for
+  anything else, in particular, the definiendum may not occur in the definiens. We use the
+  symbols $\defeqOp$ (and the inverse $\eqdefFN$) to denote simple definitions in formulae.
+ \end{definition}
+
+ \begin{example}[id=one.def,for=simpledef.def]
+   \usemhmodule[dir=dmath/en]{nat-basic}
+   We can give the unary natural number $\sslash{\sslash{\sslash{\sslash\szero}}}$ the
+   name $\phi$. In a formula we write this as
+   $\defeq\phi{\sslash{\sslash{\sslash{\sslash\szero}}}}$ or
+   $\eqdef{\sslash{\sslash{\sslash{\sslash\szero}}}}\phi$.
+ \end{example}
+
+\begin{definition}[id=pattern.def,for=defequiv]
+  A somewhat more refined form of definition is used for operators on and relations
+  between objects. In this form, then definiendum is the operator or relation is applied
+  to $n$ distinct variables $\naseqli{v}1n$ as arguments, and the definiens is an expression
+  in these variables. When the new operator is applied to arguments $\naseqli{a}1n$, then
+  its value is the definiens expression where the $\livar{v}i$ are replaced by the
+  $\livar{a}i$. We use the symbol $\defeqOp$ for operator definitions and $\defequivOp$
+  for pattern definitions.\ednote{maybe better markup up pattern definitions as binding
+    expressions, where the formal variables are bound.}
+\end{definition}
+
+\begin{example}[id=patterndef.fex,for=pattern.def]
+  \guse[smglom/sets]{intersection}
+  \guse[smglom/sets]{emptyset}
+  The following is a pattern definition for the set intersection operator $\intersectOp$:
+  \[\fundefeq{A,B}{\intersect{A,B}}{\bsetst{x}{x}{\conj{\inset{x}{A},\inset{x}{B}}}}\]
+  The pattern variables are $A$ and $B$, and with this definition we have e.g.
+  $\intersect{\eset,\eset}=\setst{x}{\conj{\inset{x}\eset,\inset{x}\eset}}$.
+\end{example}
+
+\begin{definition}[id=implicitdef.def]
+  We now come to a very powerful definition schema. An \defii{implicit}{definition}
+  (also called \defii[name=definition-by-description]{definition}{by description}) is a
+  formula $\bA$, such that we can prove $\uexis{n}\bA$, where $n$ is a new name.
+\end{definition}
+
+\begin{example}[id=implicitdef.ex,for=implicitdef.def]
+  \guse[smglom/sets]{set}
+  \guse[smglom/sets]{emptyset}
+  $\foral{x}{\inset{x}\eset}$ is an implicit definition for the empty set $\eset$. Indeed
+  we can prove unique existence of $\eset$ by just exhibiting $\eset[braces]$ and showing
+  that any other set $S$ with $\foral{x}{\ninset{x}S}$ we have
+  $\setequal{S,\eset}$. Indeed$S$ cannot have elements, so it has the same elements ad
+  $\eset$, and thus $\setequal{S,\eset}$.
+\end{example}
+\end{note}
+\end{module}
+
+
+\end{document}
+% LocalWords:  en mathtalk disjFN disj conjFN conj implyFN biimplFN biimpl sdot
+% LocalWords:  foralFN foral exisFN exis uexis negateFN MathTalk stex dmath eqd
+% LocalWords:  eqdFN defequivOp defequiv defeq natsymdef
+% LocalWords:  mathrel nobrackets Leftrightarrow omgroup omtext emph defii defi
+% LocalWords:  simpledef.def sslash sslash sslash sslash szero seqli ednote
+% LocalWords:  patterndef.thy patterndef.ex setst eset eset eset eset ninset
+% LocalWords:  implicitdef.def implicitdef.thy implicitdef.ex setequal usevocab

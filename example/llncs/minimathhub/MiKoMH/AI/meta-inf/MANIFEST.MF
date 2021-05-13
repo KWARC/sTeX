@@ -1,0 +1,12 @@
+id: MiKoMH/AI
+source-base: http://mathhub.info/MiKoMH/AI
+narration-base: http://mathhub.info/MiKoMH/AI
+dependencies: MiKoMH/meta-inf,MiKoMH/GenCS,smglom/arithmetics,smglom/mv,MiKoMH/CompLog,smglom/sets,smglom/calculus,MiKoMH/KWARC,MiKoMH/TDM,MiKoMH/talks,MiKoMH/IWGS,smglom/complexity,smglom/numthy,BaseMH/physics,smglom/linear-algebra,smglom/functional-analysis,smglom/graphs,smglom/computing
+
+description:desc.html
+title: Course Notes for the course Artificial Intelligence at FAU
+teaser: A basic course on AI touching many core topics. 
+responsible: Michael.Kohlhase@FAU.de  
+
+no-pdf: ai/en/csp.tex ai/en/game-play.tex
+no-omdoc: ai/en/csp.tex ai/en/game-play.tex

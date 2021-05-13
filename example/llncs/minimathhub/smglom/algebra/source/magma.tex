@@ -1,0 +1,17 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Magma]{magma}
+  \gimport[smglom/sets]{functions}
+  \gimport[smglom/mv]{structure}
+  \MSC{20N02}
+  \symi*[align=magma]{magma}
+  \symdef[name=operation,align=operation]{magmaopOp}{\circ}
+  \symdef[name=operation,align=operation]{magmaop}[2]{\infix[p=500]\magmaopOp{#1}{#2}}
+  \symtest{magmaop}{\magmaop{x}y}
+  \symdef[name=base-set,align=baseset]{magmaset}{G}
+  \symtest{magmaset}{\magmaset}
+\end{modsig}
+
+\end{document}
+% LocalWords:  gimport symdef magop magopOp circ assocarg

@@ -1,0 +1,44 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=planning-vs-search]
+\importmhmodule[dir=search/en]{search-problem}
+\gimport[smglom/computing]{API}
+
+\begin{frame}
+  \frametitle{Planning}
+  \begin{itemize}
+  \item
+    \begin{omtext}[title=Ambition]
+      Write one program that can solve all classical
+      \trefiis[search-problem]{search}{problem}.
+    \end{omtext}
+  \item
+    \begin{definition}
+      Let $\Pi$ be a \trefii[search-problem]{search}{problem}
+      \lec{see \sref[fallback=the search chapter]{sec.search}}
+      \begin{itemize}
+      \item The \defii{blackbox}{description} of $\Pi$ is an \trefi[API]{API} providing
+        functionality allowing to construct the state space: $\text{InitialState}()$,
+        $\text{GoalTest}(s)$, \dots
+        \begin{itemize}
+        \item ``Specifying the problem'' \hateq programming the \trefi[API]{API}.
+        \end{itemize}
+      \item The \defii{declarative}{description} of $\Pi$ comes in a
+        \defiii{problem}{description}{language}. This allows to implement the
+        \trefi[API]{API}, and much more.
+        \begin{itemize}
+        \item ``Specifying the problem'' \hateq writing a problem description.
+        \end{itemize}
+      \end{itemize}
+    \end{definition}
+  \item Here, ``\trefiii{problem}{description}{language}'' \hateq planning language.
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

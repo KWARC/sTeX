@@ -1,0 +1,98 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=sets-operations,creators=miko]
+\importmhmodule[dir=dmath/en]{sets-introduction}
+\importmhmodule[dir=dmath/en]{mathtalk-definitions}
+\gimport[smglom/sets]{intersection}
+\gimport[smglom/sets]{emptyset}
+\gimport[smglom/sets]{setdiff}
+\gimport[smglom/sets]{powerset}
+\gimport[smglom/sets]{cartesian-space}
+
+\begin{nomtext}
+  We want to have some operations on sets that let us construct new sets from existing
+  ones. Again, we can define them.
+\end{nomtext}
+
+\begin{frame}[label=slide.sets-operations]
+  \frametitle{Operations on Sets}
+  \begin{itemize}
+ \item
+    \begin{definition}[id=union.def,display=flow,for={union}]
+      \defi{union}: $\fundefeq{A,B}{\union{A,B}}{\bsetst{x}{x}{\disj{\inset{x}{A},\inset{x}{B}}}}$
+    \end{definition}
+ \item
+    \begin{definition}[id=munion.def,display=flow,for={munionCollection,munionProp}]
+      \defi[name=union-collection]{union over a collection}: Let $I$ be a \trefi[set]{set} and $\livar{S}i$ a family of
+      sets indexed by $I$, then 
+      $\fundefeq{I,S}{\munionCollection{i}I{\livar{S}i}}{\setst{x}{\exisS{i}{I}{\inset{x}{\livar{S}i}}}}$.
+    \end{definition}
+  \item
+    \begin{definition}[id=intersection.def,display=flow,for=intersect]
+      \defi{intersection}: $\fundefeq{A,B}{\intersect{A,B}}{\setst{x}{\conj{\inset{x}{A},\inset{x}{B}}}}$
+    \end{definition}
+ \item
+    \begin{definition}[id=mintersect.def,display=flow,for={mintersectCollection,mintersectProp}]
+      \defi[name=intersection-collection]{intersection over a collection}: Let $I$ be a
+      \trefi[sets-introduction]{set} and $\livar{S}i$ a family of sets indexed by $I$,
+      then
+      $\fundefeq{I,S}{\mintersectCollection{i}I{\livar{S}i}}{\setst{x}{\foralS{i}{I}{\inset{x}{\livar{S}i}}}}$.
+    \end{definition}
+  \item
+    \begin{definition}[id=set-difference.def,display=flow,for=setdiff]
+      \defii{set}{difference}: $\fundefeq{A,B}{\setdiff{A}B}{\setst{x}{\conj{\inset{x}{A},\ninset{x}{B}}}}$
+    \end{definition}
+  \item
+    \begin{definition}[id=powerset.def,display=flow,for=powerset]
+      the \defii{power}{set}:
+      $\fundefeq{A}{\powerset{A}}{\setst{S}{\sseteq{S}{A}}}$
+    \end{definition}
+  \item
+    \begin{definition}[id=emptyset.def,display=flow,for=eset]
+      the \defii{empty}{set}: $\foral{x}{\ninset{x}\eset}$
+    \end{definition}
+   \item
+     \begin{definition}[id=Cartesianproduct.def,display=flow,for=cart]
+       \defii{Cartesian}{product}:
+       $\fundefeq{A,B}{\pairs{A}B}{\bsetst{a,b}{\pair{a}b}{\conj{\inset{a}{A},\inset{b}{B}}}}$, call
+       $\pair{a}b$ \defi{pair}.
+     \end{definition}
+  \item
+    \begin{definition}[id=nfoldCartesianproduct.def,display=flow,for={tup,ntupli,ntupui,ntupe,ntartli,ncartui}]
+      \defiii[name=nCartProd]{$n$-fold}{Cartesian}{product}: $\fundefeq{A,n}{\ncartli{A}1n}
+      {\bsetst{a}{\ntupli{a}1n}{\foral{i}{\imply{\natbetweenee{i}1n}{\inset{\livar{a}i}{\livar{A}i}}}}}$,\\
+      call $\ntupli{a}1n$ an \defi[name=n-tuple]{$n$-tuple}
+    \end{definition}
+  \item
+    \begin{definition}[id=ndimCartesianspace.def,display=flow,for=ndim]
+      \defiii[name=nCartSpace]{$n$-dim}{Cartesian}{space}:
+      $\fundefeq{A,n}{\ndim{A}{n}}{\bsetst{a,n}{\ntupli{a}1n}{\imply{\natbetweenee{i}1n}{\inset{\livar{a}i}{A}}}}$, \\
+      call $\ntupli{a}1n$ a \defi{vector}
+    \end{definition}
+  \item 
+    \begin{definition}[for={munion,mintersection}]
+      We write $\union{i}1n{\livar{S}i}$ for
+      $\munionCollection{i}{\rsetst{i}\NaturalNumbers{\natbetweenee{i}1n}}{\livar{S}i}$ and
+      $\intersect{i}1n{\livar{S}i}$ for
+      $\mintersectCollection{i}{\rsetst{i}\NaturalNumbers{\natbetweenee{i}1n}}{\livar{S}i}$.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+
+
+
+\end{document}
+% LocalWords:  en mathtalk highschool eset powersetFN powerset tup ndim sseteq
+% LocalWords:  setequal sseteqOp ssetOp sset nsseteqOp nsseteq nssetOp nsset
+% LocalWords:  superseteqOp superseteq supersetOp unionOp munion intersectOp
+% LocalWords:  munionCollection MunionCollection setdiffOp setdiff cardOp stex
+% LocalWords:  emptyset Cartesianproduct nfoldCartesianproduct nCartProd dmath
+% LocalWords:  ndimCartesianspace nCardSpace superset mintersectCollection defi
+% LocalWords:  tuple Cardinalitiessymdef symvariant
+% LocalWords:  mathcal assocarg mixfixa nobrackets langle ntupe mixfixai ldots
+% LocalWords:  ntupli mixfixii ntupui assoc ncartli cdots ncartui cartdots disj
+% LocalWords:  bvars bargs bigcup bigcap mintersectProp mintersect omtext defeq
+% LocalWords:  frametitle setst exisS conj trefi defii ninset ntartli defiii
+% LocalWords:  mintersection

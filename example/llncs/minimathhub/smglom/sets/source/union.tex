@@ -1,0 +1,23 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Union]{union}
+\gimport{set}
+\MSC{03Exx}
+\symdef[name=union,align=union]{unionOp}{\mathop\cup}
+\symdef[assocarg=1,align=union]{union}[1]{\assoc[p=500]\unionOp{#1}}
+\symtest{union}{\union{U,V,W}}
+
+\symdef[bvars=1,bargs=2,align=munionCollection]{munionCollection}[3]{\bigcup_{\withprecii\niprec #1\in{#2}}{#3}}
+\symtest{munionCollection}{\munionCollection{i}I{S_i}}
+
+\symdef[noverb,bvars=1]{munionProp}[3]{\bigcup_{\withprecii\niprec #2}{#3}} % multiple union
+\symtest{munionProp}{\munionProp{i}{i\in I}{S_i}}
+
+\symdef[noverb,bvars=1,bargs={2,3}]{munionfromto}[4]{\bigcup_{\withprecii\niprec #1=#2}^{#3}{#4}}
+\symtest{munionfromto}{\munionfromto{i}1\infty{L_i}}
+
+\symdef[noverb,bvars=1]{munionover}[2]{\bigcup_{#1}{#2}}
+\symtest{munionover}{\munionover{i}{L_i}}
+\end{modsig}
+\end{document}

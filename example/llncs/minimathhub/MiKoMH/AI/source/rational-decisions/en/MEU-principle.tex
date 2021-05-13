@@ -1,0 +1,86 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=MEU-principle]
+\importmhmodule[dir=rational-decisions/en]{Ramsey-thm}
+\importmhmodule[dir=probabilistic-reasoning/en]{condprob}
+\gimport[smglom/probability]{expectation}
+\symdef[name=expected-utility]{expectedUtilityOp}{EU}
+\symdef[name=expected-utility]{expectedUtility}[1]{\prefix\expectedUtilityOp{#1}}
+\symdef[name=expected-utility-given]{expectedUtilityGiven}[2]{\prefix\expectedUtilityOp{#1|#2}}
+\symdef{agactres}[1]{R_{#1}}
+
+\begin{frame}[label=slide.MEU-principle]
+  \frametitle{Maximizing Expected Utility (Ideas)}
+  \begin{itemize}
+  \item
+    \begin{definition}[title=MEU principle]
+      We call an \trefi[agent-math]{action} \defi{rational} if it
+      \defi[name=MEU]{maximizes} \trefii{expected}{utility} (\defi{MEU}).  An
+      \trefi[agentenv]{agent} is called \trefi{rational}, iff it always chooses a
+      \trefi{rational} \trefi[agent-math]{action}.
+    \end{definition}
+  \item
+    \begin{omtext}[title=Note]
+      An \trefi[agentenv]{agent} can be entirely \trefi{rational} (consistent with \trefi{MEU}) without ever
+      representing or manipulating \trefi[decision-theory?utility-function]{utilities} and
+      probabilities.
+    \end{omtext}
+  \item
+    \begin{example}
+      A lookup table for perfect tic tac toe.
+    \end{example}
+  \item But an observer can construct a \trefii[Ramsey-thm]{value}{function} $V$ by
+    observing the \trefi[agentenv]{agent}'s \trefis[preferences]{preference}. \lec{even if
+      the \trefi[agentenv]{agent} does not know $V$}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Maximizing Expected Utility (Definitions)}
+  \begin{itemize}
+  \item We first formalize the notion of expectation of a
+    \trefii[unconditional-prob]{random}{variable}.
+  \item
+    \begin{definition}
+      Given a \drefii{probability}{model} $\mvstructure{\Omega,\uProbOp}$ and a
+      $\fun{X}\Omega\NonNegativeRealNumbers$ a
+      \trefii[unconditional-prob]{random}{variable}, then
+      $\fundefeq{X}{\expectation{X}}{\SumInColl{x}\Omega{\realtimes[cdot]{\uProb{X=x},x}}}$
+      is called the \drefii[expectation?expectation]{expected}{value} (or
+      \drefi[expectation?expectation]{expectation}) of $X$.
+    \end{definition}
+  \item
+    \begin{omtext}[title=Idea]
+      Apply this idea to get the \trefii[MEU-principle]{expected}{utility} of an action,
+      this is stochastic:
+      \begin{itemize}
+      \item In \trefii[envtypes]{partially}{observable} \trefis[agentenv]{environment}, we
+        do not know the current state.
+      \item In \trefi[envtypes?stochastic]{nondeterministic}
+        \trefis[agentenv]{environment}, we cannot be sure of the result of an action.
+      \end{itemize}
+    \end{omtext}
+  \item
+    \begin{definition}
+      Let $\cA$ be an \trefi[agentenv]{agent} with a set $\Omega$ of
+      \trefis[model-based-agent]{state} and a \trefii[decision-theory]{utility}{function}
+      $\fun{U}\Omega\NonNegativeRealNumbers$, then for each \trefi[agent-math]{action}
+      $a$, we define a \trefii[unconditional-prob]{random}{variable} $\agactres{a}$ whose
+      values are the results of performing $a$ in the current state.
+    \end{definition}
+  \item
+    \begin{definition}
+      The \defii{expected}{utility} $\expectedUtilityGiven{a}{\mathbf{e}}$ of an
+      \trefi[agent-math]{action} $a$ (given evidence $\mathbf{e}$) is
+      \[\fundefeq{a,\mathbf{e}}{\expectedUtilityGiven{a}{\mathbf{e}}}
+        {\SumInColl{s}\Omega
+          {\realtimes[cdot]{\CondProb{\agactres{a}=s}{a,\mathbf{e}},\utilityof{s}}}}
+      \]
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%  LocalWords:  Ramsey-thm condprob agactres fundefeq envtypes utilityof

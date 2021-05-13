@@ -1,0 +1,16 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{expectation}
+  \gimport{random-variable}
+  \symdef[name=expectation]{expectationOp}{E}
+  \symdef{expectation}[1]{\mixfixi[nobrackets]\expectationOp[{#1}]}
+  \symtest{expectation}{\expectation{X}}
+  \symvariant{expectation}[1]{stretchy}{E\left[{#1}\right]}
+  \symtest[variant=stretchy]{expectation}{\displaystyle\expectation[stretchy]{\sum_{i=1}^\infty{X_i}}}
+  \symvariant{expectation}[1]{angle}{\langle{#1}\rangle}
+  \symtest[variant=angle]{expectation}{\displaystyle\expectation[angle]{\sum_{i=1}^\infty{X_i}}}
+  \symvariant{expectation}[1]{tilde}{\widetilde{#1}}
+  \symtest[variant=tilde]{expectation}{\displaystyle\expectation[tilde]X}
+\end{modsig}
+\end{document}

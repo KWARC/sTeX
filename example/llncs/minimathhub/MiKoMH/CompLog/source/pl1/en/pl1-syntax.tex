@@ -1,0 +1,106 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=pl1-syntax]
+\importmhmodule[dir=pl1/en]{pl1-signature}
+\gimport[smglom/arithmetics]{numbers-orders}
+
+\symdef{foterms}[2]{\prefix{\mathit{wff}_\iota}{#1,#2}}
+\symdef{foTerms}[1]{\prefix{\mathit{wff}_\iota}{#1}}
+\abbrdef{foTermsS}{\foTerms\indSig}
+\abbrdef{fotermsSV}{\foterms\indSig\indVars}
+
+\symdef{foprops}[2]{\prefix{\mathit{wff}_o}{#1,#2}}
+\symdef{foProps}[1]{\prefix{\mathit{wff}_o}{#1}}
+\abbrdef{foPropsS}{\foProps\Signature}
+\abbrdef{fopropsSV}{\foprops\Signature\indVars}
+
+\symdef{fowff}[2]{\prefix{\mathit{wff}}{#1,#2}}
+\symdef{foWff}[1]{\prefix{\mathit{wff}}{#1}}
+\abbrdef{foWffS}{\foWff\Signature}
+\abbrdef{fowffSV}{\fowff\Signature\indVars}
+
+\symdef[name=all]{allOp}{\forall}
+\symdef[assocarg=1]{allcdot}[2]{\mixfixai[p=200,pii=199]\allOp{#1}\sdotgroupOp{#2}{}{,}}
+\symvariant{allOp}{wedge}{\bigwedge}
+\symvariant{allcdot}[2]{wedge}{\mixfixai[p=200,pii=199]{\allOp[wedge]}{#1}\sdotgroupOp{#2}{}{,}}
+\symvariant{allcdot}[2]{brack}{\mixfixai[p=200,pii=199]{}{(#1)}\sdotgroupOp{#2}{}{,}}
+\symdef{nallcdot}[3]{\mixfixii[p=200,pii=199]\allOp{#1,\ldots,#2}\sdotgroupOp{#3}{}}
+\symdef{nallcdotli}[4]{\mixfixii[p=200,pii=199]\allOp{#1_{#2},\ldots,#1_{#3}}\sdotgroupOp{#4}{}}
+\symdef{nallcdotui}[4]{\mixfixii[p=200,pii=199]\allOp{#1^{#2},\ldots,#1^{#3}}\sdotgroupOp{#4}{}}
+
+\symdef[name=exists]{existsOp}{\exists} 
+\symvariant{existsOp}{vee}{\bigvee} 
+\symdef[assocarg=1]{excdot}[2]{\mixfixai[p=200,pii=199]\existsOp{#1}\sdotgroupOp{#2}{}{,}}
+\symvariant{excdot}[2]{vee}{\mixfixai[p=200,pii=199]{\existsOp[vee]}{#1}\sdotgroupOp{#2}{}{,}}
+\symdef{nexcdot}[3]{\mixfixii[p=200,pii=199]\existsOp{#1,\ldots,#2}\sdotgroupOp{#3}{}}
+\symdef{nexcdotli}[4]{\mixfixii[p=200,pii=199]\existsOp{#1_{#2},\ldots,#1_{#3}}\sdotgroupOp{#4}{}}
+\symdef{nexcdotui}[4]{\mixfixii[p=200,pii=199]\existsOp{#1^{#2},\ldots,#1^{#3}}\sdotgroupOp{#4}{}}
+
+\begin{nomtext}
+  The formulae of first-order logic is built up from the signature and variables as terms
+  (to represent individuals) and propositions (to represent propositions). The latter
+  include the propositional connectives, but also quantifiers.
+\end{nomtext}
+
+\begin{frame}[label=slide.pl1-syntax]
+  \frametitle{$\PREDLOG$ Syntax (Formulae)}
+  \begin{itemize}
+  \item
+    \begin{definition}[id=fo-terms.def,for={foterms,foTerms}]
+      \Defis{term}: $\inset{\bA}\foTermsS$ \lec{denote individuals: type
+        $\typeind$}
+      \begin{itemize}
+      \item $\sseteq\indVars\foTermsS$,
+      \item if $\inset{f}{\functionSymbolsArity{k}}$ and $\inset{\uivar\bA{i}}\foTermsS$ for
+        $\lethan{i}k$, then $\inset{f(\uivar\bA{1},\ldots,\uivar\bA{k})}\foTermsS$.
+      \end{itemize}
+    \end{definition}
+  \item
+    \begin{definition}[id=fo-propositions.def,for={foprops,foProps,allcdot}]
+      \defis{Proposition}: $\inset\bA{\foPropsS}$\lec{denote truth values:
+        type $\typebool$}
+      \begin{itemize}
+        % \item propositional variables $\inset{P}\propVars$
+      \item if $\inset{p}{\predicateSymbolsArity{k}}$ and $\inset{\uivar\bA{i}}\foTermsS$
+        for $\lethan{i}k$, then $\inset{p(\uivar\bA{1},\ldots,\uivar\bA{k})}\foPropsS$,
+      \item if $\minset{\bA,\bB}\foPropsS$ and $\inset{X}\indVars$, then
+        $\minset{\trueconst,\sand\bA\bB,\sneg\bA,\allcdot{X}\bA}\foPropsS$.
+      \end{itemize}
+    \end{definition}
+   \item 
+     \begin{definition}[id=fo-connectives.def]
+       We define the connectives
+       $\falseconst,\disjunctionOp,\implicationOp,\equivalenceOp$ via the abbreviations
+       $\fundefeq{\bA,\bB}{\sor\bA\bB}{\sneg{\sand{\sneg\bA}{\sneg\bB}}}$,
+       $\fundefeq{\bA,\bB}{\limpl\bA\bB}{\sor{\sneg\bA}\bB}$,
+       $\fundefeq{\bA,\bB}{\siff\bA\bB}{\sand{\simpl\bA\bB}{\simpl\bB\bA}}$, and
+       $\defeq{\falseconst}{\sneg\trueconst}$.  We will use them like the primary
+       connectives $\conjunctionOp$ and $\negationOp$
+     \end{definition}
+   \item
+     \begin{definition}[id=fo-exquant.def,for=excdot]
+       We use $\excdot{X}\bA$ as an abbreviation for
+       $\sneg{\allcdot{X}{\sneg\bA}}$.\lec{existential quantifier}
+     \end{definition}
+  \item
+     \begin{definition}[id=fo-atoms.def]
+       Call formulae without connectives or quantifiers {\adefii{atomic}{atomic}{formula}} else
+       {\adefii{complex}{complex}{formula}}.
+     \end{definition}
+  \end{itemize}
+\end{frame} 
+
+\begin{nomtext}[title=Note]
+  that we only need e.g. conjunction, negation, and universal quantification, all other
+  logical constants can be defined from them (as we will see when we have fixed their
+  interpretations).
+\end{nomtext}
+\end{module}
+\end{document}
+
+%  LocalWords:  pl1-syntax pl1-signature foterms mathit wff abbrdef foprops fowff allcdot
+%  LocalWords:  assocarg mixfixai 200,pii sdotgroupOp bigwedge brack nallcdot mixfixii
+%  LocalWords:  nallcdotli nallcdotui bigvee excdot nexcdot nexcdotli nexcdotui typeind
+%  LocalWords:  fo-terms.def,for foterms,foTerms sseteq lethan fo-propositions.def,for
+%  LocalWords:  foprops,foProps,allcdot fundefeq limpl fo-exquant.def,for

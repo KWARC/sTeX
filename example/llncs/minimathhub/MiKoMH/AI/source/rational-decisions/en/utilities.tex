@@ -1,0 +1,39 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=utilities]
+\importmhmodule[dir=rational-decisions/en]{rational-preferences}
+\importmhmodule[dir=rational-decisions/en]{decision-theory}
+\symdef{ubest}{u_\top}
+\symdef{uworst}{u_\bot}
+\symdef{standardlottery}[1]{L_{#1}}
+\symdef[name=utilityof]{utilityofOp}{U}
+\symdef{utilityof}[1]{\prefix\utilityofOp{#1}}
+
+\begin{frame}
+  \frametitle{Utilities}
+  \begin{itemize}
+  \item \Trefi[decision-theory?utility-function]{utilities} map states to real numbers. Which
+    numbers?
+  \item
+    \begin{definition}[title=Standard approach to assessment of human utilities,id=standardlottery.def]
+      Compare a given state $A$ to a \defii{standard}{lottery} $\standardlottery{p}$ that
+      has
+      \begin{itemize}
+      \item ``best possible prize'' $\ubest$ with probability $p$
+      \item ``worst possible catastrophe'' $\uworst$ with probability $1-p$
+      \end{itemize}
+      adjust \trefi[preferences]{lottery} probability $p$ until
+      $\ratindiff{A}{\standardlottery{p}}$.  Then $\utilityof{A}=p$.
+    \end{definition}
+  \item 
+    \begin{example}[for=standardlottery.def]
+      Choose $\ubest$ \hateq current state, $\uworst$ \hateq instant death
+      \cmhtikzinput[width=7cm]{rational-decisions/tikz/micromorts}
+    \end{example}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%  LocalWords:  ubest uworst standardlottery utilityof utilityofOp utilities,id ratindiff

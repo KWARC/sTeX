@@ -1,0 +1,52 @@
+LMHTPULLED:
+	cd $(LMHT); git pull; cd -
+
+clean: git clean -xf
+
+gloss: $(GLOSS)
+
+smglom: $(SMGLOM)
+
+dict: dictionary.pdf
+
+$(TARGET): %.pdf: %.tex
+	$(PDFLATEX) $(basename $<)
+	@if (grep 'Please (re)run BibTeX' $(patsubst %.tex, %.log, $(firstword $<)) > /dev/null);\
+	    then bibtex -terse $(patsubst %.tex, %, $(firstword $<)); fi
+	@if (grep "Writing index file" $(patsubst %.dtx, %.log, $(firstword $<)) > /dev/null);\
+	    then makeindex -o $(patsubst %.tex, %.ind, $(firstword $<)) $(patsubst %.tex, %.idx, $(firstword $<)); fi
+	@if (grep "Rerun" $(patsubst %.tex, %.log, $(firstword $<)) > /dev/null);\
+	   then $(PDFLATEX) $(firstword $<); fi
+	@if (grep "Rerun" $(patsubst %.tex, %.log, $(firstword $<)) > /dev/null);\
+	    then $(PDFLATEX) $(firstword $<); fi
+
+current: $(CINSTALL)
+
+install: $(INSTALL)
+	mkdir -p $(GITDIR)
+	cd $(GITDIR); git pull; cd - 
+	cp $(INSTALL) $(GITDIR)
+	cd $(GITDIR); git add --force $(INSTALL);git commit -m're-generated'; git push; cd -
+
+cinstall: $(CINSTALL)
+	mkdir -p $(GITDIR)
+	cd $(GITDIR); git pull; cd - 
+	cp $(CINSTALL) $(GITDIR)
+	cd $(GITDIR); git add --force $(CINSTALL);git commit -m're-generated'; git push; cd -
+
+$(GLOSS): glossary.%.pdf: glossary.%.tex notes.tex
+	$(LMHT)/lecture_glossary.py --big notes.tex $* $*.glossary.tex &> $*.glossary.log
+	$(PDFLATEX) $(basename $<)
+
+dictionary.pdf: LMHTPULLED notes.tex
+	$(LMHT)/lecture_dictionary.py notes.tex &> dictionary.log
+	$(PDFLATEX) $(basename $@)
+
+graph.json: notes.tex
+	$(LMHT)/lmhtools2/concept_graph.py notes.tex
+
+graph: graph.json
+
+# make -Bk blx if bibLaTeX changes again, possibly a couple of times.
+blx:
+	@for d in $(TARGET:%.pdf=%); do $(PDFLATEX) $$d; bibtex -terse $$d; done

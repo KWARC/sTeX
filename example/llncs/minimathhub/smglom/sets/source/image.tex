@@ -1,0 +1,15 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Functions]{image}
+  \gimport{fundefeq}
+  \symdef[name=imageof,gfc=N2,align=image]{Image}[2]{\prefix{#1}{#2}}
+  \symtest{Image}{\Image{f}X}
+
+  \symdef[name=image,gfc=N2]{imageOp}{\text{\textbf{Im}}}
+  \symdef{image}[1]{\prefix{\imageOp}{#1}}
+  \symtest{image}{\image{f}}
+  \symdef[name=pre-image,gfc=N2,align=preimage]{PreImage}[2]{\prefix{{#1}^{-1}}{#2}}
+  \symtest{PreImage}{\PreImage{f}S}
+\end{modsig}
+\end{document}

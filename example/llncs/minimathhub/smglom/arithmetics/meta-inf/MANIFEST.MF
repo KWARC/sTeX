@@ -1,0 +1,8 @@
+id: smglom/arithmetics
+source-base: http://mathhub.info/smglom/arithmetics
+narration-base: http://mathhub.info/smglom/arithmetics
+dependencies: smglom/mv,smglom/sets,smglom/primes,smglom/calculus
+responsible: Michael.Kohlhase@FAU.de
+title: Basic Number Systems and Elementary Arithmetics
+teaser: Terminology about numbers, their representations, and their operations
+description: desc.html

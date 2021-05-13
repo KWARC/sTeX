@@ -1,0 +1,27 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}{evaluation}
+  \gimport{interpretation}
+  \gimport{variable-assignment}
+  \symdef[name=Evaluation]{EvaluationOp}[1]{\mathop{\cI_{#1}}}
+  \symdef{EvaluationVia}[3]{\prefix{{#1}_{#2}}{#3}}
+  \symvariant{EvaluationVia}[3]{dbrack}{{\left[\kern-0.18em\left[#3\right]\kern-0.18em\right]^{#1}_{#2}}}
+  \symdef{Evaluation}[2]{\prefix{\EvaluationOp{#1}}{#2}}
+  \symvariant{Evaluation}[2]{dbrack}{{\left[\kern-0.18em\left[#2\right]\kern-0.18em\right]_{#1}}}
+  \abbrdef{EvalPhi}[1]{\Evaluation\phi{#1}}
+  \symvariant{EvalPhi}[1]{dbrack}{\Evaluation[dbrack]\phi{#1}}
+  \symdef[name=Evaluation]{EvalPhiFN}{\InterpretationOp_\phi}
+  \symdef{CEvaluation}[1]{\prefix\InterpretationOp{#1}}
+  \symvariant{CEvaluation}[1]{dbrack}{{\left[\kern-0.18em\left[#1\right]\kern-0.18em\right]}}
+  \symdef{CEvaluationVia}[2]{\prefix{#1}{#2}}
+  \symvariant{CEvaluationVia}[2]{dbrack}{{\left[\kern-0.18em\left[#2\right]\kern-0.18em\right]^{#1}}}
+  \symii{value}{function}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

@@ -1,0 +1,54 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=preOrder]{preorder}
+  \gimport[smglom/mv]{structure}
+  \gimport{reflexive}
+  \gimport{transitive}
+
+  \symdef[noverb,name=pomore]{pomoreOp}{\mathord{>}}
+  \symdef[noverb]{pomore}[2]{\infix[p=300]{\pomoreOp}{#1}{#2}}
+  \symtest{pomore}{\pomore21}
+
+  \symdef[noverb,assocarg=1]{mpomore}[2]{\mixfixai[p=300]{}{#1}{\pomoreOp}{#2}{}{,}}
+  \symtest{mpomore}{\mpomore{2,3}1}
+
+  \symdef[noverb,assocarg=1]{apomore}[1]{\assoc[p=300]\pomoreOp{#1}}
+  \symtest{apomore}{\apomore{1,2,3}}
+
+  \symdef[noverb,name=poless]{polessOp}{\mathord{<}}
+  \symdef[noverb]{poless}[2]{\infix[p=300]\polessOp{#1}{#2}}
+  \symtest{poless}{\poless12}
+
+  \symdef[noverb,assocarg=1]{mpoless}[2]{\mixfixai[p=300]{}{#1}\polessOp{#2}{}{,}}
+  \symtest{mpoless}{\mpoless{1,2}3}
+
+  \symdef[noverb,assocarg=1]{apoless}[1]{\assoc[p=300]\polessOp{#1}}
+  \symtest{apoless}{\apoless{1,2,3}}
+
+  \symdef[noverb,name=pome]{pomeOp}{\mathord\geq}
+  \symdef[noverb]{pome}[2]{\infix[p=300]\pomeOp{#1}{#2}}
+  \symtest{pome}{\pome11}
+
+  \symdef[noverb,assocarg=1]{mpome}[2]{\mixfixai[p=300]{}{#1}\pomeOp{#2}{}{,}}
+  \symtest{mpome}{\pome{1,2}0}
+
+  \symdef[noverb,assocarg=1]{apome}[1]{\assoc[p=300]\pomeOp{#1}}
+  \symtest{apome}{\apome{1,2,3}}
+
+  \symdef[noverb,name=pole]{poleOp}{\mathord\leq}
+  \symdef[noverb]{pole}[2]{\infix[p=300]\poleOp{#1}{#2}}
+  \symtest{pole}{\pole11}
+
+  \symdef[noverb,assocarg=1]{mpole}[2]{\mixfixai[p=300]{}{#1}\poleOp{#2}{}{,}}
+  \symtest{mpole}{\mpole{1,2}2}
+
+  \symdef[noverb,assocarg=1]{apole}[1]{\assoc[p=300]\poleOp{#1}}
+  \symtest{apole}{\apole{1,2,3}}
+
+  \symdef[noverb,assocarg=3]{pobetween}[5]{\mixfixiai[nobrackets]{}{#1}{#2}{#3}{#4}{#5}{},}
+  \symtest{pobetween}{\pobetween1<{i,j}\leq n}
+  \symi[gfc=N]{preorder}
+  \symi*[gfc=N]{proset}
+\end{modsig}
+\end{document}

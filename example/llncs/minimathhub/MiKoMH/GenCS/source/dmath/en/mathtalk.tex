@@ -1,0 +1,66 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=mathtalk]
+\gimport[smglom/mv]{mv}
+
+\begin{frame}[label=slide.mathtalk]
+  \frametitle{Talking about Mathematics (MathTalk)}
+  \begin{itemize}
+ \item
+    \begin{definition}[id=math-vernacular.def]
+      Mathematicians use a stylized language that
+      \begin{itemize}
+      \item uses formulae to represent mathematical objects, e.g.
+      \inlineex{\guse[smglom/calculus]{definiteintegral}$\defint01{\realpower{x}{\realdivide32}}{x}$}
+     \item uses \defiis{math}{idiom} for special situations\lec{e.g. \nlex{iff},
+          \nlex{hence}, \nlex{let\ldots be\ldots, then\ldots}}
+      \item classifies statements by role\lec{e.g. Definition, Lemma, Theorem, Proof, Example} 
+      \end{itemize}
+      We call this language \defii{mathematical}{vernacular}.
+    \end{definition}
+  \item
+    \begin{definition}[id=mathtalk.def,
+      for={conj,disj,negate,foral,foralS,exis,exisS,biimpl,imply,uexis,uexisS,nexis,nexisS}]
+      Abbreviations for Mathematical statements in \defi{MathTalk}
+      \begin{itemize}
+      \item $\conjFN$ and $\disjFN$ are common notations for \nlex{and} and \nlex{or}
+      \item \nlex{not} is in mathematical statements often denoted with $\neg$
+      \item $\foral{x}{P}$ ($\foralS{x}SP$) stands for \nlex{condition $P$ holds for all
+          $x$ (in $S$)}
+      \item $\exis{x}{P}$ ($\exisS{x}SP$) stands for \nlex{there exists an $x$ (in $S$)
+          such that proposition $P$ holds}
+      \item $\nexis{x}{P}$ ($\nexisS{x}SP$) stands for \nlex{there exists no $x$ (in $S$)
+          such that proposition $P$ holds}
+      \item $\uexis{x}{P}$ ($\uexisS{x}SP$) stands for \nlex{there exists one and only one
+          $x$ (in $S$) such that proposition $P$ holds}
+      \item \defi{iff} as abbreviation for \nlex{if and only if}, symbolized by
+        \nlex{$\biimplFN$}
+      \item the symbol \nlex{$\implyFN$} is used a as shortcut for \nlex{implies}
+      \end{itemize}
+    \end{definition}
+  \item
+    \begin{omtext}[title=Observation,id=mathtalk-statements-formulae] 
+      With these abbreviations we can use formulae for statements.
+   \end{omtext}
+  \item 
+    \begin{example}[id=implies-reads,for=mathtalk-statements-formulae]
+      $\foral{x}{\exis{y}{\biimpl{x=y}{\negate{x\ne y}}}}$ reads
+      \begin{quote}
+        ``For all $x$, there is a $y$, such that $x=y$, iff (if and only if) it is not the
+        case that $x\ne y$.''
+      \end{quote}
+    \end{example}
+  \end{itemize}
+\end{frame}
+\end{module}
+
+
+\end{document}
+% LocalWords:  en mathtalk disjFN disj conjFN conj implyFN biimplFN biimpl 
+% LocalWords:  foralFN foral exisFN exis uexis negateFN MathTalk stex symdef
+% LocalWords:  assocarg mixfixa Rightarrow Leftrightarrow allcdot forall excdot
+% LocalWords:  abbrdef hskip.1ex bvars mixfixai niprec niprec nexis nexisFN lec
+% LocalWords:  frametitle twindef nlex ldots ldots ldots omtext assoc bargs
+% LocalWords:  inlineex usevocabdefiniteintegral01 defii
+% LocalWords:  highschool

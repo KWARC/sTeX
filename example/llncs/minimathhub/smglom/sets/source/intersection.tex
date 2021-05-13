@@ -1,0 +1,26 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Intersection]{intersection}
+\gimport{set}
+\MSC{03Exx}
+\symdef[name=intersection,gfc=N,align=intersection]{intersectOp}{\mathop{\cap}}
+\symdef[name=intersection,assocarg=1,align=intersection]{intersect}[1]{\assoc[p=600]\intersectOp{#1}}
+\symtest{intersect}{\intersect{S,T,V}}
+
+\symdef[bvars=1,bargs=2,align=mintersectCollection]{mintersectCollection}[3]{\bigcap_{\withprecii\niprec #1\in{#2}}{#3}}
+\symtest{mintersectCollection}{\mintersectCollection{i}I{S_i}}
+
+\symdef[noverb,bvars=1]{mintersectProp}[3]{\bigcap_{\withprecii\niprec #2}{#3}}
+\symtest{mintersectProp}{\mintersectProp{i}{i\geq0}{S_i}}
+
+\symdef[noverb,bvars=1,bargs={2,3}]{mintersectfromto}[4]{\bigcup_{\withprecii\niprec #1=#2}^{#3}{#4}}
+\symtest{mintersectfromto}{\mintersectfromto{i}1\infty{L_i}}
+\symdef[noverb,bvars=1]{mintersectover}[2]{\bigcap_{#1}{#2}}
+\symtest{mintersectover}{\mintersectover{i}{L_i}}
+\end{modsig}
+
+
+\end{document}
+% LocalWords:  gimport naturalnumbers 03Exx symdef assocarg assoc bvars bargs
+% LocalWords:  mintersect bigcap

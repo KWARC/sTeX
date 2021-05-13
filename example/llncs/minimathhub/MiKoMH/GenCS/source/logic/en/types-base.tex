@@ -1,0 +1,32 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=types-base]
+\symdef{Types}{\mathcal{T}}
+\symdef{BaseTypes}{\mathcal{B\kern-.3ex\Types}}
+\symdef[name=oftype]{oftypeOp}{\mathop{:}}
+\symdef{oftype}[2]{\infix[p=100]\oftypeOp{#1}{#2}}
+
+\symdef{typea}{\mathop\alpha}
+\symdef{typeb}{\mathop\beta}
+\symdef{typec}{\mathop\gamma}
+\symdef{typed}{\mathop\delta}
+\symdef{typee}{\mathop\epsilon}
+\symdef{typef}{\mathop\phi}
+\symdef{typeg}{\mathop\psi}
+\symdef{typeh}{\mathop\eta}
+\symdef{typel}{\mathop\lambda}
+\symdef{typem}{\mathop\mu}
+\symdef{typen}{\mathop\nu}
+
+\begin{omtext}[title=test]
+  testing $\oftype{t}\typea$
+\end{omtext}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

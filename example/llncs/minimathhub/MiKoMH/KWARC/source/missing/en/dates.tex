@@ -1,0 +1,21 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=dates]
+\symdef[name=born]{bornOp}{*}
+\symdef{born}[1]{\mixfixi[nobrackets]\bornOp{#1}{}}
+\symdef[name=died]{diedOp}{\dag}
+\symdef{died}[1]{\mixfixi[nobrackets]\diedOp{#1}{}}
+
+\begin{definition}[for={born,died},id=borndied.def]
+  We use the prefix $\bornOp$ a date to indicate that this date is a birthdate, and the
+  $\diedOp$ of a death date.
+\end{definition}
+
+\begin{example}[for=borndied.def]
+  \guse[smglom/units]{gregorian-calendar}
+  Johann Carl Friedrich Gau{\ss} $\born{\gregorianADdate{30}{4}{1777}}$,
+  $\died{\gregorianADdate{23}{2}{1855}}$
+\end{example}
+\end{module}
+\end{document}

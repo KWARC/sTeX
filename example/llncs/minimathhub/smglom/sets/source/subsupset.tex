@@ -1,0 +1,52 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=SetRelations]{subsupset}
+\gimport{set}
+\MSC{03Exx}
+\symdef[name=subset,align=subset]{sseteqOp}{\mathop\subseteq} 
+\symdef[name=subset,align=subset]{sseteq}[2]{\infix[p=300]\sseteqOp{#1}{#2}} 
+\symtest{sseteq}{\sseteq{S}T}
+
+\symdef[noverb,noalign]{nsseteq}[2]{\infix[p=300]{\not\sseteqOp}{#1}{#2}} 
+\symtest{nsseteq}{\nsseteq{S}T}
+
+\symdef[noverb,assocarg=1]{msseteq}[2]{\mixfixai[p=300]{}{#1}\sseteqOp{#2}{}{,}} 
+\symtest{msseteq}{\msseteq{S,T}T}
+
+\symdef[name=proper-subset,align=properSubset]{ssetOp}{\mathop\subset}
+\symdef[name=proper-subset,align=properSubset]{sset}[2]{\infix[p=300]\ssetOp{#1}{#2}}
+\symtest{sset}{\sset{S}T}
+
+\symdef[noverb,noalign]{nsset}[2]{\infix[p=300]{\not\ssetOp}{#1}{#2}}
+\symtest{nsset}{\nsset{S}T}
+
+\symdef[name=superset,align=superset]{superseteqOp}{\mathop\supseteq} 
+\symdef[name=superset,align=superset]{superseteq}[2]{\infix[p=300]\superseteqOp{#1}{#2}} 
+\symtest{superseteq}{\superseteq{S}T}
+
+\symdef[noverb,noalign]{nsuperseteq}[2]{\infix[p=300]{\not\superseteqOp}{#1}{#2}}
+\symtest{nsuperseteq}{\nsuperseteq{S}T}
+
+\symdef[name=proper-superset,align=properSuperset]{supersetOp}{\mathop\supset}
+\symdef[name=proper-superset,align=properSuperset]{superset}[2]{\infix[p=300]\supersetOp{#1}{#2}}
+\symtest{superset}{\superset{S}T}
+
+\symdef[noverb,noalign]{nsuperset}[2]{\infix[p=300]{\not\supersetOp}{#1}{#2}}
+\symtest{nsuperset}{\nsuperset{S}T}
+
+\symii{set}{inclusion}
+\end{modsig}
+
+
+\end{document}
+% LocalWords:  en mathtalk highschool eset powersetFN powerset tup ndim sseteq
+% LocalWords:  setequal sseteqOp ssetOp sset nsseteqOp nsseteq nssetOp nsset
+% LocalWords:  superseteqOp superseteq supersetOp unionOp munion intersectOp
+% LocalWords:  munionCollection MunionCollection setdiffOp setdiff cardOp stex
+% LocalWords:  emptyset Cartesianproduct nfoldCartesianproduct nCartProd dmath
+% LocalWords:  ndimCartesianspace nCardSpace superset mintersectCollection defi
+% LocalWords:  tuple Cardinalitiessymdef equiv assocarg assoc conj
+% LocalWords:  nsetequal subseteq msseteq mixfixai supseteq nsuperseteq omtext
+% LocalWords:  nsuperset frametitle defii defequiv biimpl subsupset gimport
+% LocalWords:  03Exx

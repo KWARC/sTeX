@@ -1,0 +1,22 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}{appstructure}
+  \gimport[smglom/sets]{functions}
+  \gimport[smglom/mv]{structure}
+  \symdef{appoOp}{@}
+  \symdef{appo}[2]{\infix\appoOp{#1}{#2}}
+  \symdef{lamoOp}{\Lambda}
+  \symdef{lamo}[2]{\infix\lamoOp{#1}{#2}}
+  \symii{applicative}{structure}
+  \symii{application}{operator}
+  \symii{binding}{operator}
+  \symdef[name=universe]{Universe}{\cD}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

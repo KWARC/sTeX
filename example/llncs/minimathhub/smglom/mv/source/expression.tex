@@ -1,0 +1,17 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{expression}
+  \gimport{variable}
+  \gimport{argseq}
+  \symdef[assocarg=2]{exprinv}[2]{\mixfixia[nobrackets]{}{#1}[{#2}],}
+  \symdef{nexprinvli}[4]{#1[#2_{#3},\ldots,#2_{#4}]}
+
+  \symi*{expression}
+  \symii{operator}{application}
+  \symii{variable}{binding}
+  \symi{bound}
+  \symi{free}
+  \symi{closed}
+\end{modsig}
+\end{document}

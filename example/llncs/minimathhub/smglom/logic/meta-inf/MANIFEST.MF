@@ -1,0 +1,8 @@
+id: smglom/logic
+source-base: http://mathhub.info/smglom/logic
+narration-base: http://mathhub.info/smglom/logic
+dependencies: smglom/sets
+description:desc.html
+title: Mathematical Software
+teaser: Sortware Systems for Mathematics
+responsible: Michael.Kohlhase@FAU.de  

@@ -1,0 +1,22 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{naturalnumbers}
+  \gimport[smglom/sets]{set}
+  \MSC{03Exx,11A99,11B99}
+  \symdef{NaturalNumbers}{\mathbb{N}}
+  \symtest{NaturalNumbers}{\NaturalNumbers}
+
+  \symdef[noverb]{PositiveNaturalNumbers}{\mathbb{N}^+}
+  \symtest{PositiveNaturalNumbers}{\PositiveNaturalNumbers}
+
+  \symdef[name=zero]{natzero}{0}
+  \symtest[name=zero]{natzero}{\natzero}
+
+  \symdef[name=successor]{natsuccOp}{s}
+  \symdef[name=successor]{natsucc}[1]{\prefix\natsuccOp{#1}}
+  \symtest{natsucc}{\natsucc{3}}
+  \symii{natural}{number}
+  \symiii{positive}{natural}{number}
+\end{modsig}
+\end{document}

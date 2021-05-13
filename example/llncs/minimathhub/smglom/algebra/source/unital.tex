@@ -1,0 +1,16 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Unital]{unital}
+  \gimport{magma}
+   \symi*[align=unital]{unital}
+  \symii[specializes=unit]{left}{unit}
+  \symii[specializes=unital]{left}{unital}
+  \symi[align=unitOf]{unit}
+  \symii[specializes=unit]{right}{unit}
+  \symii[specializes=unital]{right}{unital}
+  \symdef[noalign,name=unit]{unitalunit}{e}
+  \symtest[name=unit]{unitalunit}{\unitalunit}
+\end{modsig}
+
+\end{document}

@@ -1,0 +1,10 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{definiteintegral}
+  \gimport{interval}
+  
+  \symdef[bvars=4,bargs={1,2},name=definite-integral]{defint}[4]{\int^{#1}_{#2}#3 d#4}
+  \symtest{defint}{\defint01{x^{\frac32}}{x}}
+\end{modsig}
+\end{document}

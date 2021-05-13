@@ -1,0 +1,9 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Relations]{converse-relation}
+  \gimport{fundefeq}
+  \symdef[name=converse-relation,align=converse]{convrel}[1]{\mixfixi[p=900]{}{#1^{-1}}{}}
+  \symtest{convrel}{\convrel=}
+\end{modsig}
+\end{document}

@@ -1,0 +1,69 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{words}
+  \gimport{cartesian-space}
+  \gimport{multirel}
+\makeatletter  \message{module@ID: \module@id}\makeatother
+
+  \symdef[gfc=N]{alphabet}{A}
+
+  \symdef[name=concatenation]{sconcFN}{\text{conc}}
+  \symtest[name=concatenation]{sconcFN}{\sconcFN}
+
+  \symdef[name=concatenation,assocarg=1]{sconc}[1]{\assoc[nobrackets]{\strut}{#1}}
+  \symtest[name=concatenation]{sconc}{\sconc{a,b,c}}
+
+  \symvariant{sconc}[1]{sconc}{\prefix\sconcFN{#1}}
+  \symtest[name=concatenation,variant=sconc]{sconc}{\sconc[sconc]{a,b,c}}
+
+  \symvariant{sconc}[1]{plus}{\assoc[p=700]{+}{#1}} 
+  \symtest[name=concatenation,variant=plus]{sconc}{\sconc[plus]{a,b,c}}
+
+  \symvariant{sconc}[1]{comma}{\assoc[nobrackets]{,}{#1}}
+  \symtest[name=concatenation,variant=comma]{sconc}{\sconc[comma]{a,b,c}}
+
+  \symvariant{sconc}[1]{blank}{\assoc[nobrackets]{\;}{#1}}
+  \symtest[name=concatenation,variant=blank]{sconc}{\sconc[blank]{a,b,c}}
+
+  \symdef[noverb,name=cstring]{cstringOp}{\text{\texttt{\char`\"}}}
+  \symtest{cstringOp}{\cstringOp}
+
+  \symdef[noverb,assocarg=1]{cstring}[1]{\mathtt{\mixfixa[nobrackets]\cstringOp{#1}\cstringOp{\strut}}}
+  \symtest{cstring}{\cstring{a,b,c}}
+
+  \symvariant{cstring}[1]{nq}{\mathtt{\mixfixa[nobrackets]{}{#1}{}{\strut}}}
+  \symtest[variant=nq]{cstring}{\cstring[nq]{a,b,c}}
+
+  \symdef[noverb]{ncstringli}[3]{\mixfixii[nobrackets]\cstringOp{{#1}_{#2}}{\ldots}{{#1}_{#3}}\cstringOp{\strut}}
+  \symtest{ncstringli}{\ncstringli{a}1n}
+
+  \symvariant{ncstringli}[3]{nq}{\mixfixii[nobrackets]{}{{#1}_{#2}}{\ldots}{{#1}_{#3}}{}{\strut}}
+  \symtest[variant=nq]{ncstringli}{\ncstringli[nq]{a}1n}
+
+  \symdef[name=empty-word]{emptyword}{\epsilon} % empty string 
+  \symtest[name=empty-word]{emptyword}{\emptyword}
+
+  \symdef[name=length,gfc=N]{slen}[1]{\mixfixi[nobrackets]{|}{#1}{|}}
+  \symtest[name=length]{slen}{\slen{\ncstringli{a}1n}=n}
+
+  \symdef[noverb]{stringmetavar}[1]{\mixfixi[nobrackets]{\langle\kern-.25em\langle}{\mathtt{#1}}{\rangle\kern-.25em\rangle}}
+
+  \symdef[name=kleeneplus]{kleeneplusOp}{\cdot^+}
+  \symtest{kleeneplusOp}{\kleeneplusOp}
+  \symdef[name=kleeneplus]{kleeneplus}[1]{{#1}^+} % set of non-empty strings
+  \symtest{kleeneplus}{\kleeneplus{A}}
+
+  \symdef[name=kleenestar]{kleenestarOp}{\cdot^*}
+  \symtest[name=kleenestar]{kleenestarOp}{\kleenestarOp}
+  \symdef{kleenestar}[1]{{#1}^*} % set of empty and non-empty strings
+  \symtest{kleenestar}{\kleenestar{A}}
+  \symi[gfc=N]{word}
+  \symi[gfc=N]{character}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

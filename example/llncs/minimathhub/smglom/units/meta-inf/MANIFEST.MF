@@ -1,0 +1,8 @@
+id: smglom/units
+source-base: http://mathhub.info/smglom/units
+narration-base: http://mathhub.info/smglom/units
+dependencies: 
+description: desc.html
+title: Computer Science
+teaser: Foundations of units and quantities
+responsible: michael.kohlhase@fau.de

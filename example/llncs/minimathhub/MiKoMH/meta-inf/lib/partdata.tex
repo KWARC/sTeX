@@ -1,0 +1,17 @@
+%% write out data, so that we can make parts
+\makeatletter
+\newwrite\numbersfile
+\immediate\openout\numbersfile=\jobname.data
+\immediate\write\numbersfile{\string\setcounter{chapter}{\thechapter}}
+\ifnotes
+\immediate\write\numbersfile{\string\setcounter{slide}{\theslide}}
+\else
+\immediate\write\numbersfile{\string\setcounter{framenumber}{\theframenumber}}
+\immediate\closeout\numbersfile
+\makeatother
+\fi
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

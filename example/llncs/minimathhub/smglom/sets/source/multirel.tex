@@ -1,0 +1,15 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{multirel}
+  \symdef[name=multi-relation-expression,assocarg=1]{multirelation}[1]{\assoc[p=300]{\strut}{#1}}
+  \symtest{multirelation}{\multirelation{0,\leq,3,=,3.0\leq 5}}
+  \symdef[noverb]{multirelii}[5]{#1 #2 #3 #4 #5}
+  \symtest{multirelii}{\multirelii1\leq2<3}
+  \symdef[noverb]{multireliii}[7]{#1 #2 #3 #4 #5 #6 #7}
+  \symtest{multireliii}{\multireliii1\leq2<3\ne5}
+  \symdef[noverb]{multireliv}[9]{#1 #2 #3 #4 #5 #6 #7 #8 #9}
+  \symtest{multireliv}{\multireliv1\leq2<3\ne5>1}
+\end{modsig}
+
+\end{document}

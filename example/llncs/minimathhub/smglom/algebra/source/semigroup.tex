@@ -1,0 +1,14 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=SemiGroup]{semigroup}
+  \gimport{magma}
+  \MSC{20Mxx}
+  \symdef[noverb,assocarg=1]{nsgop}[1]{\assoc[p=500]\magmaopOp{#1}}
+  \symtest{nsgop}{\nsgop{a,b,c}}
+  \symi*[align=semigroup]{semigroup}
+  \symi[align=semigroup_theory?axiom_associative]{associative}
+\end{modsig}
+
+\end{document}
+% LocalWords:  gimport symdef assocarg assocop mixfixa nobrackets

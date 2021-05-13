@@ -1,0 +1,21 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=Series]{series}
+  \gimport[smglom/algebra]{monoid}
+  \gimport[smglom/arithmetics]{sum}
+  \gimport{sequenceConvergence}
+  \gimport[smglom/arithmetics]{infinity}
+  \symdef[bvars=1,bargs=2,name=series,align=series]{infinitesum}[3]{\sum_{#1=#2}^\infty{#3}}
+  \symtest[name=series]{infinitesum}{\infinitesum{i}1{a^i}}
+  \symdef[bvars=1,bargs=2,name=series,align=series]{infinitesumwith}[4]{\sum_{#1=#2\atop #3}^\infty{#4}}
+  \symtest[name=series]{infinitesumwith}{\infinitesumwith{i}1{i\;\text{even}}{a^i}}
+  
+  \symdef[name=partial-sum,align=partialSum]{partialsum}[2]{s_{#2}}
+  \symtest[name=partial-sum]{partialsum}{\partialsum{a}{17}}
+  \symiii[noalign]{infinite}{formal}{sum}
+  \symiii[align=partialSum]{partial}{sum}{sequence}
+  \symi[align]{convergent}
+\end{modsig}
+
+\end{document}

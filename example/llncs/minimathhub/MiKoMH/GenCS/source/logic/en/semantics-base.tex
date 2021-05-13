@@ -1,0 +1,41 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=semantics-base]
+\gimport[smglom/logic]{wff}
+\gimport[smglom/logic]{model}
+\gimport[smglom/logic]{semprops}
+
+\begin{frame}
+  \frametitle{Semantic Properties of Formulae with Variables}
+  \begin{itemize}
+  \item 
+    \begin{definition}[id=semantic-properties.def,for={semtrue,semfalse}]
+      Let $\cL$ be a language with variables, $\cK$ a class of models for $\cL$,
+      $\defeq\cM{\mvstructure{\cU,\InterpretationOp}}$ a model in $\cK$, and $\inset\bA\cL$
+      a formula, then we call $\bA$
+      \begin{itemize}
+      \item \defi[name=true-under]{true under $\phi$} in $\cM$, iff
+        $\EvalPhi\bA=\semtrue$\lec{write \notatiendum{$\satisfies\cM\phi\bA$}}
+      \item \defi[name=false-under]{false under $\phi$} in $\cM$, iff
+        $\EvalPhi\bA=\semfalse$\lec{write {\notatiendum{$\falsifies\cM\phi\bA$}}}
+      \item \defi{satisfiable} in $\cM$, iff $\EvalPhi\bA=\semtrue$ for some assignment
+        $\phi$
+      \item \defi{valid} in $\cM$, iff $\satisfies\cM\phi\bA$ for all
+        assignments $\phi$\lec{write \notatiendum{$\validin\cM\bA$}}
+      \item \defi{falsifiable} in $\cM$, iff $\EvalPhi\bA=\semfalse$ for some
+        assignments $\phi$
+      \item \defi{unsatisfiable} in $\cM$, iff $\EvalPhi\bA=\semfalse$ for all
+        assignments $\phi$
+      \end{itemize}
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

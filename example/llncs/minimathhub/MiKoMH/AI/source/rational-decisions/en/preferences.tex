@@ -1,0 +1,90 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=preferences]
+\gimport[smglom/arithmetics]{realarith}
+\gimport[smglom/arithmetics]{sum}
+\importmhmodule[dir=rational-agents/en]{agentenv}
+\importmhmodule[dir=rational-decisions/en]{decision-theory}
+\symdef[name=ratpref]{ratprefOp}{\succ}
+\symdef{ratpref}[2]{\infix[p=1000]\ratprefOp{#1}{#2}}
+\symdef[name=ratindiff]{ratindiffOp}{\sim}
+\symdef{ratindiff}[2]{\infix[p=1000]\ratindiffOp{#1}{#2}}
+\symdef[name=ratprefeq]{ratprefeqOp}{\succeq}
+\symdef{ratprefeq}[2]{\infix[p=1000]\ratprefeqOp{#1}{#2}}
+\symdef[assocarg=1]{lottery}[1]{\mixfixa[nobrackets]{[}{#1}{]};}
+\symdef{lotic}[2]{#1,#2}
+\symdef{binlottery}[3]{\mixfixi[nobrackets]{[}{#1,#2;(1-#1),#3}{]}}
+
+\begin{frame}
+  \frametitle{Preferences in Deterministic Environments}
+  \begin{itemize}
+  \item 
+    \begin{omtext}[title=Problem]
+      We cannot directly measure \trefi[decision-theory?utility-function]{utility} of (or
+      satisfaction/happiness in) a state.
+    \end{omtext}
+  \item
+    \begin{example}
+      I have to decide whether to go to class today (or sleep in). What is the
+      \trefi[decision-theory?utility-function]{utility} of this lecture. \lec{obviously 42}
+    \end{example}
+  \item 
+    \begin{omtext}[title=Idea]
+      We can let people/agents choose between two \trefi[model-based-agent]{states}!
+      \lec{subjective preference}
+    \end{omtext}
+  \item
+    \begin{example}
+      \nlex{Give me your phone or I will give you a bloody nose}. \ergo\\
+      To make a decision in a \trefi[agentenv]{deterministic} environment, the agent must
+      determine whether it prefers a \trefi[model-based-agent]{state} without phone to one
+      with a bloody nose?
+    \end{example}
+  \item
+    \begin{definition}
+      Given \trefis[model-based-agent]{state} $A$ and $B$ (we call them \defis{prize}) and
+      agent can express \defis{preference} of the form
+      \begin{itemize}      
+      \item $\ratpref{A}B$ \qquad $A$ \defi{preferred} over $B$
+      \item $\ratindiff{A}B$ \qquad \defi{indifference} between $A$ and $B$
+      \item $\ratprefeq{A}B$ \qquad $B$ not \trefi{preferred} over $A$
+      \end{itemize}
+    \end{definition}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Preferences in Non-Deterministic Environments}
+  \begin{itemize}
+  \item
+    \begin{omtext}[title=Problem]
+      In non-\trefi[envtypes]{deterministic} environments we do not have full information
+      about the states we choose between.
+    \end{omtext}
+  \item
+    \begin{example}[title=Airline Food]
+      \nlex{Do you want chicken or pasta}\lec{but we cannot see through the tin foil}
+    \end{example}
+  \item 
+    \begin{definition}
+      \begin{columns}
+        \begin{column}{7cm}
+          Given \trefis{prize} $\livar{A}i$ and probabilities $\livar{p}i$ with
+          $\Sumfromto{i}1n{\livar{p}i}=1$, a \defi{lottery}
+          $\lottery{\lotic{\livar{p}1}{\livar{A}1},\ldots,\lotic{\livar{p}n}{\livar{A}n}}$
+          represents the result of a non-\trefi[envtypes]{deterministic} action that can
+          have outcomes $\livar{A}i$ with probability $\livar{p}i$. For the binary case,
+          we use $\binlottery{p}AB$.
+        \end{column}\qquad
+        \begin{column}{3cm}
+          \cmhtikzinput[width=3cm]{rational-decisions/tikz/lottery}
+        \end{column}
+      \end{columns}
+    \end{definition}
+  \item We extend \trefis{preference} to include \trefi[?lottery]{lotteries} for
+    non-\trefi[envtypes]{deterministic} environments.
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}

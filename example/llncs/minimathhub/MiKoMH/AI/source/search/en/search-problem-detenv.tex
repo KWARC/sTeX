@@ -1,0 +1,54 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=search-problem-detenv]
+\importmhmodule[dir=search/en]{search-problem}
+\importmhmodule[dir=rational-agents/en]{envtypes}
+\symdef{SPsuccessorFunction}[1]{S_{#1}}
+
+\begin{nomtext}
+  We will now specialize \sref[fallback=the definition of search probglems]{search-problem.def} to 
+  \trefi[envtypes]{deterministic},
+  \trefii[envtypes]{fully}{observable} \trefis[agentenv]{environment}, i.e. environments
+  where actions only have one -- assured -- outcome state.
+\end{nomtext}
+  
+\begin{frame}
+  \frametitle{Search Problems in deterministic, fully observable Envs}
+  \begin{itemize}
+  \item
+    \begin{omtext}
+      This semester, we will restrict ourselves to
+      \trefiis[search-problem]{search}{problem}, where\lec{extend in AI-II}
+      \begin{itemize}
+      \item $\natlethan{\card[bars]{\nappa\cT{a,s}}}1$ for the
+        \trefiis[search-problem]{transition}{model} and \lec{\ogre
+          \trefi[envtypes]{deterministic} \trefi[agentenv]{environment}}
+      \item $\cI=\set{\livar{s}0}$\lec{\ogre\trefii[envtypes]{fully}{observable} \trefi[agentenv]{environment}}
+      \end{itemize}
+    \end{omtext}
+  \item
+    \begin{definition}
+      Then $\SPresultRelation\cT{a}$ induces \trefii[functions]{partial}{function}
+      $\fun{\SPsuccessorFunction{a}}\cS\cS$ whose domain is the set of states where $a$ is
+      \trefi[search-problem]{applicable}: $\defeq{\nappa{S}s}{s'}$ if $\SPresultRelation\cT{a}=\set{s'}$
+      and undefined otherwise.
+
+      We call $\SPsuccessorFunction{a}$ the \defi{successor} function for $a$ and
+      $\nappa{\SPsuccessorFunction{a}}s$ the \defii{successor}{state} of $s$.
+      $\defeq{\SPsuccessorFunction\cA}{\munionCollection{a}\cA{\SPsuccessorFunction{a}}}$
+      the \defii{successor}{relation} of $\cP$.
+    \end{definition}
+  \item 
+    \begin{definition}
+      The predicate that tests for \trefiis[search-problem]{goal}{state} is called a \defii{goal}{test}.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+
+
+\end{document}
+%  LocalWords:  search-problem-detenv nomtext specialize sref envtypes trefis agentenv
+%  LocalWords:  trefiis natlethan a,s hateq trefii defii opcostFN opcost importmhmodule
+%  LocalWords:  gimport smglom nseqli natbetweenss1in

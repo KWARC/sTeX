@@ -1,0 +1,14 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=jusche]{sequenceConvergence}
+\gimport{sequences}
+\gimport{metric-space}
+\MSC{11Bxx}
+
+\symdef[bvars=1,name=limit]{limseq}[2]{\lim_{#1\to\infty}#2}
+\symtest{limseq}{\limseq{i}{a^i}}
+\symi{converges}
+\symi{convergent}
+\end{modsig}
+\end{document}

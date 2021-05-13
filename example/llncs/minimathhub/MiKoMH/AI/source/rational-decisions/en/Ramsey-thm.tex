@@ -1,0 +1,45 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=Ramsey-thm]
+\importmhmodule[dir=rational-decisions/en]{utilities}
+\gimport[smglom/arithmetics]{sum}
+
+\begin{frame}[label=slide.Ramsey-thm]
+  \frametitle{Ramseys Theorem and Value Functions}
+  \begin{itemize}
+  \item
+    \begin{assertion}[type=theorem]
+      \lec{Ramsey, 1931; von Neumann and Morgenstern, 1944}
+
+      Given a \trefi[rational-preferences]{rational} set of
+      \trefis[preferences]{preference} there exists a real-valued function $U$ such that
+      \[\text{$\realmethan{\utilityof{A}}{\utilityof{B}}$, iff
+          $\ratprefeq{A}B$ and
+          $\utilityof{\lottery{\lotic{p_1}{S_1},\ldots,\lotic{p_n}{S_n}}} =
+          \SumOver{i}{\realtimes{p_i,\utilityof{S_i}}}$}
+      \]
+    \end{assertion}
+  \item These are existence theorems, uniqueness not guaranteed.
+  \item
+    \begin{omtext}[title=Note]
+      Agent behavior is \emph{invariant} w.r.t. positive linear transformation, i.e.
+      \[U'(x) = \realplus{\realtimes{\livar{k}1,\utilityof{x}},\livar{k}2}
+        \quad\text{where $\livar{k}1 > 0$}\] behaves exactly like $\utilityofOp$.
+    \end{omtext}
+  \item
+    \begin{omtext}[title=Observation]
+      With deterministic prizes only (no \trefi[preferences]{lottery} choices), only a
+      \trefii[linear-order?linear-ordering]{total}{ordering} on prizes can be determined.
+    \end{omtext}
+  \item
+    \begin{definition}
+      We call a \trefii[linear-order?linear-ordering]{total}{ordering} on states a
+      \defii{value}{function} or \defiii[name=value-function]{ordinal}{utility}{function}.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%  LocalWords:  Ramsey-thm utilityof utilityof ratprefeq lotic lotic

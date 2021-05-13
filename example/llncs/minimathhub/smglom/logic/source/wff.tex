@@ -1,0 +1,45 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}{wff}
+  \gimport[smglom/mv]{variable}
+  \gimport[smglom/sets]{formal-language}
+  \gimport[smglom/sets]{countable}
+  \symdef{Vars}{\mathcal{V}}  % variables
+  \symdef[name=signature]{Signature}{\Sigma} % signature
+
+  \symdef[name=wff]{wffOp}{\mathop{\mathit{wff}}}  % operator for well-formed formulae
+  \symdef{wff}[2]{\prefix\wffOp{#1,#2}} % wff with signature and variables
+  \symdef[name=wff]{Wff}[1]{\prefix\wffOp{#1}}  % wff with  signature 
+  \abbrdef{wffSV}{\wff\Sigma\Vars}
+  \abbrdef{WffS}{\Wff\Sigma}
+
+  \symdef[assocarg=2]{app}[2]{\mixfixia[p=500]{}{#1}{\;}{#2}{}{\;}}
+  \symdef[assocarg=2]{appui}[4]{\mixfixia[p=500]{}{#1}{\;}{#2^{#3},\ldots,#2^{#4}}{}{\;}}
+  \symdef[assocarg=2]{appli}[4]{\mixfixia[p=500]{}{#1}{\;}{#2_{#3},\ldots,#2_{#4}}{}{\;}}
+  \symdef{vapp}[3]{\mixfixii[p=500]{}{#1}{\;}{\overline{#2^{#3}}}{}}
+  \symdef{vappu}[2]{\mixfixii[p=500]{}{#1}{\;}{\overline{#2}}{}}
+  \symdef{vseq}[2]{\overline{#1^{#2}}}
+  
+  \symdef[name=sdotgroup]{sdotgroupOp}{\mathop{\rule{.3ex}{.3ex}}}
+  \symdef{sdotgroup}[1]{\mixfixi[nobrackets]{}{\sdotgroupOp\hskip.1ex{#1}}{}}
+  \symvariant{sdotgroup}[1]{red}{\mixfixi[nobrackets]{}{\red\sdotgroupOp\hskip.1ex{#1}}{}}
+  \symvariant{sdotgroup}[1]{brack}{\mixfixi[nobrackets]({#1})}
+  \symvariant{sdotgroup}[1]{redbrack}{\mixfixi[nobrackets]{\red(}{#1}{\red)}}
+
+  \symdef[name=depth]{depthOp}{\operatorname{dp}}
+  \symdef{depth}[1]{\prefix\depthOp{#1}}
+  \symii{expression}{language}
+  \symi{constant}
+  \symi{application}
+  \symi{binding}
+  \symi{operator}
+  \symi{argument}
+  \end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

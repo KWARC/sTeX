@@ -1,0 +1,25 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}{semprops}
+  \gimport{model}
+  \gimport{evaluation}
+  \symdef{satisfactionRel}{\models}
+  \symdef{satisfiesRel}[1]{\satisfactionRel^{#1}}
+  \symdef{falsifiesRel}[1]{\not\satisfactionRel^{#1}}
+  \symdef{satisfies}[3]{\infix[p=999]{\satisfiesRel{#2}}{#1}{#3}}
+  \symdef{falsifies}[3]{\infix[p=999]{\falsifiesRel{#2}}{#1}{#3}}
+  \symii{true}{under}
+  \symii{false}{under}
+  \symi{satisfiable}
+  \symi{valid}
+  \symi{unsatisfiable}
+  \symi{falsifiable}
+\end{modsig}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

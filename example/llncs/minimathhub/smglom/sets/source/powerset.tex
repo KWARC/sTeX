@@ -1,0 +1,12 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=PowerSet]{powerset}
+\gimport{subsupset}
+\MSC{03Exx}
+\symdef[name=powerset,align=powerset]{powersetFN}{\mathcal{P}}
+\symdef[align=powerset]{powerset}[1]{\prefix\powersetFN{#1}} 
+\symtest{powerset}{\powerset{S}}
+\end{modsig}
+
+\end{document}

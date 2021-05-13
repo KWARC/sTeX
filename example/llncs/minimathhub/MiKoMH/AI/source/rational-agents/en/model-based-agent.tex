@@ -1,0 +1,29 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=model-based-agent]
+  \importmhmodule[dir=rational-agents/en]{simple-reflex-agent}
+  \begin{frame}
+  \frametitle{Model-based Reflex Agents}
+  \begin{itemize}
+  \item 
+    \begin{omtext}[title=Idea]
+      Keep track of the \trefi[model-based-agent]{state} of the world we cannot see now in an internal model.
+    \end{omtext}
+  \item 
+    \begin{definition}
+      A \defii{model-based}{agent} (also called
+      \defiii[name=model-based-agent]{reflex}{agent}{with state}) whose
+      \trefii[agent-math]{agent}{function} depends on a model of the world (called the
+      \defi{state} or \defii[name=state]{world}{model}).
+    \end{definition}
+  \item
+    \begin{omtext}[title=Agent Schema]
+      \cmhgraphics[width=.6\slidewidth]{rational-agents/PIC/reflex+state-agent}
+    \end{omtext}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+%  LocalWords:  stateful-reflex-agent importmhmodule agentenv frametitle itemize defiii
+%  LocalWords:  stateful Ednote mhcgraphics slidewidth

@@ -1,0 +1,22 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko,align=QuotientSpace]{quotientspace}
+  \gimport{intersection}
+  \gimport{union}
+  \gimport{equivalence-relation}
+  \gimport{fundefeq}
+  \symdef[name=equivalence-class,align=equivalenceClass]{eqclass}[2]{[#1]_{#2}}
+  \symtest{eqclass}{\eqclass{a}{\sim}}
+
+  \symdef[name=quotient-space,align=quotientSpace]{quotientspace}[2]{\infix[p=1000]/{#1}{#2}}
+  \symtest{quotientspace}{\quotientspace{R}{\sim}}
+
+  \symdef[name=canonical-projection,align=projection]{quotientprojectionFN}[1]{\pi_{#1}}
+  \symtest{quotientprojectionFN}{\quotientprojectionFN{=}}
+
+  \symdef[name=canonical-projection]{quotientprojection}[2]{\prefix{\quotientprojectionFN{#1}}{#2}}
+  \symtest{quotientprojection}{\quotientprojection{=}X}
+  \symi{representative}
+\end{modsig}
+\end{document}

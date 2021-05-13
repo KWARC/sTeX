@@ -1,0 +1,17 @@
+\documentclass[mh]{smglom}
+\libinput{preamble}
+\begin{document}
+\begin{modsig}[creators=miko]{defeq}
+\symdef[name=definitional-equation,gfc=N2]{defeqOp}{\mathrel{:=}}
+\symdef[name=definitional-equation]{defeq}[2]{\infix[p=200]\defeqOp{#1}{#2}}
+\symtest{defeq}{\defeq{a}B}
+\symdef[noverb,name=eqdef]{eqdefFN}{\mathrel{=:}}
+\symdef[noverb]{eqdef}[2]{\infix[nobrackets]\eqdefFN{#1}{#2}}
+\symtest{eqdef}{\eqdef{a}B}
+\symdef[name=definitional-equivalence]{defequivOp}{\mathrel{:\Leftrightarrow}}
+\symdef[name=definitional-equivalence]{defequiv}[2]{\infix[nobrackets]\defequivOp{#1}{#2}}
+\symtest{defequiv}{\defequiv{a}B}
+\symi[gfc=N]{definiendum}
+\symi[gfc=N]{definiens}
+\end{modsig}
+\end{document}

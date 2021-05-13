@@ -1,0 +1,140 @@
+\documentclass[notes,mh]{mikoslides}
+\libinput{preamble}
+\begin{document}
+\begin{module}[id=pl0-syntax]
+\importmhmodule[dir=logic/en]{typed-syntax-base}
+\importmhmodule[dir=dmath/en]{sets-introduction}
+\symdef{typebool}{o}
+\symdef[name=propositional-logic]{PropLog}{\operatorname{PL}^{\kern-.2em0}}
+\symdef{propVars}{\TVars\typebool}      % set of typed propositional variables
+\symdef{propSig}{\TSignature\typebool}      % set of pl0 constants
+
+\symdef{propwff}[2]{\prefix{\mathit{wff}_o}{#1,#2}}
+\symdef{propWff}[1]{\prefix{\mathit{wff}_o}{#1}}
+\abbrdef{propWffV}{\propWff\propVars} 
+
+\symdef[name=ldisj]{disjunctionOp}{\mathop\vee}
+\symdef[assocarg=1]{ldisj}[1]{\assoc[p=500]\disjunctionOp{#1}}
+\symvariant{disjunctionOp}{pipe}{\mathop{|}}
+\symvariant{ldisj}[1]{pipe}{\assoc[p=500]{\disjunctionOp[pipe]}{#1}}
+\symvariant{disjunctionOp}{semicolon}{;}
+\symvariant{ldisj}[1]{semicolon}{\assoc[p=500]{\disjunctionOp[semicolon]}{#1}}
+\symvariant{disjunctionOp}{plus}{\mathop+}
+\symvariant{ldisj}[1]{plus}{\assoc[p=500]{\disjunctionOp[plus]}{#1}}
+
+\symdef[name=lconj]{conjunctionOp}{\mathop\wedge} 
+\symdef[assocarg=1]{lconj}[1]{\mixfixa[p=600]{}{#1}{}\conjunctionOp} 
+\symvariant{conjunctionOp}{amp}{\char38} 
+\symvariant{lconj}[1]{amp}{\mixfixa[p=600]{}{#1}{}{\conjunctionOp[amp]}}
+\symvariant{conjunctionOp}{bullet}{\bullet} 
+\symvariant{lconj}[1]{bullet}{\mixfixa[p=600]{}{#1}{}{\conjunctionOp[bullet]}} 
+\symvariant{conjunctionOp}{comma}{,} 
+\symvariant{lconj}[1]{comma}{\mixfixa[p=600]{}{#1}{}{\conjunctionOp[comma]}} 
+
+\symdef{trueconst}{\mathop{T}}
+\symvariant{trueconst}{top}{\top}
+\symvariant{trueconst}{num}{1}
+\symdef{falseconst}{\mathop{F}}
+\symvariant{falseconst}{bot}{\bot}
+\symvariant{falseconst}{num}{0}
+
+\symdef[name=limpl]{implicationOp}{\mathop\Rightarrow}
+\symdef[assocarg=1]{limpl}[2]{\mixfixai[p=500,pii=499]{}{#1}\implicationOp{#2}{}\implicationOp}
+\symvariant{implicationOp}{single}{\mathop\rightarrow}
+\symvariant{limpl}[2]{single}{\mixfixai[p=500,pii=499]{}{#1}{\implicationOp[single]}{#2}{}{\implicationOp[single]}}
+\symvariant{implicationOp}{sup}{\supset}
+\symvariant{limpl}[2]{sup}{\mixfixai[p=500,pii=499]{}{#1}{\implicationOp[sup]}{#2}{}{\implicationOp[sup]}}
+
+\symdef[name=lequiv]{equivalenceOp}{\mathop\Leftrightarrow}  
+\symdef[assocarg=1]{lequiv}[1]{\assoc[p=900]\equivalenceOp{#1}}
+\symvariant{equivalenceOp}{single}{\mathop\leftrightarrow}  
+\symvariant{lequiv}[1]{single}{\assoc[p=900]{\equivalenceOp[single]}{#1}}
+\symvariant{equivalenceOp}{equiv}{\mathop\equiv}  
+\symvariant{lequiv}[1]{equiv}{\assoc[p=900]{\equivalenceOp[equiv]}{#1}}
+
+\symdef[name=lneg]{negationOp}{\mathop\neg}
+\symdef{lneg}[1]{\mixfixi[p=800,pi=799]\negationOp{#1}{}}
+\symvariant{negationOp}{squig}{\mathord\sim}
+\symvariant{lneg}[1]{squig}{\mixfixi[p=800,pi=799]{\negationOp[squig]}{#1}{}}
+\symvariant{lneg}[1]{bar}{\overline{#1}}
+
+\symdef[bvars=1,bargs={2,3}]{mconj}[4]{\bigwedge_{#1=#2}^{#3}{#4}}
+%\symtest{mconj}{\mconj{i}1\infty{S_i}}
+\symdef[bvars=1,bargs=2]{mconjCollection}[3]{\bigwedge_{#1\in{#2}}{#3}}
+%\symtest{mconjCollection}{\mconjCollection{i}I{S_i}}
+\symdef[bvars=1]{mconjProp}[3]{\bigwedge_{#2}{#3}} % multiple conj
+%\symtest{mconjProp}{\mconjProp{i}{i\in I}{S_i}}
+\symdef[bvars=1,bargs={2,3}]{mconjfromto}[4]{\bigwedge_{#1=#2}^{#3}{#4}}
+%\symtest{mconjfromto}{\mconjfromto{i}1\infty{L_i}}
+
+\symdef[bvars=1,bargs={2,3}]{mdisj}[4]{\bigvee_{#1=#2}^{#3}{#4}}
+%\symtest{mdisj}{\mdisj{i}1\infty{S_i}}
+\symdef[bvars=1,bargs=2]{mdisjCollection}[3]{\bigvee_{#1\in{#2}}{#3}}
+%\symtest{mdisjCollection}{\mdisjCollection{i}I{S_i}}
+\symdef[bvars=1]{mdisjProp}[3]{\bigvee_{#2}{#3}} % multiple disj
+%\symtest{mdisjProp}{\mdisjProp{i}{i\in I}{S_i}}
+\symdef[bvars=1,bargs={2,3}]{mdisjfromto}[4]{\bigvee_{#1=#2}^{#3}{#4}}
+%\symtest{mdisjfromto}{\mdisjfromto{i}1\infty{L_i}}
+
+\abbrdef{sand}[2]{\lconj{{#1},{#2}}} % for backwards compatibility
+\abbrdef{sor}[2]{\ldisj{{#1},{#2}}}  % for backwards compatibility
+\abbrdef{siff}[2]{\lequiv{{#1},{#2}}} % for backwards compatibility
+\abbrdef{simpl}[2]{\limpl{#1}{#2}} % for backwards compatibility
+\abbrdef{sneg}[1]{\lneg{#1}}      % for backwards compatibility
+
+\begin{frame}
+  \frametitle{Propositional Logic (Syntax)}
+  \begin{itemize}
+    \item
+      \begin{definition}[title=Syntax,id=pl0-syntax.def,
+        for={trueconst,falseconst,lconj,ldisj,limpl,lequiv,propVars,PropLog,propSig,propWff,propwff}]
+        The \adefi{formulae}{formula} of \defii{propositional}{logic} (write $\PropLog$) are made up from
+        \begin{itemize}
+        \item \defiis{propositional}{variable}:
+          $\defeq\propVars{\setdots{P,Q,R,\uivar{P}1,\uivar{P}2}}$ \lec{countably
+            infinite}
+        \item constants/constructors called \defis{connective} :
+          $\defeq\propSig{\setdots{\trueconst,\falseconst,\negationOp,\disjunctionOp,\conjunctionOp,\implicationOp,\equivalenceOp}}$
+        \end{itemize}
+        We define the set $\propWffV$ of
+        \defiiis[name=propWffV]{well-formed}{propositional}{formula} as
+        \begin{itemize}
+        \item \trefiis{propositional}{variable} 
+        \item the \defiis{logical}{constant} $\trueconst$ and $\falseconst$, 
+        \item\defis{negation} $\lneg\bA$,
+        \item\defis{conjunction} $\lconj{\bA,\bB}$,
+        \item\defis{disjunction} $\ldisj{\bA,\bB}$,
+        \item\defis{implication} $\limpl\bA\bB$, and 
+        \item\defis{equivalence} (or \defis[name=equivalence]{biimplication}).
+          $\lequiv{\bA,\bB}$,
+        \end{itemize}
+      where $\minset{\bA,\bB}\propWffV$ themselves.
+    \end{definition}
+  \item 
+    \begin{example}
+      $\minset{\lconj{P,Q}, \ldisj{P,Q}, \lequiv{\ldisj{\lneg{P},Q},\limpl{P}Q}}\propWffV$
+    \end{example}
+  \item 
+    \begin{definition}
+      \Trefii[?propWffV]{propositional}{formulae} without \trefis{connective} are called
+      \defi{atomic} (or an \defis[name=atomic]{atom}) and \defi{complex} otherwise.
+    \end{definition}
+  \end{itemize}
+\end{frame}
+\end{module}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
+%  LocalWords:  pl0-syntax importmhmodule dmath symdef TVars TSignature propwff mathit
+%  LocalWords:  wff abbrdef ldisj assocarg assoc lconj mixfixa limpl Rightarrow mixfixai
+%  LocalWords:  500,pii lequiv lneg mixfixi 800,pi siff simpl frametitle itemize flow,id
+%  LocalWords:  propositions-ex,for pl0-syntax.def nlex propositions-cex,type flow,title
+%  LocalWords:  counterex,for Syntax,id propWff,propwff defii defiis defeq setdots defis
+%  LocalWords:  trueconst,falseconst,lconj,ldisj,limpl,lequiv,propVars,PropLog,propSig
+%  LocalWords:  defiiis lec defi biimplication 500,pii equiv equiv squig bvars 1,bargs
+%  LocalWords:  mconj bigwedge_ symtest infty conj mconjfromto mdisj bigvee_ disj
+%  LocalWords:  mdisjfromto
