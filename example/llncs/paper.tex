@@ -1,6 +1,7 @@
 \documentclass{llncs}
-\usepackage[mh,mathhub=minimathhub]{smglom}
-\Usepackage{stex-logo}
+\def\mathhubpath{lmh}
+\usepackage[mh]{smglom}
+\usepackage{stex-logo}
 \usepackage[show]{ed}
 \usepackage{hyperref}
 \usepackage[capitalize]{cleveref} 
@@ -18,25 +19,39 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  Paper shows how to integrate \sTeX stuff into regular papers, e.g. via the
+  This paper shows how to integrate \sTeX stuff into regular papers, e.g. via the
   \texttt{llncs.cls} and get them through submission systems like EasyChair.
 \end{abstract}
 
-\section{Introduction}\label{sec:intro}
+\section{Introduction \& Setup}\label{sec:intro}
 
 One of the useful new features of \sTeX is that we can mix in its semantic annotation
 functionality into arbitrary document classes. This paper is an example of how this can be
 done. Indeed it uses the \textsf{llncs} class as we would submit it to a conference with
 LNCS or LNAI proceedings.
 
-In \cref{sec:meat} show how we can use the \sTeX functionality to write an \sTeX module.
-This presupposes that the author has cloned the necessary MathHub archives from
+In \cref{sec:meat} show how we can use the \sTeX functionality to write an \sTeX module, reusing existing modules from a MathHub repository. This presupposes that the author has cloned the necessary MathHub archives from
 \url{https://gl.mathhub.info}, say under the local path
-\url{/Users/kohlhase/localmh/MathHub}. One of the past hindrances was that it was
+\url{/Users/kohlhase/localmh/MathHub}.
+
+To make \sTeX aware of where to find the repositories, there are two options:
+\begin{enumerate}
+	\item (Recommended and default:) Setting a \texttt{MATHHUB} system variable
+		that points to the local path with the repositories. This
+		is recommended, since it is a one-time, system specific action
+		and the documents written thusly remain system independent.
+	\item Defining a macro \texttt{\textbackslash mathhubpath} that
+		points to the local path with the repository \emph{before}
+		loading the \sTeX packages. This approach is taken with this
+		demo paper.
+\end{enumerate}
+
+
+One of the past hindrances was that it was
 virtually impossible to submit a paper that includes MathHub archives via a conference
 tool like EasyChair.org. Therefore the \sTeX distribution contains a python script
 \texttt{mhlocalize} that copies a snapshot of the \sTeX files from the MathHub archives
-into the current directory, so they can be zipped for submission with the paper sources. 
+into the current directory, so they can be zipped for submission with the paper sources. This is compatible with the second approach, using a relative path in \texttt{\textbackslash mathhubpath}.
 
 
 \section{The Meat of the Matter: An \sTeX module in a Paper}\label{sec:meat}
@@ -44,25 +59,24 @@ Here we make use of the \sTeX functionality: We initialize the preamble with
 \begin{footnotesize}
 \begin{verbatim}
 \documentclass{llncs}
-\usepackage[mh,mathhub=/Users/kohlhase/localmh/MathHub]{smglom}
+\def\mathhubpath{lmh}
+\usepackage[mh]{smglom}
 \end{verbatim}
-  The first line contains the \texttt{llncs} document class and the second calls the
-  \texttt{smglom} package from the \sTeX distribution. We give it the \texttt{mathhub}
-  option that allows to specify the system path to the local MathHub
-  archives.
+  The first line contains the \texttt{llncs} document class. The second line tells \sTeX where MathHub archives can be found. The third calls the
+  \texttt{smglom} package from the \sTeX distribution.
 
-  This is sufficient solitary authoring. For collaborative authoring, the approach of
-  supplying the respective \sTeX packages with a \texttt{path=} option will not work,
+  This is sufficient for solitary authoring. For collaborative authoring, the approach of
+  supplying the respective \sTeX packages with an \emph{absolute} \texttt{mathhubpath}-macro will not work,
   since the path to the local MathHub home is system-dependent and can therefore not be
-  committed. There are two ways of fixing this.  One is to have an unversioned file
+  committed. There are three ways of fixing this:  One is to have an unversioned file
   \verb|lmh.sty| with contents
 \begin{verbatim}
-\def\mathhub@path{/path/to/mathhub} 
+\def\mathhubpath{/path/to/mathhub} 
 \end{verbatim}
   and add a \verb|\usepackage{lmh}| before the \verb|\usepackage[mh]{smglom}|.  For the
   other see \cref{sec:easychair}.
 
-  Either way, somewhere in the paper we can just write an \sTeX module, here one about the
+  \paragraph{} Either way, somewhere in the paper we can just write an \sTeX module, here one about the
   expected utility of an action in a partially observable environment.
 
 \begin{verbatim}
@@ -119,7 +133,6 @@ values are the results of performing $a$ in the current state.
 \end{definition}
 \end{module}
 \end{quote}
-Note that we are taking
 
 \section{Localizing the Papers}\label{sec:easychair}
 
