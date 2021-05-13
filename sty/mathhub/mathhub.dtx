@@ -334,7 +334,7 @@
 \ProvidesPackage{mathhub}[2010/10/01 v1.2 Basic MathHub functionality]
 \RequirePackage{pathsuris}
 \RequirePackage{xkeyval}
-\DeclareOptionX{mathhub}{\def\mathhub@path{#1}}
+\DeclareOptionX{mathhub}{\gdef\mathhub@path{#1}}
 \ProcessOptionsX
 %    \end{macrocode}
 % 
@@ -413,10 +413,11 @@
 % this even in paranoid mode) and then set the |MathMub| path using |\defpath|. 
 %
 %    \begin{macrocode}
-
+\ifcsvoid{mathhubpath}{
 \ifcsvoid{mathhub@path}{
   \kpsewhich\mathhub@path{--var-value MATHHUB}
 }{}
+}{\let\mathhub@path\mathhubpath}
 \if@iswindows@\windows@to@path\mathhub@path\fi
 \ifx\mathhub@path\@empty%
 \PackageError{mathhub}
