@@ -12,9 +12,11 @@ Copyright (c) 2019 Michael Kohlhase
 The package is distributed under the terms of the LaTeX Project Public License (LPPL)
 
 ## Documentation
-See the
+See the [academic literature](https://kwarc.github.io/bibs/sTeX/) for the intuition and
+develpment and the 
 [documentation of the sTeX package](https://github.com/slatex/sTeX/blob/master/sty/stex/stex.pdf)
-for details.
+for details. We have also started the [sTeX Wiki](https://github.com/slatex/sTeX/wiki) for
+community driven documentation. 
 
 ## Setup
 
