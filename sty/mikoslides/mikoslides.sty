@@ -133,6 +133,14 @@
 \else\excludecomment{nomtext}\fi%
 \ifmks@sty@notes\newenvironment{nomgroup}[2][]{\begin{omgroup}[#1]{#2}}{\end{omgroup}}%
 \else\excludecomment{nomgroup}\fi%
+\ifmks@sty@notes\newenvironment{ndefinition}[2][]{\begin{definition}[#1]{#2}}{\end{definition}}%
+\else\excludecomment{ndefinition}\fi%
+\ifmks@sty@notes\newenvironment{nassertion}[2][]{\begin{assertion}[#1]{#2}}{\end{assertion}}%
+\else\excludecomment{nassertion}\fi%
+\ifmks@sty@notes\newenvironment{nsproof}[2][]{\begin{sproof}[#1]{#2}}{\end{sproof}}%
+\else\excludecomment{nsproof}\fi%
+\ifmks@sty@notes\newenvironment{nexample}[2][]{\begin{example}[#1]{#2}}{\end{example}}%
+\else\excludecomment{nexample}\fi%
 \def\inputref@preskip{\smallskip}
 \def\inputref@postskip{\medskip}
 \let\orig@inputref\inputref

@@ -209,7 +209,9 @@
 % environments. We make convenience versions of these: e.g. the
 % \DescribeEnv{nomtext}|nomtext| environment is just an |omtext| inside a |note|
 % environment (but looks nicer in the source, since it avoids one level of source
-% indenting). Similarly, we have the \DescribeEnv{nomgroup}|nomgroup| environment.
+% indenting). Similarly, we have the \DescribeEnv{nomgroup}|nomgroup|,
+% \DescribeEnv{ndefinition}|ndefinition|, \DescribeEnv{nexample}|nexample|,
+% \DescribeEnv{nsproof}|nsproof|, and \DescribeEnv{nassertion}|nassertion| environments.
 %  
 % \subsection{Header and Footer Lines of the Slides}\label{sec:user:headfootlines}
 %
@@ -560,6 +562,34 @@
 %    \begin{macrocode}
 \ifmks@sty@notes\newenvironment{nomgroup}[2][]{\begin{omgroup}[#1]{#2}}{\end{omgroup}}%
 \else\excludecomment{nomgroup}\fi%
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{ndefinition}
+%    \begin{macrocode}
+\ifmks@sty@notes\newenvironment{ndefinition}[2][]{\begin{definition}[#1]{#2}}{\end{definition}}%
+\else\excludecomment{ndefinition}\fi%
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{nassertion}
+%    \begin{macrocode}
+\ifmks@sty@notes\newenvironment{nassertion}[2][]{\begin{assertion}[#1]{#2}}{\end{assertion}}%
+\else\excludecomment{nassertion}\fi%
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{nsproof}
+%    \begin{macrocode}
+\ifmks@sty@notes\newenvironment{nsproof}[2][]{\begin{sproof}[#1]{#2}}{\end{sproof}}%
+\else\excludecomment{nsproof}\fi%
+%    \end{macrocode}
+% \end{environment}
+%
+% \begin{environment}{nexample}
+%    \begin{macrocode}
+\ifmks@sty@notes\newenvironment{nexample}[2][]{\begin{example}[#1]{#2}}{\end{example}}%
+\else\excludecomment{nexample}\fi%
 %    \end{macrocode}
 % \end{environment}
 %
