@@ -533,8 +533,10 @@
 %    This macro writes an |\@sref@def| command to the current aux file and also executes it. 
 %    \begin{macrocode}
 \newcommand\sref@def[3]{%
-  \@sref@def{#1}{#2}{#3}%
-  \protected@write\refs@file{}{\string\@sref@def{#1}{#2}{#3}}%
+  \if@smsmode\else%
+    \@sref@def{#1}{#2}{#3}%
+    \protected@write\refs@file{}{\string\@sref@def{#1}{#2}{#3}}%
+  \fi%
 }%
 %    \end{macrocode}
 % \end{macro}

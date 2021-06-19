@@ -1517,7 +1517,6 @@
 %   The first step is setting up a functionality for registering |\sTeX| macros and
 %   environments as part of a module signature. 
 %    \begin{macrocode}
-\newif\if@smsmode\@smsmodefalse
 \def\usemodule@allow#1{%
   \expandafter\def\csname usemodule@allowedmacro@#1\expandafter\endcsname\expandafter{\csname #1\endcsname}%
 }
