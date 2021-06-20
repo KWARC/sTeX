@@ -150,11 +150,11 @@ can only be referenced when called in a module with id key}}%
 \edef\@@cd{\ifx\omtext@theory\@empty\module@uri@uri\else\csname Module\omtext@theory\endcsname\@URI\fi}%
 \edef\@@name{\ifx\@symname\@empty\@verbname\else\@symname\fi}%
 \defemph{\@ifundefined{sref@\@@cd\@QuestionMark\@@name @label}%
-{
-  \expandafter\sref@target@ifh{sref@\@@cd\@QuestionMark\@@name @target}{#3}
-}%
+  {\expandafter\sref@target@ifh{sref@\@@cd\@QuestionMark\@@name @target}{#3}}%
 {#3}}%
-\sref@def{\@@cd\@QuestionMark\@@name}{label}{\@@cd\@QuestionMark\@@name}%
+\edef\@label{\@@cd\@QuestionMark\@@name}%
+\footnote{sTeX: target sref@\@label @target}% for testing targets
+\sref@def{\@label}{label}{sref@\@label @target}%
 \ifmetakeys@showmeta\metakeys@show@keys{\@@cd}{name:\@@name}\fi}%
 \else% st@indef: we are not in a definition or such
 \PackageError{statements}%
@@ -264,8 +264,8 @@ whatever is suitable semantically}\fi}
    \mod@termref\termref@cd\termref@name{#2}%
    \else\sref@href@ifh\termref@cdbase{#2}%
    \fi}%
-  {\def\@label{sref@\csname Module\termref@cd\endcsname\@URI\@QuestionMark\termref@name @target}%
-    \sref@hlink@ifh\@label{#2}}%\footnote{termref: internal reference to \@label}
+  {\edef\@label{sref@\csname Module\termref@cd\endcsname\@URI\@QuestionMark\termref@name @target}%
+    \sref@hlink@ifh\@label{#2}}\footnote{termref: internal reference to \@label}%
 \fi}
 \def\@instring#1#2{TT\fi\begingroup\edef\x{\endgroup\noexpand\in@{#1}{#2}}\x\ifin@}
 \newcommand\@@@mtref[3]{\def\@@cd{#1}\def\@@name{#2}%
