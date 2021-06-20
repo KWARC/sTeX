@@ -149,10 +149,9 @@ can only be referenced when called in a module with id key}}%
 {% now we are in a module
 \edef\@@cd{\ifx\omtext@theory\@empty\module@uri@uri\else\csname Module\omtext@theory\endcsname\@URI\fi}%
 \edef\@@name{\ifx\@symname\@empty\@verbname\else\@symname\fi}%
-\defemph{\@ifundefined{sref@\@@cd\@QuestionMark\@@name @label}%
-  {\expandafter\sref@target@ifh{sref@\@@cd\@QuestionMark\@@name @target}{#3}}%
-{#3}}%
-\edef\@label{\@@cd\@QuestionMark\@@name}\footnote{sTeX: target sref@\@label @target}% for testing targets
+\edef\@label{\@@cd\@QuestionMark\@@name}%
+\defemph{\sref@target@ifh{sref@\@label @target}{#3}}%
+\footnote{sTeX: target sref@\@label @target}% for testing targets
 \sref@def{\@label}{label}{sref@\@label @target}%
 \ifmetakeys@showmeta\metakeys@show@keys{\@@cd}{name:\@@name}\fi}%
 \else% st@indef: we are not in a definition or such

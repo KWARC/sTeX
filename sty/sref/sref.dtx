@@ -287,7 +287,7 @@
 % The |sref| package defines semantically referencable versions of commonly used {\LaTeX}
 % environments and command sequences.\footnote{This section will be extended by need, so
 % if you miss some semantic environment, please contact the package author, or (better)
-% file an issue at~\cite{sTeX:github:on})}
+% file an issue at~\cite{sTeX:github:on}}
 % 
 % The \DescribeEnv{sequation}|sequation| environment takes an optional key/value argument
 % that allows to specify an identifier and unifies the behavior of the |equation| (if an
@@ -480,7 +480,8 @@
     \hyperlink{#1}{#2}%
   \else%
     #2%
-  \fi%
+    \fi%
+%    \footnote{sref@hlink@ifh to #1}%
 }%
 \newcommand\sref@target@ifh[2]{%
   \ifhref%
@@ -488,6 +489,7 @@
   \else%
     #2%
   \fi%
+%    \footnote{sref@target@ifh #1}%
 }%
 %    \end{macrocode}
 % \end{macro}
@@ -661,7 +663,7 @@
       \@fallback%
     \fi
   }{% retrieve the reference label and prepost it
-    \edef\@link{\ifx\@pre\@empty\else\@pre\ \fi\@nameuse{sref@#2@label}\ifx\@post\@empty\else\ \@post\fi}% 
+    \edef\@link{\ifx\@pre\@empty\else\@pre\ \fi\@nameuse{sref@#2@label}\ifx\@post\@empty\else\ \@post\fi}%
     \ifx\@linktext\@empty%
       \sref@hlink@ifh{sref@#2@target}{\@link}%
     \else%
