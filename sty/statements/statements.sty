@@ -150,7 +150,10 @@ can only be referenced when called in a module with id key}}%
 \edef\@@cd{\ifx\omtext@theory\@empty\module@uri@uri\else\csname Module\omtext@theory\endcsname\@URI\fi}%
 \edef\@@name{\ifx\@symname\@empty\@verbname\else\@symname\fi}%
 \edef\@label{\@@cd\@QuestionMark\@@name}%
-\defemph{\sref@target@ifh{sref@\@label @target}{#3}}%
+\defemph{\@ifundefined{sref\@label @defined}%
+  {\sref@target@ifh{sref@\@label @target}{#3}%
+    \csgdef{sref\@label @defined}{yes}}%
+  {}}%
 \footnote{sTeX: target sref@\@label @target}% for testing targets
 \sref@def{\@label}{label}{sref@\@label @target}%
 \ifmetakeys@showmeta\metakeys@show@keys{\@@cd}{name:\@@name}\fi}%
