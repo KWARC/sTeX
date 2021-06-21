@@ -1037,8 +1037,8 @@ can only be referenced when called in a module with id key}}%
 \defemph{\@ifundefined{sref\@label @defined}%
   {\sref@target@ifh{sref@\@label @target}{#3}%
     \csgdef{sref\@label @defined}{yes}}%
-  {}}%
-\footnote{sTeX: target sref@\@label @target}% for testing targets
+  {#3}}%
+%\footnote{sTeX: target sref@\@label @target}% for testing targets
 \sref@def{\@label}{label}{sref@\@label @target}%
 \ifmetakeys@showmeta\metakeys@show@keys{\@@cd}{name:\@@name}\fi}%
 \else% st@indef: we are not in a definition or such
@@ -1282,14 +1282,14 @@ whatever is suitable semantically}\fi}
   \@ifundefined{sref@\csname Module\termref@cd\endcsname\@URI\@QuestionMark\termref@name @label}%
   {\ifx\termref@cdbase\@empty% external reference
     \mod@termref\termref@cd\termref@name{#2}%
-    \footnote{termref: external reference via mod@termref  with \termref@cd, \termref@name}%
+%    \footnote{termref: external reference via mod@termref  with \termref@cd, \termref@name}%
     \else
     \sref@href@ifh\termref@cdbase{#2}%
-    \footnote{termref: external reference to \termref@cdebase}%
+%    \footnote{termref: external reference to \termref@cdebase}%
     \fi%
   }%
   {\edef\@label{sref@\csname Module\termref@cd\endcsname\@URI\@QuestionMark\termref@name @target}%
-    \sref@hlink@ifh\@label{#2}\footnote{termref: internal reference to \@label}%
+    \sref@hlink@ifh\@label{#2}%\footnote{termref: internal reference to \@label}%
     }%
 \fi}
 %    \end{macrocode}
