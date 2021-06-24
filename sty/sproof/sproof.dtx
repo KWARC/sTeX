@@ -583,14 +583,14 @@
 %    \end{macrocode}
 % \end{environment}
 % 
-% \begin{environment}{spfidea}
+% \begin{macro}{\spfidea}
 %    \begin{macrocode}
 \newrobustcmd\spfidea[2][]{%
   \metasetkeys{spf}{#1}%
   \stDMemph{\ifx\spf@type\@empty{Proof Idea}\else\spf@type\fi:} #2\sproofend%
 }%
 %    \end{macrocode}
-% \end{environment}
+% \end{macro}
 %
 % The next two environments (proof steps) and comments, are mostly semantical, they take
 % |KeyVal| arguments that specify their semantic role. In draft mode, they read these
