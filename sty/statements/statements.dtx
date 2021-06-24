@@ -836,16 +836,21 @@
 \strut\ignorespacesandpars}
 {\csname st@#1@terminate\endcsname\end{\@@env}%
 \omtext@post@skip\@in@omtextfalse}}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{environment}{assertion}
-%    \begin{macrocode}
-\newenvironment{assertion}[1][]{\metasetkeys{omtext}{#1}\sref@target\@in@omtexttrue%
-\ifx\omtext@display\st@flow\def\@@env{omtext}\else\def\@@env{ST\omtext@type AssEnv}\fi
-\ifx\omtext@title\@empty\begin{\@@env}\else\begin{\@@env}[\omtext@title]\fi%
-\ifx\sref@id\@empty\sref@label@id{here}\else%
-\sref@label@id{\STpresent{\csname st@\omtext@type @kw\endcsname}~\@currentlabel}\fi}
+\newenvironment{assertion}[1][]%
+{\metasetkeys{omtext}{#1}%
+  \sref@target%
+  \@in@omtexttrue%
+  \ifx\omtext@display\st@flow%
+    \edef\@@env{omtext}%
+  \else%
+    \edef\@@env{ST\omtext@type AssEnv}%
+  \fi%
+  \ifx\omtext@title\@empty\begin{\@@env}\else\begin{\@@env}[\omtext@title]\fi%
+      \ifx\sref@id\@empty%
+        \sref@label@id{here}%
+      \else%
+        \sref@label@id{\STpresent{\csname st@\omtext@type @kw\endcsname}~\@currentlabel}%
+      \fi}
 {\end{\@@env}}
 %    \end{macrocode}
 % \end{environment}
@@ -1015,7 +1020,7 @@
 %   encounters this symbol; i.e. if |\sref@|\meta{name}|@|\meta{modulename}|@defined| is
 %   undefined). And it formats the |\defemph|-emphasized \meta{text}.  Also it generates
 %   the necessary warnings for a definiendum-like macro.\ednote{MK: This currently has
-%   simple logic to avoid duplicate labels (the first |\defi*| gets the target). We will
+%   simple logic to avoid duplicate labels (the first |defi*| gets the target). We will
 %   probably want to extend this eventually.}
 %    \begin{macrocode}
 \if@latexml
