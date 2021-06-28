@@ -152,8 +152,15 @@
 % \begin{verbatim}
 % \libinput{preamble}
 % \end{verbatim}
+% Note that if both \meta{group}|/meta-inf/lib/preamble.tex| and
+% \meta{group}|/|\meta{repos}|/lib/preamble.tex| exist, this command loads both of them in
+% order. This allows to share the bulk of preamble settings in the archive group and
+% specialize them with archive-local configurations.
+% 
 % The \DescribeMacro{\libusepackage}|\libusepackage| is analogous it allows to share
-% {\LaTeX} package between MathHub archives. 
+% {\LaTeX} package between MathHub archives. Note that as the |\usepackage| macro used
+% internally avoids duplicate loading of packages, the sharing/specialization trick
+% presented above does not work for |\libusepackage|.
 %
 % \subsection{\texttt{omdoc-mh.sty}: MH Document Infrastructure}\label{sec:user:modules}
 %
@@ -397,7 +404,7 @@
     Both \mh@libfile.sty\MessageBreak and \mh@inffile.sty\MessageBreak%
     do not exist}%
   {Check whether the file name is correct}}}}%
-\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}%
+\IfFileExists{\mh@libfile.sty}{\usepackage[#1]{\mh@libfile}}{}%
 \let\mh@inffile\orig@inffile\let\mh@libfile\orig@libfile}
 %    \end{macrocode}
 % \end{macro}
@@ -425,7 +432,6 @@
   {use export MATHHUB="<path>", where <path> points your MathHub direcctory}
 \else\defpath{MathHub}{\mathhub@path}\fi
 \ifcsvoid{mathhub@path}{}{\message{^^JMATHHUB: \mathhub@path}}
-
 %    \end{macrocode}
 %\begin{macro}{\findmanifest}
 % |\findmanifest{|\meta{path}|}| searches for a file |MANIFEST.MF| up and over \meta{path} in

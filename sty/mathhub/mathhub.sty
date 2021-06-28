@@ -51,7 +51,7 @@
     Both \mh@libfile.sty\MessageBreak and \mh@inffile.sty\MessageBreak%
     do not exist}%
   {Check whether the file name is correct}}}}%
-\IfFileExists\mh@libfile{\input\mh@libfile\relax}{}%
+\IfFileExists{\mh@libfile.sty}{\usepackage[#1]{\mh@libfile}}{}%
 \let\mh@inffile\orig@inffile\let\mh@libfile\orig@libfile}
 \ifcsvoid{mathhubpath}{
 \ifcsvoid{mathhub@path}{
@@ -65,7 +65,6 @@
   {use export MATHHUB="<path>", where <path> points your MathHub direcctory}
 \else\defpath{MathHub}{\mathhub@path}\fi
 \ifcsvoid{mathhub@path}{}{\message{^^JMATHHUB: \mathhub@path}}
-
 \def\findmanifest#1{%
   \@cpath{#1}%
   \ifx\@CanPath\@Slash%
