@@ -30,7 +30,7 @@
       \setcurrentreposinfo{\importmhmodule@mhrepos}% change it.
       \addto@thismodulex{\noexpand\setcurrentreposinfo{\importmhmodule@mhrepos}}%
     \fi%
-    \importmodule[load=\MathHub{\mh@currentrepos/source/\@path},
+    \importmodule[load=\MathHub{\mh@currentrepos/source/\@path},%
                          id=\importmhmodule@id]{#2}%
     \setcurrentreposinfo{\mh@@repos}% after importing, reset to old value
     \addto@thismodulex{\noexpand\setcurrentreposinfo{\mh@@repos}}%
