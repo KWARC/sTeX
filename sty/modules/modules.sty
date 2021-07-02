@@ -184,7 +184,7 @@
 \metasetkeys{importmodule}{#1}%
 \usemodule@maybesetcodes%
 \update@used@modules{#2}%
-\ifx\importmodule@dir\@empty
+\ifx\importmodule@dir\@empty%
 \@importmodule[\importmodule@load]{#2}{export}%
 \else\@importmodule[\importmodule@dir/#2]{#2}{export}\fi%
 \ignorespacesandpars}
