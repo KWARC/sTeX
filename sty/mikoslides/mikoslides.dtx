@@ -776,11 +776,14 @@
 \ifmks@sty@mh\RequirePackage{mikoslides-mh}\fi
 %    \end{macrocode}
 % 
-% Finally, we set the \DescribeMacro{\section@level}|\section@level| macro that governs
-% sectioning. 
+% Finally, we set the \DescribeMacro{\section@level}|\section@level| counter that governs
+% sectioning according to the class options. We also introduce the sectioning counters
+% accordingly. 
 %
+% \begin{macro}{\section@level}
 %    \begin{macrocode}
 \section@level=2
+\def\part@prefix{}
 \ifdefstring{\@@topsect}{part}
 {\section@level=0%
   \def\thesection{\arabic{chapter}.\arabic{section}}%
@@ -790,6 +793,14 @@
   \def\thesection{\arabic{chapter}.\arabic{section}}%
   \def\part@prefix{\arabic{chapter}.}}{}
 \ifmks@sty@notes\else% only in slides
+%    \end{macrocode}
+% \end{macro}
+%
+% The new counters are used in the |omgroup| environment that choses the {\LaTeX}
+% sectioning macros according to |\section@level|. 
+% 
+% \begin{environment}{omgroup}
+%    \begin{macrocode}
 \renewenvironment{omgroup}[2][]{%
   \metasetkeys{omgroup}{#1}\sref@target%
   \advance\section@level by 1%
@@ -834,6 +845,7 @@
 {\advance\section@level by -1}%
 \fi% ifmks@sty@notes
 %    \end{macrocode}
+% \end{environment}
 %
 % \subsection{Excursions}\label{sec:impl:excursions}
 %
