@@ -3,9 +3,15 @@
 % Copyright (c) 2019 Michael Kohlhase <michael.kohlhase@fau.de>.
 
 \ProvidesPackage{beamerthemeFAU}
-\typeout{Beamer FAU theme}
+\usepackage{iflang}
+\typeout{Beamer FAU theme: \@ifpackageloaded{babel}{\languagename}{}}
 \author[Kohlhase]{Michael Kohlhase}
-\institute{Professur f\"ur Wissensrepr\"asentation und -verarbeitung\\ Informatik, FAU Erlangen-N\"urnberg\\\url{http://kwarc.info}}
+\@ifpackageloaded{babel}
+{\IfLanguageName{german}
+{\institute{Professur f\"ur Wissensrepr\"asentation und -verarbeitung\\ Informatik, FAU Erlangen-N\"urnberg\\\url{http://kwarc.info}}}
+{\institute{Knowledge Representation and Processing\\ Computer Science, FAU
+    Erlangen-N\"urnberg\\\url{http://kwarc.info}}}}
+{}
 
 \mode
 <presentation>
